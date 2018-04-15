@@ -18,7 +18,11 @@ func (lval *yySymType) Token(t *scanner.Token) {
 type Parser struct {
 	*scanner.Lexer
 	path            string
+	currentTokenID  int
+	nextTokenID     int
 	currentToken    *scanner.Token
+	nextToken       *scanner.Token
+	nextLval        *yySymType
 	positionBuilder *parser.PositionBuilder
 	errors          []*errors.Error
 	rootNode        node.Node
@@ -33,6 +37,10 @@ func NewParser(src io.Reader, path string) *Parser {
 	return &Parser{
 		lexer,
 		path,
+		0,
+		0,
+		nil,
+		nil,
 		nil,
 		nil,
 		nil,
@@ -44,9 +52,20 @@ func NewParser(src io.Reader, path string) *Parser {
 
 // Lex proxy to lexer Lex
 func (l *Parser) Lex(lval *yySymType) int {
-	t := l.Lexer.Lex(lval)
-	l.currentToken = lval.token
-	return t
+	if l.nextLval == nil {
+		l.nextLval = &yySymType{}
+		l.nextTokenID = l.Lexer.Lex(l.nextLval)
+		l.nextToken = l.nextLval.token
+	}
+
+	l.currentTokenID = l.nextTokenID
+	l.currentToken = l.nextToken
+
+	l.nextTokenID = l.Lexer.Lex(l.nextLval)
+	l.nextToken = l.nextLval.token
+
+	lval.token = l.currentToken
+	return l.currentTokenID
 }
 
 func (l *Parser) Error(msg string) {
@@ -59,6 +78,7 @@ func (l *Parser) Parse() int {
 	yyErrorVerbose = true
 
 	// init
+	l.nextLval = nil
 	l.errors = nil
 	l.rootNode = nil
 	l.comments = parser.Comments{}
