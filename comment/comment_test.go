@@ -31,3 +31,51 @@ func TestCommentPrint(t *testing.T) {
 		t.Errorf("expected and actual are not equal\n")
 	}
 }
+
+func TestCommentDefaultSide(t *testing.T) {
+	c := comment.NewComment("/** hello world */", nil)
+
+	expected := comment.Before
+	actual := c.Side()
+
+	if expected != actual {
+		t.Errorf("expected and actual are not equal\n")
+	}
+}
+
+func TestCommentSetSide(t *testing.T) {
+	c := comment.NewComment("/** hello world */", nil)
+
+	expected := comment.After
+	c.SetSide(expected)
+	actual := c.Side()
+
+	if expected != actual {
+		t.Errorf("expected and actual are not equal\n")
+	}
+}
+
+func TestCommentDefaultKind(t *testing.T) {
+	c := comment.NewComment("/** hello world */", nil)
+
+	expected := comment.Outline
+	actual := c.Kind()
+
+	if expected != actual {
+		t.Errorf("expected and actual are not equal\n")
+	}
+}
+
+func TestCommentSetKind(t *testing.T) {
+	c := comment.NewComment("/** hello world */", nil)
+
+	expected := comment.Inline
+	c.SetKind(expected)
+	actual := c.Kind()
+
+	if expected != actual {
+		t.Errorf("expected and actual are not equal\n")
+	}
+}
+
+
