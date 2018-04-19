@@ -185,7 +185,7 @@ func (nsr *NamespaceResolver) GetChildrenVisitor(key string) walker.Visitor {
 func (nsr *NamespaceResolver) LeaveNode(w walker.Walkable) {
 	switch n := w.(type) {
 	case *stmt.Namespace:
-		if n.Stmts != nil {
+		if n.Stmt != nil {
 			nsr.Namespace = NewNamespace("")
 		}
 	}

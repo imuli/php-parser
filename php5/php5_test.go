@@ -1253,10 +1253,14 @@ func TestPhp5(t *testing.T) {
 						&name.NamePart{Value: "Bar"},
 					},
 				},
-				Stmts: []node.Node{},
+				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{},
+				},
 			},
 			&stmt.Namespace{
-				Stmts: []node.Node{},
+				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{},
+				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},

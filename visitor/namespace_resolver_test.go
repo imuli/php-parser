@@ -663,27 +663,31 @@ func TestResolveNamespaces(t *testing.T) {
 				Arguments: []node.Node{},
 			},
 			&stmt.Namespace{
-				Stmts: []node.Node{},
+				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{},
+				},
 			},
 			&stmt.Namespace{
 				NamespaceName: namespaceCD,
-				Stmts: []node.Node{
-					&stmt.UseList{
-						Uses: []node.Node{
-							&stmt.Use{
-								Use: nameAC,
+				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{
+						&stmt.UseList{
+							Uses: []node.Node{
+								&stmt.Use{
+									Use: nameAC,
+								},
 							},
 						},
-					},
-					&expr.StaticCall{
-						Class:     relativeNameCE,
-						Call:      &node.Identifier{Value: "foo"},
-						Arguments: []node.Node{},
-					},
-					&expr.StaticCall{
-						Class:     nameCF,
-						Call:      &node.Identifier{Value: "foo"},
-						Arguments: []node.Node{},
+						&expr.StaticCall{
+							Class:     relativeNameCE,
+							Call:      &node.Identifier{Value: "foo"},
+							Arguments: []node.Node{},
+						},
+						&expr.StaticCall{
+							Class:     nameCF,
+							Call:      &node.Identifier{Value: "foo"},
+							Arguments: []node.Node{},
+						},
 					},
 				},
 			},

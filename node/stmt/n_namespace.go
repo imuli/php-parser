@@ -8,14 +8,14 @@ import (
 // Namespace node
 type Namespace struct {
 	NamespaceName node.Node
-	Stmts         []node.Node
+	Stmt          *StmtList
 }
 
 // NewNamespace node constructor
-func NewNamespace(NamespaceName node.Node, Stmts []node.Node) *Namespace {
+func NewNamespace(NamespaceName node.Node, Stmt *StmtList) *Namespace {
 	return &Namespace{
 		NamespaceName,
-		Stmts,
+		Stmt,
 	}
 }
 
@@ -36,13 +36,9 @@ func (n *Namespace) Walk(v walker.Visitor) {
 		n.NamespaceName.Walk(vv)
 	}
 
-	if n.Stmts != nil {
-		vv := v.GetChildrenVisitor("Stmts")
-		for _, nn := range n.Stmts {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.Stmt != nil {
+		vv := v.GetChildrenVisitor("Stmt")
+		n.Stmt.Walk(vv)
 	}
 
 	v.LeaveNode(n)

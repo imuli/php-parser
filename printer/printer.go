@@ -1930,9 +1930,11 @@ func (p *Printer) printStmtNamespace(n node.Node) {
 		p.Print(nn.NamespaceName)
 	}
 
-	if nn.Stmts != nil {
+	if nn.Stmt != nil {
+		stmts := nn.Stmt.Stmts
+
 		io.WriteString(p.w, " {\n")
-		p.printNodes(nn.Stmts)
+		p.printNodes(stmts)
 		io.WriteString(p.w, "\n")
 		p.printIndent()
 		io.WriteString(p.w, "}")

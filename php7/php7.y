@@ -353,8 +353,11 @@ top_statement:
     |   T_NAMESPACE namespace_name '{' top_statement_list '}'
         {
             name := name.NewName($2)
+            stmtList := stmt.NewStmtList($4)
+            $$ = stmt.NewNamespace(name, stmtList)
+
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
-            $$ = stmt.NewNamespace(name, $4)
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
 
             yylex.(*Parser).comments.AddComments(name, yylex.(*Parser).listGetFirstNodeComments($2))
@@ -362,8 +365,12 @@ top_statement:
         }
     |   T_NAMESPACE '{' top_statement_list '}'
         {
-            $$ = stmt.NewNamespace(nil, $3)
+            stmtList := stmt.NewStmtList($3)
+            $$ = stmt.NewNamespace(nil, stmtList)
+
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
             yylex.(*Parser).comments.AddComments($$, $1.Comments())
         }
     |   T_USE mixed_group_use_declaration ';'           { $$ = $2 }
