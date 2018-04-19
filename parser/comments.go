@@ -12,3 +12,8 @@ type Comments map[node.Node][]*comment.Comment
 func (c Comments) AddComments(node node.Node, comments []*comment.Comment) {
 	c[node] = append(c[node], comments...)
 }
+
+// AddComment add comment to the collection
+func (c Comments) AddComment(node node.Node, comment *comment.Comment) {
+	c[node] = append(c[node], comment)
+}

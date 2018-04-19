@@ -97,10 +97,87 @@ func (l *Parser) listGetFirstNodeComments(list []node.Node) []*comment.Comment {
 		return nil
 	}
 
-	node := list[0]
+	n := list[0]
 
-	return l.comments[node]
+	return l.comments[n]
 }
+
+// save comments methods
+
+func (l *Parser) addNodeCommentsFromToken(n node.Node, t *scanner.Token) {
+	for _, c := range t.Comments() {
+		if c.Position().EndLine == l.positions[n].StartLine {
+			c.SetKind(comment.Inline)
+		}
+	}
+
+	l.comments.AddComments(n, t.Comments())
+}
+
+func (l *Parser) addNodeAllCommentsFromNextToken(n node.Node, t *scanner.Token) {
+	for _, c := range t.Comments() {
+		c.SetSide(comment.After)
+
+		if c.Position().StartLine == l.positions[n].EndLine {
+			c.SetKind(comment.Inline)
+		}
+	}
+
+	l.comments.AddComments(n, t.Comments())
+}
+
+func (l *Parser) addNodeInlineCommentsFromNextToken(n node.Node, t *scanner.Token) {
+	var tc []*comment.Comment
+
+	for _, c := range t.Comments() {
+		if c.Position().StartLine == l.positions[n].EndLine {
+			c.SetSide(comment.After)
+			c.SetKind(comment.Inline)
+
+			l.comments.AddComment(n, c)
+		} else {
+			tc = append(tc, c)
+		}
+	}
+
+	t.SetComments(tc)
+}
+
+func (l *Parser) addNodeCommentsFromNode(n node.Node, cn node.Node) {
+	var d []int
+
+	// set outline comments from child node
+	for i, c := range l.comments[cn] {
+		if c.Kind() == comment.Outline && c.Side() == comment.Before {
+			l.comments.AddComment(n, c)
+			d = append(d, i)
+		}
+	}
+
+	// remove outline comments from child node
+	for j := len(d) - 1; j >= 0; j-- {
+		i := d[j]
+		l.comments[cn] = append(l.comments[cn][:i], l.comments[cn][i+1:]...)
+	}
+}
+
+func (l *Parser) addNodeInlineCommentsFromNextNode(n node.Node, nn node.Node) {
+	var tc []*comment.Comment
+
+	for _, c := range l.comments[nn] {
+		if c.Kind() == comment.Outline && c.Side() == comment.Before && c.Position().StartLine == l.positions[n].EndLine {
+			l.comments.AddComment(n, c)
+			c.SetSide(comment.After)
+			c.SetKind(comment.Inline)
+		} else {
+			tc = append(tc, c)
+		}
+	}
+
+	l.comments[nn] = tc
+}
+
+// getters
 
 // GetPath return path to file
 func (l *Parser) GetPath() string {
@@ -125,4 +202,11 @@ func (l *Parser) GetComments() parser.Comments {
 // GetPositions returns positions list
 func (l *Parser) GetPositions() parser.Positions {
 	return l.positions
+}
+
+
+// helpers
+
+func lastNode(nn []node.Node) node.Node {
+	return nn[len(nn) -1]
 }
