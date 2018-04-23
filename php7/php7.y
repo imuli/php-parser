@@ -434,25 +434,74 @@ top_statement:
             stmtList := stmt.NewStmtList($3)
             $$ = stmt.NewNamespace(nil, stmtList)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
 
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+
+            if len($3) > 0 {
+                yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)
+            }
+
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, $4)
         }
-    |   T_USE mixed_group_use_declaration ';'           { $$ = $2 }
-    |   T_USE use_type group_use_declaration ';'        { $$ = $3.(*stmt.GroupUse).SetUseType($2) }
+    |   T_USE mixed_group_use_declaration ';'
+        {
+            $$ = $2
+
+            // save position
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($$, $3)
+        }
+    |   T_USE use_type group_use_declaration ';'
+        {
+            $$ = $3.(*stmt.GroupUse).SetUseType($2)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($$, $4)
+        }
     |   T_USE use_declarations ';'
         {
             $$ = stmt.NewUseList(nil, $2)
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($2), $3)
         }
-    |   T_USE use_type use_declarations ';'             { $$ = stmt.NewUseList($2, $3) }
+    |   T_USE use_type use_declarations ';'
+        {
+            $$ = stmt.NewUseList($2, $3)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($3), $4)
+        }
     |   T_CONST const_list ';'
         {
             $$ = stmt.NewConstList($2)
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            //save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($2), $3)
         }
 ;
 
