@@ -693,19 +693,42 @@ unprefixed_use_declaration:
 ;
 
 use_declaration:
-        unprefixed_use_declaration                      { $$ = $1; }
-    |   T_NS_SEPARATOR unprefixed_use_declaration       { $$ = $2; }
+        unprefixed_use_declaration
+            {
+                $$ = $1;
+            }
+    |   T_NS_SEPARATOR unprefixed_use_declaration
+            {
+                $$ = $2;
+                
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            }
 ;
 
 const_list:
-        const_list ',' const_decl                       { $$ = append($1, $3) }
-    |   const_decl                                      { $$ = []node.Node{$1} }
+        const_list ',' const_decl
+            {
+                $$ = append($1, $3)
+
+                // save comments
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($1), $2)
+                yylex.(*Parser).addNodeInlineCommentsFromNextNode(lastNode($1), $3)
+            }
+    |   const_decl
+            {
+                $$ = []node.Node{$1}
+            }
 ;
 
 inner_statement_list:
     inner_statement_list inner_statement
         {
             if $2 != nil {
+                if len($1) > 0 {
+                    yylex.(*Parser).addNodeInlineCommentsFromNextNode(lastNode($1), $2)
+                }
+
                 $$ = append($1, $2)
             }
         }
@@ -726,8 +749,15 @@ inner_statement:
     |   T_HALT_COMPILER '(' ')' ';'
         {
             $$ = stmt.NewHaltCompiler()
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $3)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $4)
         }
 
 statement:
