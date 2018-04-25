@@ -162,6 +162,7 @@ import (
 %token <token> '~'
 %token <token> '@'
 %token <token> '$'
+%token <token> ','
 
 %left T_INCLUDE T_INCLUDE_ONCE T_EVAL T_REQUIRE T_REQUIRE_ONCE
 %left ','
@@ -202,6 +203,7 @@ import (
 %type <token> reserved_non_modifiers
 %type <token> semi_reserved
 %type <token> identifier
+%type <token> possible_comma
 
 %type <node> top_statement name statement function_declaration_statement
 %type <node> class_declaration_statement trait_declaration_statement
@@ -344,7 +346,7 @@ name:
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
 
             // save comments
-            yylex.(*Parser).addNodeCommentsFromNode($$, $1[0])
+            yylex.(*Parser).addNodeInlineCommentsFromNextNode($$, $1[0])
         }
     | T_NAMESPACE T_NS_SEPARATOR namespace_name
         {
@@ -403,7 +405,7 @@ top_statement:
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
 
             // save comments
-            yylex.(*Parser).addNodeCommentsFromNode(name, $2[0])
+            yylex.(*Parser).addNodeInlineCommentsFromNextNode(name, $2[0])
             yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
         }
@@ -419,7 +421,7 @@ top_statement:
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
 
             // save comments
-            yylex.(*Parser).addNodeCommentsFromNode(name, $2[0])
+            yylex.(*Parser).addNodeInlineCommentsFromNextNode(name, $2[0])
             yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
 
@@ -509,14 +511,22 @@ use_type:
     T_FUNCTION
         {
             $$ = node.NewIdentifier($1.Value)
+            
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
         }
     |   T_CONST
         {
             $$ = node.NewIdentifier($1.Value)
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
         }
 ;
 
@@ -524,22 +534,37 @@ group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
                 $$ = stmt.NewGroupUse(nil, name, $4)
+
+                // save position
+                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListTokenPosition($1, $6))
 
-                yylex.(*Parser).comments.AddComments(name, yylex.(*Parser).listGetFirstNodeComments($1))
-                yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).listGetFirstNodeComments($1))
+                // save comments
+                yylex.(*Parser).addNodeInlineCommentsFromNextNode(name, $1[0])
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $2)
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
+
+                if $5 != nil { yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($4), $5) }
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($4), $6)
             }
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 $$ = stmt.NewGroupUse(nil, name, $5)
+
+                // save position
+                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $7))
 
-                yylex.(*Parser).comments.AddComments(name, yylex.(*Parser).listGetFirstNodeComments($2))
-                yylex.(*Parser).comments.AddComments($$, $1.Comments())
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken(name, $1)
+                yylex.(*Parser).addNodeInlineCommentsFromNextNode(name, $2[0])
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $4)
+
+                if $6 != nil { yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($5), $6) }
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($5), $7)
             }
 ;
 
@@ -567,8 +592,8 @@ mixed_group_use_declaration:
 ;
 
 possible_comma:
-        /* empty */
-    |   ','
+        /* empty */                                     { $$ = nil }
+    |   ','                                             { $$ = $1 }
 ;
 
 inline_use_declarations:

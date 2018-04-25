@@ -165,7 +165,7 @@ func (l *Parser) addNodeInlineCommentsFromNextNode(n node.Node, nn node.Node) {
 	var tc []*comment.Comment
 
 	for _, c := range l.comments[nn] {
-		if c.Kind() == comment.Outline && c.Side() == comment.Before && c.Position().StartLine == l.positions[n].EndLine {
+		if c.Side() == comment.Before && c.Position().StartLine == l.positions[n].EndLine {
 			l.comments.AddComment(n, c)
 			c.SetSide(comment.After)
 			c.SetKind(comment.Inline)
@@ -204,9 +204,8 @@ func (l *Parser) GetPositions() parser.Positions {
 	return l.positions
 }
 
-
 // helpers
 
 func lastNode(nn []node.Node) node.Node {
-	return nn[len(nn) -1]
+	return nn[len(nn)-1]
 }
