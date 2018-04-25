@@ -26,3 +26,16 @@ func TestComments(t *testing.T) {
 		t.Errorf("expected and actual are not equal\n")
 	}
 }
+
+func TestAddComment(t *testing.T) {
+	n := node.NewIdentifier("test")
+
+	c := comment.NewComment("/** hello world */", nil)
+
+	comments := parser.Comments{}
+	comments.AddComment(n, c)
+
+	if comments[n][0].String() != "/** hello world */" {
+		t.Errorf("expected and actual are not equal\n")
+	}
+}

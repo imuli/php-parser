@@ -309,8 +309,10 @@ var nodesToTest = []struct {
 	{
 		&stmt.Namespace{
 			NamespaceName: &node.Identifier{},
-			Stmt: &stmt.StmtList{
-				Stmts: []node.Node{&stmt.Expression{}},
+			Stmt: &stmt.InnerStmtList{
+				Stmts: &stmt.StmtList{
+					Stmts: []node.Node{&stmt.Expression{}},
+				},
 			},
 		},
 		[]string{"NamespaceName", "Stmt"},
@@ -477,6 +479,13 @@ var nodesToTest = []struct {
 	{
 		&stmt.StmtList{
 			Stmts: []node.Node{&stmt.Expression{}},
+		},
+		[]string{"Stmts"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.InnerStmtList{
+			Stmts: &stmt.StmtList{},
 		},
 		[]string{"Stmts"},
 		map[string]interface{}{},

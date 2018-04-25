@@ -1931,7 +1931,7 @@ func (p *Printer) printStmtNamespace(n node.Node) {
 	}
 
 	if nn.Stmt != nil {
-		stmts := nn.Stmt.Stmts
+		stmts := nn.Stmt.Stmts.Stmts
 
 		io.WriteString(p.w, " {\n")
 		p.printNodes(stmts)

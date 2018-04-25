@@ -8,11 +8,11 @@ import (
 // Namespace node
 type Namespace struct {
 	NamespaceName node.Node
-	Stmt          *StmtList
+	Stmt          *InnerStmtList
 }
 
 // NewNamespace node constructor
-func NewNamespace(NamespaceName node.Node, Stmt *StmtList) *Namespace {
+func NewNamespace(NamespaceName node.Node, Stmt *InnerStmtList) *Namespace {
 	return &Namespace{
 		NamespaceName,
 		Stmt,

@@ -1309,13 +1309,17 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 			&stmt.Namespace{
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 			&stmt.Class{

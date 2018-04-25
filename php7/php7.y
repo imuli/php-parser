@@ -413,41 +413,38 @@ top_statement:
         {
             name := name.NewName($2)
             stmtList := stmt.NewStmtList($4)
-            $$ = stmt.NewNamespace(name, stmtList)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewNamespace(name, innerStmtList)
 
             // save position
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
-            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
 
             // save comments
             yylex.(*Parser).addNodeCommentsFromChildNode(name, $2[0])
-            yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
-            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
-
-            if len($4) > 0 {
-                yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($4), $5)
-            }
-
+            yylex.(*Parser).addNodeInlineCommentsFromNextToken(name, $3)
+            yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, $3)
+            if len($4) > 0 { yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($4), $5)}
             yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, $5)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
         }
     |   T_NAMESPACE '{' top_statement_list '}'
         {
             stmtList := stmt.NewStmtList($3)
-            $$ = stmt.NewNamespace(nil, stmtList)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewNamespace(nil, innerStmtList)
 
             // save position
-            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
 
             // save comments
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
-            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
-
-            if len($3) > 0 {
-                yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)
-            }
-
+            yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, $2)
+            if len($3) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)}
             yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, $4)
         }
     |   T_USE mixed_group_use_declaration ';'

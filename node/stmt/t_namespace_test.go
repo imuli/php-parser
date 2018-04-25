@@ -2,8 +2,9 @@ package stmt_test
 
 import (
 	"bytes"
-	"github.com/z7zmey/php-parser/node/name"
 	"testing"
+
+	"github.com/z7zmey/php-parser/node/name"
 
 	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/node/stmt"
@@ -48,8 +49,10 @@ func TestNamespaceStmts(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 		},
@@ -72,8 +75,10 @@ func TestAnonymousNamespace(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Namespace{
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 		},

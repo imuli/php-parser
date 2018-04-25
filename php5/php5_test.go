@@ -1253,13 +1253,17 @@ func TestPhp5(t *testing.T) {
 						&name.NamePart{Value: "Bar"},
 					},
 				},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 			&stmt.Namespace{
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 			&stmt.Class{

@@ -298,10 +298,12 @@ top_statement:
             {
                 name := name.NewName($2)
                 stmtList := stmt.NewStmtList($4)
-                $$ = stmt.NewNamespace(name, stmtList)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewNamespace(name, innerStmtList)
 
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
 
                 yylex.(*Parser).comments.AddComments(name, yylex.(*Parser).listGetFirstNodeComments($2))
@@ -310,9 +312,11 @@ top_statement:
     |   T_NAMESPACE '{' top_statement_list '}'
             {
                 stmtList := stmt.NewStmtList($3)
-                $$ = stmt.NewNamespace(nil, stmtList)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewNamespace(nil, innerStmtList)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
