@@ -272,7 +272,7 @@ var nodesToTest = []struct {
 		&stmt.GroupUse{
 			UseType: &node.Identifier{},
 			Prefix:  &node.Identifier{},
-			UseList: []node.Node{&stmt.Expression{}},
+			UseList: &stmt.InnerStmtList{},
 		},
 		[]string{"UseType", "Prefix", "UseList"},
 		map[string]interface{}{},

@@ -3276,13 +3276,17 @@ func TestPrintStmtGroupUse(t *testing.T) {
 	p.Print(&stmt.GroupUse{
 		UseType: &node.Identifier{Value: "function"},
 		Prefix:  &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-		UseList: []node.Node{
-			&stmt.Use{
-				Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
-				Alias: &node.Identifier{Value: "Baz"},
-			},
-			&stmt.Use{
-				Use: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Quuz"}}},
+		UseList: &stmt.InnerStmtList{
+			Stmts: &stmt.StmtList{
+				Stmts: []node.Node{
+					&stmt.Use{
+						Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
+						Alias: &node.Identifier{Value: "Baz"},
+					},
+					&stmt.Use{
+						Use: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Quuz"}}},
+					},
+				},
 			},
 		},
 	})

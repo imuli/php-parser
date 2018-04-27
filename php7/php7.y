@@ -531,16 +531,20 @@ group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                $$ = stmt.NewGroupUse(nil, name, $4)
+                stmtList := stmt.NewStmtList($4)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $6))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListTokenPosition($1, $6))
 
                 // save comments
                 yylex.(*Parser).addNodeCommentsFromChildNode(name, $1[0])
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $2)
-                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
+                yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, $3)
 
                 if $5 != nil { yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($4), $5) }
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($4), $6)
@@ -548,17 +552,21 @@ group_use_declaration:
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                $$ = stmt.NewGroupUse(nil, name, $5)
+                stmtList := stmt.NewStmtList($5)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $7))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $7))
 
                 // save comments
                 yylex.(*Parser).addNodeCommentsFromToken(name, $1)
                 yylex.(*Parser).addNodeCommentsFromChildNode(name, $2[0])
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
-                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $4)
+                yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, $4)
 
                 if $6 != nil { yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($5), $6) }
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($5), $7)
@@ -569,16 +577,20 @@ mixed_group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' inline_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                $$ = stmt.NewGroupUse(nil, name, $4)
+                stmtList := stmt.NewStmtList($4)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $6))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListTokenPosition($1, $6))
 
                 // save comments
                 yylex.(*Parser).addNodeCommentsFromChildNode(name, $1[0])
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $2)
-                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
+                yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, $3)
 
                 if $5 != nil { yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($4), $5) }
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($4), $6)
@@ -586,17 +598,21 @@ mixed_group_use_declaration:
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' inline_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                $$ = stmt.NewGroupUse(nil, name, $5)
+                stmtList := stmt.NewStmtList($5)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $7))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $7))
 
                 // save comments
                 yylex.(*Parser).addNodeCommentsFromToken(name, $1)
                 yylex.(*Parser).addNodeCommentsFromChildNode(name, $2[0])
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $3)
-                yylex.(*Parser).addNodeAllCommentsFromNextToken(name, $4)
+                yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, $4)
 
                 if $6 != nil { yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($5), $6) }
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($5), $7)

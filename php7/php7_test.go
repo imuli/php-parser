@@ -1877,18 +1877,22 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Bar"},
+									},
+								},
 							},
-						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Baz"},
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Baz"},
+									},
+								},
 							},
 						},
 					},
@@ -1900,21 +1904,25 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Bar"},
+									},
+								},
+							},
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Baz"},
+									},
+								},
+								Alias: &node.Identifier{Value: "quux"},
 							},
 						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Baz"},
-							},
-						},
-						Alias: &node.Identifier{Value: "quux"},
 					},
 				},
 			},
@@ -1925,18 +1933,22 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Bar"},
+									},
+								},
 							},
-						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Baz"},
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Baz"},
+									},
+								},
 							},
 						},
 					},
@@ -1949,18 +1961,22 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Bar"},
+									},
+								},
 							},
-						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Baz"},
+							&stmt.Use{
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Baz"},
+									},
+								},
 							},
 						},
 					},
@@ -1972,20 +1988,24 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: []node.Node{
-					&stmt.Use{
-						UseType: &node.Identifier{Value: "const"},
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								UseType: &node.Identifier{Value: "const"},
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Bar"},
+									},
+								},
 							},
-						},
-					},
-					&stmt.Use{
-						UseType: &node.Identifier{Value: "function"},
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Baz"},
+							&stmt.Use{
+								UseType: &node.Identifier{Value: "function"},
+								Use: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "Baz"},
+									},
+								},
 							},
 						},
 					},

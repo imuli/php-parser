@@ -57,7 +57,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 			useType = n.UseType.(*node.Identifier).Value
 		}
 
-		for _, nn := range n.UseList {
+		for _, nn := range n.UseList.Stmts.Stmts {
 			nsr.AddAlias(useType, nn, n.Prefix.(*name.Name).Parts)
 		}
 

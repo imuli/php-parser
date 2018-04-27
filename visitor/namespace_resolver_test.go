@@ -299,23 +299,31 @@ func TestResolveGroupUse(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: nameAB,
-				UseList: []node.Node{
-					&stmt.Use{
-						UseType: &node.Identifier{Value: "Function"},
-						Use:     nameF,
-					},
-					&stmt.Use{
-						UseType: &node.Identifier{Value: "const"},
-						Use:     nameC,
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								UseType: &node.Identifier{Value: "Function"},
+								Use:     nameF,
+							},
+							&stmt.Use{
+								UseType: &node.Identifier{Value: "const"},
+								Use:     nameC,
+							},
+						},
 					},
 				},
 			},
 			&stmt.GroupUse{
 				Prefix:  nameBD,
 				UseType: &node.Identifier{Value: "Function"},
-				UseList: []node.Node{
-					&stmt.Use{
-						Use: nameE,
+				UseList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Use{
+								Use: nameE,
+							},
+						},
 					},
 				},
 			},
