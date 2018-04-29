@@ -232,12 +232,13 @@ import (
 %type <node> class_modifier
 %type <node> argument_list ctor_arguments
 %type <node> trait_adaptations
+%type <node> switch_case_list
 
 %type <node> member_modifier
 %type <node> use_type
 %type <foreachVariable> foreach_variable
 
-%type <nodesWithEndToken> method_body switch_case_list
+%type <nodesWithEndToken> method_body
 
 %type <list> encaps_list backticks_expr namespace_name catch_name_list catch_list class_const_list
 %type <list> const_list echo_expr_list for_exprs non_empty_for_exprs global_var_list
@@ -818,12 +819,18 @@ statement:
         }
     |   T_SWITCH '(' expr ')' switch_case_list
         {
-            if ($5.endToken.Value == ";") {
-                $$ = stmt.NewAltSwitch($3, $5.nodes)
-            } else {
-                $$ = stmt.NewSwitch($3, $5.nodes)
+            switch n := $5.(type) {
+            case *stmt.Switch:
+                n.Cond = $3
+            case *stmt.AltSwitch:
+                n.Cond = $3
+            default:
+                panic("unexpected node type")
             }
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5.endToken))
+
+            $$ = $5
+
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $5))
             yylex.(*Parser).comments.AddComments($$, $1.Comments())
         }
     |   T_BREAK optional_expr ';'
@@ -1154,10 +1161,43 @@ declare_statement:
 ;
 
 switch_case_list:
-        '{' case_list '}'                               { $$ = &nodesWithEndToken{$2, $3} }
-    |   '{' ';' case_list '}'                           { $$ = &nodesWithEndToken{$3, $4} }
-    |   ':' case_list T_ENDSWITCH ';'                   { $$ = &nodesWithEndToken{$2, $4} }
-    |   ':' ';' case_list T_ENDSWITCH ';'               { $$ = &nodesWithEndToken{$3, $5} }
+        '{' case_list '}'
+        {
+            caseList := stmt.NewCaseList($2)
+            InnerCaseList := stmt.NewInnerCaseList(caseList)
+            $$ = stmt.NewSwitch(nil, InnerCaseList)
+
+            yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+            yylex.(*Parser).positions.AddPosition(InnerCaseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+        }
+    |   '{' ';' case_list '}'
+        {
+            caseList := stmt.NewCaseList($3)
+            InnerCaseList := stmt.NewInnerCaseList(caseList)
+            $$ = stmt.NewSwitch(nil, InnerCaseList)
+
+            yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+            yylex.(*Parser).positions.AddPosition(InnerCaseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+        }
+    |   ':' case_list T_ENDSWITCH ';'
+        {
+            caseList := stmt.NewCaseList($2)
+            $$ = stmt.NewAltSwitch(nil, caseList)
+
+            yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+        }
+    |   ':' ';' case_list T_ENDSWITCH ';'
+        {
+            
+            caseList := stmt.NewCaseList($3)
+            $$ = stmt.NewAltSwitch(nil, caseList)
+
+            yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
+        }
 ;
 
 case_list:

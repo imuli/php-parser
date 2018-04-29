@@ -1398,63 +1398,75 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.AltSwitch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Cases: []node.Node{
-					&stmt.Case{
-						Cond:  &scalar.Lnumber{Value: "1"},
-						Stmts: []node.Node{},
-					},
-					&stmt.Default{
-						Stmts: []node.Node{},
-					},
-					&stmt.Case{
-						Cond:  &scalar.Lnumber{Value: "2"},
-						Stmts: []node.Node{},
+				CaseList: &stmt.CaseList{
+					Cases: []node.Node{
+						&stmt.Case{
+							Cond:  &scalar.Lnumber{Value: "1"},
+							Stmts: []node.Node{},
+						},
+						&stmt.Default{
+							Stmts: []node.Node{},
+						},
+						&stmt.Case{
+							Cond:  &scalar.Lnumber{Value: "2"},
+							Stmts: []node.Node{},
+						},
 					},
 				},
 			},
 			&stmt.AltSwitch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Cases: []node.Node{
-					&stmt.Case{
-						Cond:  &scalar.Lnumber{Value: "1"},
-						Stmts: []node.Node{},
-					},
-					&stmt.Case{
-						Cond:  &scalar.Lnumber{Value: "2"},
-						Stmts: []node.Node{},
-					},
-				},
-			},
-			&stmt.Switch{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Cases: []node.Node{
-					&stmt.Case{
-						Cond: &scalar.Lnumber{Value: "1"},
-						Stmts: []node.Node{
-							&stmt.Break{},
+				CaseList: &stmt.CaseList{
+					Cases: []node.Node{
+						&stmt.Case{
+							Cond:  &scalar.Lnumber{Value: "1"},
+							Stmts: []node.Node{},
 						},
-					},
-					&stmt.Case{
-						Cond: &scalar.Lnumber{Value: "2"},
-						Stmts: []node.Node{
-							&stmt.Break{},
+						&stmt.Case{
+							Cond:  &scalar.Lnumber{Value: "2"},
+							Stmts: []node.Node{},
 						},
 					},
 				},
 			},
 			&stmt.Switch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Cases: []node.Node{
-					&stmt.Case{
-						Cond: &scalar.Lnumber{Value: "1"},
-						Stmts: []node.Node{
-							&stmt.Break{},
+				InnerCaseList: &stmt.InnerCaseList{
+					CaseList: &stmt.CaseList{
+						Cases: []node.Node{
+							&stmt.Case{
+								Cond: &scalar.Lnumber{Value: "1"},
+								Stmts: []node.Node{
+									&stmt.Break{},
+								},
+							},
+							&stmt.Case{
+								Cond: &scalar.Lnumber{Value: "2"},
+								Stmts: []node.Node{
+									&stmt.Break{},
+								},
+							},
 						},
 					},
-					&stmt.Case{
-						Cond: &scalar.Lnumber{Value: "2"},
-						Stmts: []node.Node{
-							&stmt.Break{},
+				},
+			},
+			&stmt.Switch{
+				Cond: &scalar.Lnumber{Value: "1"},
+				InnerCaseList: &stmt.InnerCaseList{
+					CaseList: &stmt.CaseList{
+						Cases: []node.Node{
+							&stmt.Case{
+								Cond: &scalar.Lnumber{Value: "1"},
+								Stmts: []node.Node{
+									&stmt.Break{},
+								},
+							},
+							&stmt.Case{
+								Cond: &scalar.Lnumber{Value: "2"},
+								Stmts: []node.Node{
+									&stmt.Break{},
+								},
+							},
 						},
 					},
 				},

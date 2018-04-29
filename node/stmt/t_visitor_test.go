@@ -366,18 +366,18 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Switch{
-			Cond:  &expr.Variable{},
-			Cases: []node.Node{&stmt.Expression{}},
+			Cond:          &expr.Variable{},
+			InnerCaseList: &stmt.InnerCaseList{CaseList: &stmt.CaseList{}},
 		},
-		[]string{"Cond", "Cases"},
+		[]string{"Cond", "InnerCaseList"},
 		map[string]interface{}{},
 	},
 	{
 		&stmt.AltSwitch{
-			Cond:  &expr.Variable{},
-			Cases: []node.Node{&stmt.Expression{}},
+			Cond:     &expr.Variable{},
+			CaseList: &stmt.CaseList{Cases: []node.Node{}},
 		},
-		[]string{"Cond", "Cases"},
+		[]string{"Cond", "CaseList"},
 		map[string]interface{}{},
 	},
 	{
@@ -495,6 +495,13 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
+		&stmt.CaseList{
+			Cases: []node.Node{&stmt.Expression{}},
+		},
+		[]string{"Cases"},
+		map[string]interface{}{},
+	},
+	{
 		&stmt.TraitAdaptationList{
 			Adaptations: []node.Node{&stmt.TraitUsePrecedence{}},
 		},
@@ -520,6 +527,13 @@ var nodesToTest = []struct {
 			TraitAdaptationList: &stmt.TraitAdaptationList{},
 		},
 		[]string{"TraitAdaptationList"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.InnerCaseList{
+			CaseList: &stmt.CaseList{},
+		},
+		[]string{"CaseList"},
 		map[string]interface{}{},
 	},
 }
