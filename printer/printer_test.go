@@ -3276,9 +3276,9 @@ func TestPrintStmtGroupUse(t *testing.T) {
 	p.Print(&stmt.GroupUse{
 		UseType: &node.Identifier{Value: "function"},
 		Prefix:  &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-		UseList: &stmt.InnerStmtList{
-			Stmts: &stmt.StmtList{
-				Stmts: []node.Node{
+		InnerUseList: &stmt.InnerUseList{
+			UseList: &stmt.UseList{
+				Uses: []node.Node{
 					&stmt.Use{
 						Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
 						Alias: &node.Identifier{Value: "Baz"},
@@ -4016,13 +4016,15 @@ func TestPrintStmtSimpleUse(t *testing.T) {
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.SimpleUse{
 		UseType: &node.Identifier{Value: "function"},
-		Uses: []node.Node{
-			&stmt.Use{
-				Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-				Alias: &node.Identifier{Value: "Bar"},
-			},
-			&stmt.Use{
-				Use: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Baz"}}},
+		UseList: &stmt.UseList{
+			Uses: []node.Node{
+				&stmt.Use{
+					Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
+					Alias: &node.Identifier{Value: "Bar"},
+				},
+				&stmt.Use{
+					Use: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Baz"}}},
+				},
 			},
 		},
 	})

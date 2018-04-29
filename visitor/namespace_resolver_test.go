@@ -36,9 +36,11 @@ func TestResolveStaticCall(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -67,9 +69,11 @@ func TestResolveStaticPropertyFetch(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -97,9 +101,11 @@ func TestResolveClassConstFetch(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -127,9 +133,11 @@ func TestResolveNew(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -157,9 +165,11 @@ func TestResolveInstanceOf(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -190,13 +200,15 @@ func TestResolveInstanceCatch(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
-					},
-					&stmt.Use{
-						Use:   nameDE,
-						Alias: &node.Identifier{Value: "F"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
+						&stmt.Use{
+							Use:   nameDE,
+							Alias: &node.Identifier{Value: "F"},
+						},
 					},
 				},
 			},
@@ -235,9 +247,11 @@ func TestResolveFunctionCall(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -266,9 +280,11 @@ func TestResolveConstFetch(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -299,9 +315,9 @@ func TestResolveGroupUse(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: nameAB,
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								UseType: &node.Identifier{Value: "Function"},
 								Use:     nameF,
@@ -317,9 +333,9 @@ func TestResolveGroupUse(t *testing.T) {
 			&stmt.GroupUse{
 				Prefix:  nameBD,
 				UseType: &node.Identifier{Value: "Function"},
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								Use: nameE,
 							},
@@ -365,9 +381,11 @@ func TestResolveTraitUse(t *testing.T) {
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: nameAB,
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: nameAB,
+						},
 					},
 				},
 			},
@@ -683,9 +701,11 @@ func TestResolveNamespaces(t *testing.T) {
 					Stmts: &stmt.StmtList{
 						Stmts: []node.Node{
 							&stmt.SimpleUse{
-								Uses: []node.Node{
-									&stmt.Use{
-										Use: nameAC,
+								UseList: &stmt.UseList{
+									Uses: []node.Node{
+										&stmt.Use{
+											Use: nameAC,
+										},
 									},
 								},
 							},

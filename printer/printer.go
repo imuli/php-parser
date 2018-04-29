@@ -1837,7 +1837,7 @@ func (p *Printer) printStmtGroupUse(n node.Node) {
 
 	p.Print(nn.Prefix)
 	io.WriteString(p.w, "\\{")
-	p.joinPrint(", ", nn.UseList.Stmts.Stmts)
+	p.joinPrint(", ", nn.InnerUseList.UseList.Uses)
 	io.WriteString(p.w, "};")
 }
 
@@ -2135,7 +2135,7 @@ func (p *Printer) printStmtSimpleUse(n node.Node) {
 		io.WriteString(p.w, " ")
 	}
 
-	p.joinPrint(", ", nn.Uses)
+	p.joinPrint(", ", nn.UseList.Uses)
 	io.WriteString(p.w, ";")
 }
 

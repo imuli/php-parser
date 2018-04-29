@@ -18,11 +18,13 @@ func TestSimpleUse(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
 						},
 					},
@@ -48,11 +50,13 @@ func TestUseFullyQualified(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
 						},
 					},
@@ -78,14 +82,16 @@ func TestUseFullyQualifiedAlias(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
+							Alias: &node.Identifier{Value: "Bar"},
 						},
-						Alias: &node.Identifier{Value: "Bar"},
 					},
 				},
 			},
@@ -109,18 +115,20 @@ func TestSimpleUseList(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
 						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
 							},
 						},
 					},
@@ -146,21 +154,23 @@ func TestSimpleUseAlias(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
 						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
 							},
+							Alias: &node.Identifier{Value: "Baz"},
 						},
-						Alias: &node.Identifier{Value: "Baz"},
 					},
 				},
 			},
@@ -185,18 +195,20 @@ func TestSimpleUseFunctionType(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
 						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
 							},
 						},
 					},
@@ -223,22 +235,24 @@ func TestSimpleUseFunctionTypeAliases(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
+							Alias: &node.Identifier{Value: "foo"},
 						},
-						Alias: &node.Identifier{Value: "foo"},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
 							},
+							Alias: &node.Identifier{Value: "bar"},
 						},
-						Alias: &node.Identifier{Value: "bar"},
 					},
 				},
 			},
@@ -263,18 +277,20 @@ func TestSimpleUseConstType(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
 						},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
 							},
 						},
 					},
@@ -301,22 +317,24 @@ func TestSimpleUseConstTypeAliases(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				Uses: []node.Node{
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Foo"},
+				UseList: &stmt.UseList{
+					Uses: []node.Node{
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Foo"},
+								},
 							},
+							Alias: &node.Identifier{Value: "foo"},
 						},
-						Alias: &node.Identifier{Value: "foo"},
-					},
-					&stmt.Use{
-						Use: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "Bar"},
+						&stmt.Use{
+							Use: &name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
 							},
+							Alias: &node.Identifier{Value: "bar"},
 						},
-						Alias: &node.Identifier{Value: "bar"},
 					},
 				},
 			},
@@ -345,9 +363,9 @@ func TestGroupUse(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
 									Parts: []node.Node{
@@ -386,9 +404,9 @@ func TestGroupUseAlias(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
 									Parts: []node.Node{
@@ -429,9 +447,9 @@ func TestFunctionGroupUse(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
 									Parts: []node.Node{
@@ -471,9 +489,9 @@ func TestConstGroupUse(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
 									Parts: []node.Node{
@@ -512,9 +530,9 @@ func TestMixedGroupUse(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				UseList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
-						Stmts: []node.Node{
+				InnerUseList: &stmt.InnerUseList{
+					UseList: &stmt.UseList{
+						Uses: []node.Node{
 							&stmt.Use{
 								UseType: &node.Identifier{Value: "const"},
 								Use: &name.Name{

@@ -323,27 +323,37 @@ top_statement:
             }
     |   T_USE use_declarations ';'
             {
-                $$ = stmt.NewSimpleUse(nil, $2)
+                useList := stmt.NewUseList($2)
+                $$ = stmt.NewSimpleUse(nil, useList)
+
+                yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+                
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
     |   T_USE T_FUNCTION use_function_declarations ';'
             {
                 useType := node.NewIdentifier($2.Value)
+                useList := stmt.NewUseList($3)
+                $$ = stmt.NewSimpleUse(useType, useList)
+
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
+                yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
                 yylex.(*Parser).comments.AddComments($$, $2.Comments())
 
-                $$ = stmt.NewSimpleUse(useType, $3)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
     |   T_USE T_CONST use_const_declarations ';'
             {
                 useType := node.NewIdentifier($2.Value)
+                useList := stmt.NewUseList($3)
+                $$ = stmt.NewSimpleUse(useType, useList)
+
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
+                yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
                 yylex.(*Parser).comments.AddComments($$, $2.Comments())
 
-                $$ = stmt.NewSimpleUse(useType, $3)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }

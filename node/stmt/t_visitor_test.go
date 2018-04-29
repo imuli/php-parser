@@ -270,11 +270,11 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.GroupUse{
-			UseType: &node.Identifier{},
-			Prefix:  &node.Identifier{},
-			UseList: &stmt.InnerStmtList{},
+			UseType:      &node.Identifier{},
+			Prefix:       &node.Identifier{},
+			InnerUseList: &stmt.InnerUseList{},
 		},
-		[]string{"UseType", "Prefix", "UseList"},
+		[]string{"UseType", "Prefix", "InnerUseList"},
 		map[string]interface{}{},
 	},
 	{
@@ -446,9 +446,9 @@ var nodesToTest = []struct {
 	{
 		&stmt.SimpleUse{
 			UseType: &node.Identifier{},
-			Uses:    []node.Node{&stmt.Expression{}},
+			UseList: &stmt.UseList{},
 		},
-		[]string{"UseType", "Uses"},
+		[]string{"UseType", "UseList"},
 		map[string]interface{}{},
 	},
 	{
@@ -484,10 +484,24 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
+		&stmt.UseList{
+			Uses: []node.Node{&stmt.Expression{}},
+		},
+		[]string{"Uses"},
+		map[string]interface{}{},
+	},
+	{
 		&stmt.InnerStmtList{
 			Stmts: &stmt.StmtList{},
 		},
 		[]string{"Stmts"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.InnerUseList{
+			UseList: &stmt.UseList{},
+		},
+		[]string{"UseList"},
 		map[string]interface{}{},
 	},
 }

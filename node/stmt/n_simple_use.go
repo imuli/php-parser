@@ -8,14 +8,14 @@ import (
 // SimpleUse node
 type SimpleUse struct {
 	UseType node.Node
-	Uses    []node.Node
+	UseList *UseList
 }
 
 // NewSimpleUse node constructor
-func NewSimpleUse(UseType node.Node, Uses []node.Node) *SimpleUse {
+func NewSimpleUse(UseType node.Node, UseList *UseList) *SimpleUse {
 	return &SimpleUse{
 		UseType,
-		Uses,
+		UseList,
 	}
 }
 
@@ -36,13 +36,9 @@ func (n *SimpleUse) Walk(v walker.Visitor) {
 		n.UseType.Walk(vv)
 	}
 
-	if n.Uses != nil {
-		vv := v.GetChildrenVisitor("Uses")
-		for _, nn := range n.Uses {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.UseList != nil {
+		vv := v.GetChildrenVisitor("UseList")
+		n.UseList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

@@ -471,25 +471,31 @@ top_statement:
         }
     |   T_USE use_declarations ';'
         {
-            $$ = stmt.NewSimpleUse(nil, $2)
+            useList := stmt.NewUseList($2)
+            $$ = stmt.NewSimpleUse(nil, useList)
 
             // save position
+            yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
 
             // save comments
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
-            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($2), $3)
+            yylex.(*Parser).addNodeCommentsFromChildNode(useList, $2[0])
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(useList, $3)
         }
     |   T_USE use_type use_declarations ';'
         {
-            $$ = stmt.NewSimpleUse($2, $3)
+            useList := stmt.NewUseList($3)
+            $$ = stmt.NewSimpleUse($2, useList)
 
             // save position
+            yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
 
             // save comments
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
-            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($3), $4)
+            yylex.(*Parser).addNodeCommentsFromChildNode(useList, $3[0])
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(useList, $4)
         }
     |   T_CONST const_list ';'
         {
@@ -531,8 +537,8 @@ group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                stmtList := stmt.NewStmtList($4)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                stmtList := stmt.NewUseList($4)
+                innerStmtList := stmt.NewInnerUseList(stmtList)
                 $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
@@ -552,8 +558,8 @@ group_use_declaration:
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                stmtList := stmt.NewStmtList($5)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                stmtList := stmt.NewUseList($5)
+                innerStmtList := stmt.NewInnerUseList(stmtList)
                 $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
@@ -577,8 +583,8 @@ mixed_group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' inline_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                stmtList := stmt.NewStmtList($4)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                stmtList := stmt.NewUseList($4)
+                innerStmtList := stmt.NewInnerUseList(stmtList)
                 $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
@@ -598,8 +604,8 @@ mixed_group_use_declaration:
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' inline_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                stmtList := stmt.NewStmtList($5)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                stmtList := stmt.NewUseList($5)
+                innerStmtList := stmt.NewInnerUseList(stmtList)
                 $$ = stmt.NewGroupUse(nil, name, innerStmtList)
 
                 // save position
