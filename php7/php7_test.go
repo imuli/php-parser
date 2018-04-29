@@ -1499,33 +1499,8 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-					},
-				},
-			},
-			&stmt.Class{
-				PhpDocComment: "",
-				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Baz"},
-								},
-							},
-						},
-						Adaptations: []node.Node{
-							&stmt.TraitUseAlias{
-								Ref: &stmt.TraitMethodRef{
-									Method: &node.Identifier{Value: "one"},
-								},
-								Alias: &node.Identifier{Value: "include"},
-							},
+						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+							TraitAdaptationList: &stmt.TraitAdaptationList{},
 						},
 					},
 				},
@@ -1547,12 +1522,16 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						Adaptations: []node.Node{
-							&stmt.TraitUseAlias{
-								Ref: &stmt.TraitMethodRef{
-									Method: &node.Identifier{Value: "one"},
+						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+							TraitAdaptationList: &stmt.TraitAdaptationList{
+								Adaptations: []node.Node{
+									&stmt.TraitUseAlias{
+										Ref: &stmt.TraitMethodRef{
+											Method: &node.Identifier{Value: "one"},
+										},
+										Alias: &node.Identifier{Value: "include"},
+									},
 								},
-								Modifier: &node.Identifier{Value: "public"},
 							},
 						},
 					},
@@ -1575,13 +1554,16 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						Adaptations: []node.Node{
-							&stmt.TraitUseAlias{
-								Ref: &stmt.TraitMethodRef{
-									Method: &node.Identifier{Value: "one"},
+						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+							TraitAdaptationList: &stmt.TraitAdaptationList{
+								Adaptations: []node.Node{
+									&stmt.TraitUseAlias{
+										Ref: &stmt.TraitMethodRef{
+											Method: &node.Identifier{Value: "one"},
+										},
+										Modifier: &node.Identifier{Value: "public"},
+									},
 								},
-								Modifier: &node.Identifier{Value: "public"},
-								Alias:    &node.Identifier{Value: "two"},
 							},
 						},
 					},
@@ -1604,39 +1586,76 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						Adaptations: []node.Node{
-							&stmt.TraitUsePrecedence{
-								Ref: &stmt.TraitMethodRef{
-									Trait: &name.Name{
-										Parts: []node.Node{
-											&name.NamePart{Value: "Bar"},
+						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+							TraitAdaptationList: &stmt.TraitAdaptationList{
+								Adaptations: []node.Node{
+									&stmt.TraitUseAlias{
+										Ref: &stmt.TraitMethodRef{
+											Method: &node.Identifier{Value: "one"},
 										},
-									},
-									Method: &node.Identifier{Value: "one"},
-								},
-								Insteadof: []node.Node{
-									&name.Name{
-										Parts: []node.Node{
-											&name.NamePart{Value: "Baz"},
-										},
-									},
-									&name.Name{
-										Parts: []node.Node{
-											&name.NamePart{Value: "Quux"},
-										},
+										Modifier: &node.Identifier{Value: "public"},
+										Alias:    &node.Identifier{Value: "two"},
 									},
 								},
 							},
-							&stmt.TraitUseAlias{
-								Ref: &stmt.TraitMethodRef{
-									Trait: &name.Name{
-										Parts: []node.Node{
-											&name.NamePart{Value: "Baz"},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				PhpDocComment: "",
+				ClassName:     &node.Identifier{Value: "Foo"},
+				Stmts: []node.Node{
+					&stmt.TraitUse{
+						Traits: []node.Node{
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Bar"},
+								},
+							},
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Baz"},
+								},
+							},
+						},
+						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+							TraitAdaptationList: &stmt.TraitAdaptationList{
+								Adaptations: []node.Node{
+									&stmt.TraitUsePrecedence{
+										Ref: &stmt.TraitMethodRef{
+											Trait: &name.Name{
+												Parts: []node.Node{
+													&name.NamePart{Value: "Bar"},
+												},
+											},
+											Method: &node.Identifier{Value: "one"},
+										},
+										Insteadof: []node.Node{
+											&name.Name{
+												Parts: []node.Node{
+													&name.NamePart{Value: "Baz"},
+												},
+											},
+											&name.Name{
+												Parts: []node.Node{
+													&name.NamePart{Value: "Quux"},
+												},
+											},
 										},
 									},
-									Method: &node.Identifier{Value: "one"},
+									&stmt.TraitUseAlias{
+										Ref: &stmt.TraitMethodRef{
+											Trait: &name.Name{
+												Parts: []node.Node{
+													&name.NamePart{Value: "Baz"},
+												},
+											},
+											Method: &node.Identifier{Value: "one"},
+										},
+										Alias: &node.Identifier{Value: "two"},
+									},
 								},
-								Alias: &node.Identifier{Value: "two"},
 							},
 						},
 					},

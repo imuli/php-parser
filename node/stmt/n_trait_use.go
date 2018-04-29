@@ -7,15 +7,15 @@ import (
 
 // TraitUse node
 type TraitUse struct {
-	Traits      []node.Node
-	Adaptations []node.Node
+	Traits                   []node.Node
+	InnerTraitAdaptationList *InnerTraitAdaptationList
 }
 
 // NewTraitUse node constructor
-func NewTraitUse(Traits []node.Node, Adaptations []node.Node) *TraitUse {
+func NewTraitUse(Traits []node.Node, InnerAdaptationList *InnerTraitAdaptationList) *TraitUse {
 	return &TraitUse{
 		Traits,
-		Adaptations,
+		InnerAdaptationList,
 	}
 }
 
@@ -40,13 +40,9 @@ func (n *TraitUse) Walk(v walker.Visitor) {
 		}
 	}
 
-	if n.Adaptations != nil {
-		vv := v.GetChildrenVisitor("Adaptations")
-		for _, nn := range n.Adaptations {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerTraitAdaptationList != nil {
+		vv := v.GetChildrenVisitor("InnerTraitAdaptationList")
+		n.InnerTraitAdaptationList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

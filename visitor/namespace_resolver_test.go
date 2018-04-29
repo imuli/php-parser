@@ -404,20 +404,24 @@ func TestResolveTraitUse(t *testing.T) {
 					nameB,
 					relativeNameB,
 				},
-				Adaptations: []node.Node{
-					&stmt.TraitUsePrecedence{
-						Ref: &stmt.TraitMethodRef{
-							Trait:  fullyQualifiedNameB,
-							Method: &node.Identifier{Value: "foo"},
+				InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+					TraitAdaptationList: &stmt.TraitAdaptationList{
+						Adaptations: []node.Node{
+							&stmt.TraitUsePrecedence{
+								Ref: &stmt.TraitMethodRef{
+									Trait:  fullyQualifiedNameB,
+									Method: &node.Identifier{Value: "foo"},
+								},
+								Insteadof: []node.Node{fullyQualifiedNameBC},
+							},
+							&stmt.TraitUseAlias{
+								Ref: &stmt.TraitMethodRef{
+									Trait:  relativeNameBC,
+									Method: &node.Identifier{Value: "foo"},
+								},
+								Alias: &node.Identifier{Value: "bar"},
+							},
 						},
-						Insteadof: []node.Node{fullyQualifiedNameBC},
-					},
-					&stmt.TraitUseAlias{
-						Ref: &stmt.TraitMethodRef{
-							Trait:  relativeNameBC,
-							Method: &node.Identifier{Value: "foo"},
-						},
-						Alias: &node.Identifier{Value: "bar"},
 					},
 				},
 			},
