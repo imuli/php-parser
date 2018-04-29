@@ -13,6 +13,7 @@ import (
 )
 
 func TestDeclare(t *testing.T) {
+	t.Helper()
 	src := `<? declare(ticks=1);`
 
 	expected := &stmt.StmtList{
@@ -42,6 +43,7 @@ func TestDeclare(t *testing.T) {
 }
 
 func TestDeclareStmts(t *testing.T) {
+	t.Helper()
 	src := `<? declare(ticks=1, strict_types=1) {}`
 
 	expected := &stmt.StmtList{
@@ -59,8 +61,10 @@ func TestDeclareStmts(t *testing.T) {
 						Expr:          &scalar.Lnumber{Value: "1"},
 					},
 				},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 		},
@@ -78,6 +82,7 @@ func TestDeclareStmts(t *testing.T) {
 }
 
 func TestAltDeclare(t *testing.T) {
+	t.Helper()
 	src := `<? declare(ticks=1): enddeclare;`
 
 	expected := &stmt.StmtList{

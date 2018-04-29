@@ -13,6 +13,7 @@ import (
 )
 
 func TestStaticVar(t *testing.T) {
+	t.Helper()
 	src := `<? static $a;`
 
 	expected := &stmt.StmtList{
@@ -39,6 +40,7 @@ func TestStaticVar(t *testing.T) {
 }
 
 func TestStaticVars(t *testing.T) {
+	t.Helper()
 	src := `<? static $a, $b = 1;`
 
 	expected := &stmt.StmtList{
@@ -69,6 +71,7 @@ func TestStaticVars(t *testing.T) {
 }
 
 func TestStaticVars2(t *testing.T) {
+	t.Helper()
 	src := `<? static $a = 1, $b;`
 
 	expected := &stmt.StmtList{

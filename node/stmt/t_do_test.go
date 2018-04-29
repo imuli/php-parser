@@ -13,13 +13,16 @@ import (
 )
 
 func TestDo(t *testing.T) {
+	t.Helper()
 	src := `<? do {} while(1);`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Do{
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
 				},
 				Cond: &scalar.Lnumber{Value: "1"},
 			},

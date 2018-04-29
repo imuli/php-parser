@@ -11,6 +11,7 @@ import (
 )
 
 func TestHaltCompiler(t *testing.T) {
+	t.Helper()
 	src := `<? __halt_compiler();`
 
 	expected := &stmt.StmtList{

@@ -13,6 +13,7 @@ import (
 )
 
 func TestClassConstList(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ public const FOO = 1, BAR = 2; }`
 
 	expected := &stmt.StmtList{
@@ -49,6 +50,7 @@ func TestClassConstList(t *testing.T) {
 }
 
 func TestClassConstListWithoutModifiers(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ const FOO = 1, BAR = 2; }`
 
 	expected := &stmt.StmtList{

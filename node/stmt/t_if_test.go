@@ -13,13 +13,14 @@ import (
 )
 
 func TestIf(t *testing.T) {
+	t.Helper()
 	src := `<? if ($a) {}`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 			},
 		},
 	}
@@ -36,6 +37,7 @@ func TestIf(t *testing.T) {
 }
 
 func TestElseIf(t *testing.T) {
+	t.Helper()
 	src := `<? if ($a) {} elseif ($b) {}
 	`
 
@@ -43,11 +45,11 @@ func TestElseIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 					},
 				},
 			},
@@ -66,15 +68,16 @@ func TestElseIf(t *testing.T) {
 }
 
 func TestElse(t *testing.T) {
+	t.Helper()
 	src := `<? if ($a) {} else {}`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 				Else: &stmt.Else{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 				},
 			},
 		},
@@ -92,25 +95,26 @@ func TestElse(t *testing.T) {
 }
 
 func TestElseElseIf(t *testing.T) {
+	t.Helper()
 	src := `<? if ($a) {} elseif ($b) {} elseif ($c) {} else {}`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 					},
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 					},
 				},
 				Else: &stmt.Else{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 				},
 			},
 		},
@@ -128,25 +132,26 @@ func TestElseElseIf(t *testing.T) {
 }
 
 func TestElseIfElseIfElse(t *testing.T) {
+	t.Helper()
 	src := `<? if ($a) {} elseif ($b) {} else if ($c) {} else {}`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 					},
 				},
 				Else: &stmt.Else{
 					Stmt: &stmt.If{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 						Else: &stmt.Else{
-							Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+							Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
 						},
 					},
 				},

@@ -2,9 +2,10 @@ package stmt_test
 
 import (
 	"bytes"
+	"testing"
+
 	"github.com/z7zmey/php-parser/node/expr"
 	"github.com/z7zmey/php-parser/node/name"
-	"testing"
 
 	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/node/stmt"
@@ -13,6 +14,7 @@ import (
 )
 
 func TestTry(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		try {}
 	`
@@ -38,6 +40,7 @@ func TestTry(t *testing.T) {
 }
 
 func TestTryCatch(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		try {} catch (Exception $e) {}
 	`
@@ -77,6 +80,7 @@ func TestTryCatch(t *testing.T) {
 }
 
 func TestPhp7TryCatch(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		try {} catch (Exception|RuntimeException $e) {}
 	`
@@ -116,6 +120,7 @@ func TestPhp7TryCatch(t *testing.T) {
 }
 
 func TestTryCatchCatch(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		try {} catch (Exception $e) {} catch (RuntimeException $e) {}
 	`
@@ -168,6 +173,7 @@ func TestTryCatchCatch(t *testing.T) {
 }
 
 func TestTryCatchFinally(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		try {} catch (Exception $e) {} finally {}
 	`
@@ -210,6 +216,7 @@ func TestTryCatchFinally(t *testing.T) {
 }
 
 func TestTryCatchCatchCatch(t *testing.T) {
+	t.Helper()
 	src := `<? try {} catch (Exception $e) {} catch (\RuntimeException $e) {} catch (namespace\AdditionException $e) {}`
 
 	expected := &stmt.StmtList{

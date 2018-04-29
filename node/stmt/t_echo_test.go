@@ -15,6 +15,7 @@ import (
 )
 
 func TestSimpleEcho(t *testing.T) {
+	t.Helper()
 	src := `<? echo $a, 1;`
 
 	expected := &stmt.StmtList{
@@ -42,6 +43,7 @@ func TestSimpleEcho(t *testing.T) {
 }
 
 func TestEcho(t *testing.T) {
+	t.Helper()
 	src := `<? echo($a);`
 
 	expected := &stmt.StmtList{

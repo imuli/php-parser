@@ -28,6 +28,7 @@ func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
 }
 
 func TestAltIf(t *testing.T) {
+	t.Helper()
 	src := `<?
 		if ($a) :
 		endif;
@@ -54,6 +55,7 @@ func TestAltIf(t *testing.T) {
 }
 
 func TestAltElseIf(t *testing.T) {
+	t.Helper()
 	src := `<?
 		if ($a) :
 		elseif ($b):
@@ -87,6 +89,7 @@ func TestAltElseIf(t *testing.T) {
 }
 
 func TestAltElse(t *testing.T) {
+	t.Helper()
 	src := `<?
 		if ($a) :
 		else:
@@ -117,6 +120,7 @@ func TestAltElse(t *testing.T) {
 }
 
 func TestAltElseElseIf(t *testing.T) {
+	t.Helper()
 	src := `<?
 		if ($a) :
 		elseif ($b):

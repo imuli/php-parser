@@ -84,23 +84,6 @@ func TestPhp7(t *testing.T) {
 		"test ${$foo}";
 		"test {$foo->bar()}";
 
-		if ($a) :
-		endif;
-		if ($a) :
-		elseif ($b):
-		endif;
-		if ($a) :
-		else:
-		endif;
-		if ($a) :
-		elseif ($b):
-		elseif ($c):
-		else:
-		endif;
-
-		while (1) { break; }
-		while (1) { break 2; }
-		while (1) : break(3); endwhile;
 		class foo{ public const FOO = 1, BAR = 2; }
 		class foo{ const FOO = 1, BAR = 2; }
 		class foo{ function bar() {} }
@@ -113,23 +96,8 @@ func TestPhp7(t *testing.T) {
 		new class() extends foo implements bar, baz { };
 
 		const FOO = 1, BAR = 2;
-		while (1) { continue; }
-		while (1) { continue 2; }
-		while (1) { continue(3); }
-		declare(ticks=1);
-		declare(ticks=1) {}
-		declare(ticks=1): enddeclare;
-		do {} while(1);
 		echo $a, 1;
 		echo($a);
-		for($i = 0; $i < 10; $i++, $i++) {}
-		for(; $i < 10; $i++, $i++) : endfor;
-		foreach ($a as $v) {}
-		foreach ($a as $v) : endforeach;
-		foreach ($a as $k => $v) {}
-		foreach ($a as $k => &$v) {}
-		foreach ($a as $k => list($v)) {}
-		foreach ($a as $k => [$v]) {}
 		function foo() {}
 		function foo() {return;}
 		function &foo() {return 1;}
@@ -138,11 +106,7 @@ func TestPhp7(t *testing.T) {
 		a: 
 		goto a;
 		__halt_compiler();
-		if ($a) {}
-		if ($a) {} elseif ($b) {}
-		if ($a) {} else {}
-		if ($a) {} elseif ($b) {} elseif ($c) {} else {}
-		if ($a) {} elseif ($b) {} else if ($c) {} else {}
+		;
 		?> <div></div> <?
 		interface Foo {}
 		interface Foo extends Bar {}
@@ -761,72 +725,6 @@ func TestPhp7(t *testing.T) {
 				},
 			},
 
-			&stmt.AltIf{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.AltIf{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				ElseIf: []node.Node{
-					&stmt.AltElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-				},
-			},
-			&stmt.AltIf{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				Else: &stmt.AltElse{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				},
-			},
-			&stmt.AltIf{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				ElseIf: []node.Node{
-					&stmt.AltElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-					&stmt.AltElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-				},
-				Else: &stmt.AltElse{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				},
-			},
-			&stmt.While{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Break{},
-					},
-				},
-			},
-			&stmt.While{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Break{
-							Expr: &scalar.Lnumber{Value: "2"},
-						},
-					},
-				},
-			},
-			&stmt.AltWhile{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Break{
-							Expr: &scalar.Lnumber{Value: "3"},
-						},
-					},
-				},
-			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
 				Stmts: []node.Node{
@@ -1006,74 +904,6 @@ func TestPhp7(t *testing.T) {
 					},
 				},
 			},
-			&stmt.While{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Continue{Expr: nil},
-					},
-				},
-			},
-			&stmt.While{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Continue{
-							Expr: &scalar.Lnumber{Value: "2"},
-						},
-					},
-				},
-			},
-			&stmt.While{
-				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Continue{
-							Expr: &scalar.Lnumber{Value: "3"},
-						},
-					},
-				},
-			},
-			&stmt.Declare{
-				Consts: []node.Node{
-					&stmt.Constant{
-						PhpDocComment: "",
-						ConstantName:  &node.Identifier{Value: "ticks"},
-						Expr:          &scalar.Lnumber{Value: "1"},
-					},
-				},
-				Stmt: &stmt.Nop{},
-			},
-			&stmt.Declare{
-				Consts: []node.Node{
-					&stmt.Constant{
-						PhpDocComment: "",
-						ConstantName:  &node.Identifier{Value: "ticks"},
-						Expr:          &scalar.Lnumber{Value: "1"},
-					},
-				},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
-				},
-			},
-			&stmt.Declare{
-				Consts: []node.Node{
-					&stmt.Constant{
-						PhpDocComment: "",
-						ConstantName:  &node.Identifier{Value: "ticks"},
-						Expr:          &scalar.Lnumber{Value: "1"},
-					},
-				},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
-				},
-			},
-			&stmt.Do{
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{},
-				},
-				Cond: &scalar.Lnumber{Value: "1"},
-			},
 			&stmt.Echo{
 				Exprs: []node.Node{
 					&expr.Variable{
@@ -1088,97 +918,6 @@ func TestPhp7(t *testing.T) {
 						VarName: &node.Identifier{Value: "a"},
 					},
 				},
-			},
-			&stmt.For{
-				Init: []node.Node{
-					&assign.Assign{
-						Variable:   &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-						Expression: &scalar.Lnumber{Value: "0"},
-					},
-				},
-				Cond: []node.Node{
-					&binary.Smaller{
-						Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-						Right: &scalar.Lnumber{Value: "10"},
-					},
-				},
-				Loop: []node.Node{
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-					},
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-					},
-				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.AltFor{
-				Cond: []node.Node{
-					&binary.Smaller{
-						Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-						Right: &scalar.Lnumber{Value: "10"},
-					},
-				},
-				Loop: []node.Node{
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-					},
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-					},
-				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.Foreach{
-				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.AltForeach{
-				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.Foreach{
-				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
-				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.Foreach{
-				ByRef:    true,
-				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
-				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.Foreach{
-				ByRef: false,
-				Expr:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Key:   &expr.Variable{VarName: &node.Identifier{Value: "k"}},
-				Variable: &expr.List{
-					Items: []node.Node{
-						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-						},
-					},
-				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.Foreach{
-				ByRef: false,
-				Expr:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Key:   &expr.Variable{VarName: &node.Identifier{Value: "k"}},
-				Variable: &expr.ShortList{
-					Items: []node.Node{
-						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-						},
-					},
-				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
 			},
 			&stmt.Function{
 				ReturnsRef:    false,
@@ -1228,63 +967,6 @@ func TestPhp7(t *testing.T) {
 				Label: &node.Identifier{Value: "a"},
 			},
 			&stmt.HaltCompiler{},
-			&stmt.If{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-			},
-			&stmt.If{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				ElseIf: []node.Node{
-					&stmt.ElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-				},
-			},
-			&stmt.If{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				Else: &stmt.Else{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				},
-			},
-			&stmt.If{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				ElseIf: []node.Node{
-					&stmt.ElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-					&stmt.ElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-				},
-				Else: &stmt.Else{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				},
-			},
-			&stmt.If{
-				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-				ElseIf: []node.Node{
-					&stmt.ElseIf{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-					},
-				},
-				Else: &stmt.Else{
-					Stmt: &stmt.If{
-						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-						Else: &stmt.Else{
-							Stmt: &stmt.StmtList{Stmts: []node.Node{}},
-						},
-					},
-				},
-			},
 			&stmt.Nop{},
 			&stmt.InlineHtml{Value: "<div></div> "},
 			&stmt.Interface{
@@ -3414,6 +3096,463 @@ CAD;
 					Parts: []node.Node{
 						&scalar.EncapsedStringPart{Value: "\thello $world\n"},
 					},
+				},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestAltIfStmts(t *testing.T) {
+	src := `<?
+	if ($a) :
+	endif;
+
+	if ($a) :
+	elseif ($b):
+	endif;
+
+	if ($a) :
+	else:
+	endif;
+
+	if ($a) :
+	elseif ($b):
+	elseif ($c):
+	else:
+	endif;
+
+
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.AltIf{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+			},
+			&stmt.AltIf{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				ElseIf: []node.Node{
+					&stmt.AltElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					},
+				},
+			},
+			&stmt.AltIf{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Else: &stmt.AltElse{
+					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+			&stmt.AltIf{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				ElseIf: []node.Node{
+					&stmt.AltElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					},
+					&stmt.AltElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
+						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					},
+				},
+				Else: &stmt.AltElse{
+					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestIfStmts(t *testing.T) {
+	src := `<?
+	if ($a) {}
+	if ($a) {} elseif ($b) {}
+	if ($a) {} else {}
+	if ($a) {} elseif ($b) {} elseif ($c) {} else {}
+	if ($a) {} elseif ($b) {} else if ($c) {} else {}
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.If{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+			},
+			&stmt.If{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				ElseIf: []node.Node{
+					&stmt.ElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					},
+				},
+			},
+			&stmt.If{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Else: &stmt.Else{
+					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				},
+			},
+			&stmt.If{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				ElseIf: []node.Node{
+					&stmt.ElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					},
+					&stmt.ElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					},
+				},
+				Else: &stmt.Else{
+					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				},
+			},
+			&stmt.If{
+				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				ElseIf: []node.Node{
+					&stmt.ElseIf{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					},
+				},
+				Else: &stmt.Else{
+					Stmt: &stmt.If{
+						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
+						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Else: &stmt.Else{
+							Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestDoStmts(t *testing.T) {
+	src := `<?
+		do {} while(1);
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.Do{
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+				Cond: &scalar.Lnumber{Value: "1"},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestWhileStmts(t *testing.T) {
+	src := `<?
+		while (1) { break; }
+		while (1) { break 2; }
+		while (1) : break(3); endwhile;
+		
+		while (1) { continue; }
+		while (1) { continue 2; }
+		while (1) { continue(3); }
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.While{
+				Cond: &scalar.Lnumber{Value: "1"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Break{},
+						},
+					},
+				},
+			},
+			&stmt.While{
+				Cond: &scalar.Lnumber{Value: "1"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Break{
+								Expr: &scalar.Lnumber{Value: "2"},
+							},
+						},
+					},
+				},
+			},
+			&stmt.AltWhile{
+				Cond: &scalar.Lnumber{Value: "1"},
+				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{
+						&stmt.Break{
+							Expr: &scalar.Lnumber{Value: "3"},
+						},
+					},
+				},
+			},
+			&stmt.While{
+				Cond: &scalar.Lnumber{Value: "1"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Continue{Expr: nil},
+						},
+					},
+				},
+			},
+			&stmt.While{
+				Cond: &scalar.Lnumber{Value: "1"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Continue{
+								Expr: &scalar.Lnumber{Value: "2"},
+							},
+						},
+					},
+				},
+			},
+			&stmt.While{
+				Cond: &scalar.Lnumber{Value: "1"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Continue{
+								Expr: &scalar.Lnumber{Value: "3"},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestForStmts(t *testing.T) {
+	src := `<?
+		for($i = 0; $i < 10; $i++, $i++) {}
+		for(; $i < 10; $i++, $i++) : endfor;
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.For{
+				Init: []node.Node{
+					&assign.Assign{
+						Variable:   &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						Expression: &scalar.Lnumber{Value: "0"},
+					},
+				},
+				Cond: []node.Node{
+					&binary.Smaller{
+						Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						Right: &scalar.Lnumber{Value: "10"},
+					},
+				},
+				Loop: []node.Node{
+					&expr.PostInc{
+						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+					},
+					&expr.PostInc{
+						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+					},
+				},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.AltFor{
+				Cond: []node.Node{
+					&binary.Smaller{
+						Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						Right: &scalar.Lnumber{Value: "10"},
+					},
+				},
+				Loop: []node.Node{
+					&expr.PostInc{
+						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+					},
+					&expr.PostInc{
+						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+					},
+				},
+				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestForeachStmts(t *testing.T) {
+	src := `<?
+		foreach ($a as $v) {}
+		foreach ($a as $v) : endforeach;
+		foreach ($a as $k => $v) {}
+		foreach ($a as $k => &$v) {}
+		foreach ($a as $k => list($v)) {}
+		foreach ($a as $k => [$v]) {}
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.Foreach{
+				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+			&stmt.AltForeach{
+				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
+			},
+			&stmt.Foreach{
+				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
+				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+			&stmt.Foreach{
+				ByRef:    true,
+				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
+				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+			&stmt.Foreach{
+				ByRef: false,
+				Expr:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Key:   &expr.Variable{VarName: &node.Identifier{Value: "k"}},
+				Variable: &expr.List{
+					Items: []node.Node{
+						&expr.ArrayItem{
+							ByRef: false,
+							Val:   &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+						},
+					},
+				},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+			&stmt.Foreach{
+				ByRef: false,
+				Expr:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Key:   &expr.Variable{VarName: &node.Identifier{Value: "k"}},
+				Variable: &expr.ShortList{
+					Items: []node.Node{
+						&expr.ArrayItem{
+							ByRef: false,
+							Val:   &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+						},
+					},
+				},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestDeclareStmts(t *testing.T) {
+	src := `<?
+		declare(ticks=1);
+		declare(ticks=1) {}
+		declare(ticks=1): enddeclare;
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.Declare{
+				Consts: []node.Node{
+					&stmt.Constant{
+						PhpDocComment: "",
+						ConstantName:  &node.Identifier{Value: "ticks"},
+						Expr:          &scalar.Lnumber{Value: "1"},
+					},
+				},
+				Stmt: &stmt.Nop{},
+			},
+			&stmt.Declare{
+				Consts: []node.Node{
+					&stmt.Constant{
+						PhpDocComment: "",
+						ConstantName:  &node.Identifier{Value: "ticks"},
+						Expr:          &scalar.Lnumber{Value: "1"},
+					},
+				},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Declare{
+				Consts: []node.Node{
+					&stmt.Constant{
+						PhpDocComment: "",
+						ConstantName:  &node.Identifier{Value: "ticks"},
+						Expr:          &scalar.Lnumber{Value: "1"},
+					},
+				},
+				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{},
 				},
 			},
 		},

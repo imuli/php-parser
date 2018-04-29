@@ -12,6 +12,7 @@ import (
 )
 
 func TestUnset(t *testing.T) {
+	t.Helper()
 	src := `<? unset($a);`
 
 	expected := &stmt.StmtList{
@@ -36,6 +37,7 @@ func TestUnset(t *testing.T) {
 }
 
 func TestUnsetVars(t *testing.T) {
+	t.Helper()
 	src := `<? unset($a, $b);`
 
 	expected := &stmt.StmtList{
@@ -61,6 +63,7 @@ func TestUnsetVars(t *testing.T) {
 }
 
 func TestUnsetTrailingComma(t *testing.T) {
+	t.Helper()
 	src := `<? unset($a, $b,);`
 
 	expected := &stmt.StmtList{

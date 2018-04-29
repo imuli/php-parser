@@ -618,8 +618,12 @@ statement:
 unticked_statement:
         '{' inner_statement_list '}'
             {
-                $$ = stmt.NewStmtList($2)
+                stmtList := stmt.NewStmtList($2)
+                $$ = stmt.NewInnerStmtList(stmtList)
+
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+                
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
     |   T_IF parenthesis_expr statement elseif_list else_single

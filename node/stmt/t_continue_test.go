@@ -13,15 +13,18 @@ import (
 )
 
 func TestContinueEmpty(t *testing.T) {
+	t.Helper()
 	src := `<? while (1) { continue; }`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Continue{Expr: nil},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Continue{Expr: nil},
+						},
 					},
 				},
 			},
@@ -40,16 +43,19 @@ func TestContinueEmpty(t *testing.T) {
 }
 
 func TestContinueLight(t *testing.T) {
+	t.Helper()
 	src := `<? while (1) { continue 2; }`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Continue{
-							Expr: &scalar.Lnumber{Value: "2"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Continue{
+								Expr: &scalar.Lnumber{Value: "2"},
+							},
 						},
 					},
 				},
@@ -69,16 +75,19 @@ func TestContinueLight(t *testing.T) {
 }
 
 func TestContinue(t *testing.T) {
+	t.Helper()
 	src := `<? while (1) { continue(3); }`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Continue{
-							Expr: &scalar.Lnumber{Value: "3"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Continue{
+								Expr: &scalar.Lnumber{Value: "3"},
+							},
 						},
 					},
 				},

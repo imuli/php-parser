@@ -13,6 +13,7 @@ import (
 )
 
 func TestTraitUse(t *testing.T) {
+	t.Helper()
 	src := `<? class Foo { use Bar; }`
 
 	expected := &stmt.StmtList{
@@ -47,6 +48,7 @@ func TestTraitUse(t *testing.T) {
 }
 
 func TestTraitsUse(t *testing.T) {
+	t.Helper()
 	src := `<? class Foo { use Bar, Baz; }`
 
 	expected := &stmt.StmtList{
@@ -86,6 +88,7 @@ func TestTraitsUse(t *testing.T) {
 }
 
 func TestTraitsUseEmptyAdaptations(t *testing.T) {
+	t.Helper()
 	src := `<? class Foo { use Bar, Baz {} }`
 
 	expected := &stmt.StmtList{
@@ -128,6 +131,7 @@ func TestTraitsUseEmptyAdaptations(t *testing.T) {
 }
 
 func TestTraitsUseModifier(t *testing.T) {
+	t.Helper()
 	src := `<? class Foo { use Bar, Baz { one as public; } }`
 
 	expected := &stmt.StmtList{
@@ -179,6 +183,7 @@ func TestTraitsUseModifier(t *testing.T) {
 }
 
 func TestTraitsUseAliasModifier(t *testing.T) {
+	t.Helper()
 	src := `<? class Foo { use Bar, Baz { one as public two; } }`
 
 	expected := &stmt.StmtList{
@@ -230,6 +235,7 @@ func TestTraitsUseAliasModifier(t *testing.T) {
 }
 
 func TestTraitsUseAdaptions(t *testing.T) {
+	t.Helper()
 	src := `<? class Foo { use Bar, Baz { Bar::one insteadof Baz, Quux; Baz::one as two; } }`
 
 	expected := &stmt.StmtList{

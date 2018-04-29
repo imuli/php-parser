@@ -11,6 +11,7 @@ import (
 )
 
 func TestTrait(t *testing.T) {
+	t.Helper()
 	src := `<? trait Foo {}`
 
 	expected := &stmt.StmtList{

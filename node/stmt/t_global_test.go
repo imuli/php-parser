@@ -13,6 +13,7 @@ import (
 )
 
 func TestGlobal(t *testing.T) {
+	t.Helper()
 	src := `<? global $a;`
 
 	expected := &stmt.StmtList{
@@ -37,6 +38,7 @@ func TestGlobal(t *testing.T) {
 }
 
 func TestGlobalVars(t *testing.T) {
+	t.Helper()
 	src := `<? global $a, $b, $$c, ${foo()};`
 
 	expected := &stmt.StmtList{

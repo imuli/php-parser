@@ -2,8 +2,9 @@ package stmt_test
 
 import (
 	"bytes"
-	"github.com/z7zmey/php-parser/node/name"
 	"testing"
+
+	"github.com/z7zmey/php-parser/node/name"
 
 	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/node/stmt"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestInterface(t *testing.T) {
+	t.Helper()
 	src := `<? interface Foo {}`
 
 	expected := &stmt.StmtList{
@@ -36,6 +38,7 @@ func TestInterface(t *testing.T) {
 }
 
 func TestInterfaceExtend(t *testing.T) {
+	t.Helper()
 	src := `<? interface Foo extends Bar {}`
 
 	expected := &stmt.StmtList{
@@ -67,6 +70,7 @@ func TestInterfaceExtend(t *testing.T) {
 }
 
 func TestInterfaceExtends(t *testing.T) {
+	t.Helper()
 	src := `<? interface Foo extends Bar, Baz {}`
 
 	expected := &stmt.StmtList{

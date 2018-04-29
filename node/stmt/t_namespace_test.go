@@ -13,6 +13,7 @@ import (
 )
 
 func TestNamespace(t *testing.T) {
+	t.Helper()
 	src := `<? namespace Foo;`
 
 	expected := &stmt.StmtList{
@@ -39,6 +40,7 @@ func TestNamespace(t *testing.T) {
 }
 
 func TestNamespaceStmts(t *testing.T) {
+	t.Helper()
 	src := `<? namespace Foo {}`
 
 	expected := &stmt.StmtList{
@@ -70,6 +72,7 @@ func TestNamespaceStmts(t *testing.T) {
 }
 
 func TestAnonymousNamespace(t *testing.T) {
+	t.Helper()
 	src := `<? namespace {}`
 
 	expected := &stmt.StmtList{

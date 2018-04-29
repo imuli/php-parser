@@ -13,6 +13,7 @@ import (
 )
 
 func TestConstList(t *testing.T) {
+	t.Helper()
 	src := `<? const FOO = 1, BAR = 2;`
 
 	expected := &stmt.StmtList{

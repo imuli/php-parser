@@ -11,6 +11,7 @@ import (
 )
 
 func TestInlineHtml(t *testing.T) {
+	t.Helper()
 	src := `<? ?> <div></div>`
 
 	expected := &stmt.StmtList{

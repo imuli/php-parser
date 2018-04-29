@@ -18,6 +18,7 @@ import (
 )
 
 func TestFor(t *testing.T) {
+	t.Helper()
 	src := `<? for($i = 0; $i < 10; $i++, $i++) {}`
 
 	expected := &stmt.StmtList{
@@ -43,7 +44,9 @@ func TestFor(t *testing.T) {
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
 					},
 				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				},
 			},
 		},
 	}
@@ -60,6 +63,7 @@ func TestFor(t *testing.T) {
 }
 
 func TestAltFor(t *testing.T) {
+	t.Helper()
 	src := `<? for(; $i < 10; $i++) : endfor;`
 
 	expected := &stmt.StmtList{

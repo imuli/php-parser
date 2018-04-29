@@ -2,8 +2,9 @@ package stmt_test
 
 import (
 	"bytes"
-	"github.com/z7zmey/php-parser/node/name"
 	"testing"
+
+	"github.com/z7zmey/php-parser/node/name"
 
 	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/node/stmt"
@@ -12,6 +13,7 @@ import (
 )
 
 func TestSimpleClassMethod(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ function bar() {} }`
 
 	expected := &stmt.StmtList{
@@ -41,6 +43,7 @@ func TestSimpleClassMethod(t *testing.T) {
 }
 
 func TestPrivateProtectedClassMethod(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ final private function bar() {} protected function baz() {} }`
 
 	expected := &stmt.StmtList{
@@ -84,6 +87,7 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 }
 
 func TestPhp5ClassMethod(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ public static function &bar() {} }`
 
 	expected := &stmt.StmtList{
@@ -113,6 +117,7 @@ func TestPhp5ClassMethod(t *testing.T) {
 }
 
 func TestPhp7ClassMethod(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ public static function &bar(): void {} }`
 
 	expected := &stmt.StmtList{
@@ -147,6 +152,7 @@ func TestPhp7ClassMethod(t *testing.T) {
 }
 
 func TestAbstractClassMethod(t *testing.T) {
+	t.Helper()
 	src := `<? abstract class Foo{ abstract public function bar(); }`
 
 	expected := &stmt.StmtList{
@@ -181,6 +187,7 @@ func TestAbstractClassMethod(t *testing.T) {
 }
 
 func TestPhp7AbstractClassMethod(t *testing.T) {
+	t.Helper()
 	src := `<? abstract class Foo{ public function bar(): void; }`
 
 	expected := &stmt.StmtList{

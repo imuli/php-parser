@@ -12,6 +12,7 @@ import (
 )
 
 func TestThrow(t *testing.T) {
+	t.Helper()
 	src := `<? throw $e;`
 
 	expected := &stmt.StmtList{

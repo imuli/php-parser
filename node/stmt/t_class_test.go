@@ -14,6 +14,7 @@ import (
 )
 
 func TestSimpleClass(t *testing.T) {
+	t.Helper()
 	src := `<? class foo{ }`
 
 	expected := &stmt.StmtList{
@@ -37,6 +38,7 @@ func TestSimpleClass(t *testing.T) {
 }
 
 func TestAbstractClass(t *testing.T) {
+	t.Helper()
 	src := `<? abstract class foo{ }`
 
 	expected := &stmt.StmtList{
@@ -63,6 +65,7 @@ func TestAbstractClass(t *testing.T) {
 }
 
 func TestClassExtends(t *testing.T) {
+	t.Helper()
 	src := `<? final class foo extends bar { }`
 
 	expected := &stmt.StmtList{
@@ -94,6 +97,7 @@ func TestClassExtends(t *testing.T) {
 }
 
 func TestClassImplement(t *testing.T) {
+	t.Helper()
 	src := `<? final class foo implements bar { }`
 
 	expected := &stmt.StmtList{
@@ -127,6 +131,7 @@ func TestClassImplement(t *testing.T) {
 }
 
 func TestClassImplements(t *testing.T) {
+	t.Helper()
 	src := `<? final class foo implements bar, baz { }`
 
 	expected := &stmt.StmtList{
@@ -165,6 +170,7 @@ func TestClassImplements(t *testing.T) {
 }
 
 func TestAnonimousClass(t *testing.T) {
+	t.Helper()
 	src := `<? new class() extends foo implements bar, baz { };`
 
 	expected := &stmt.StmtList{

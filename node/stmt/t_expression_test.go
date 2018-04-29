@@ -13,6 +13,7 @@ import (
 )
 
 func TestExpression(t *testing.T) {
+	t.Helper()
 	src := `<? 1;`
 
 	expected := &stmt.StmtList{

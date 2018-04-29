@@ -2,9 +2,10 @@ package stmt_test
 
 import (
 	"bytes"
+	"testing"
+
 	"github.com/z7zmey/php-parser/node/expr"
 	"github.com/z7zmey/php-parser/node/scalar"
-	"testing"
 
 	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/node/stmt"
@@ -13,6 +14,7 @@ import (
 )
 
 func TestProperty(t *testing.T) {
+	t.Helper()
 	src := `<? class foo {var $a;}`
 
 	expected := &stmt.StmtList{
@@ -48,6 +50,7 @@ func TestProperty(t *testing.T) {
 }
 
 func TestProperties(t *testing.T) {
+	t.Helper()
 	src := `<? class foo {public static $a, $b = 1;}`
 
 	expected := &stmt.StmtList{
@@ -89,6 +92,7 @@ func TestProperties(t *testing.T) {
 }
 
 func TestProperties2(t *testing.T) {
+	t.Helper()
 	src := `<? class foo {public static $a = 1, $b;}`
 
 	expected := &stmt.StmtList{

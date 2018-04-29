@@ -13,6 +13,7 @@ import (
 )
 
 func TestSimpleUse(t *testing.T) {
+	t.Helper()
 	src := `<? use Foo;`
 
 	expected := &stmt.StmtList{
@@ -45,6 +46,7 @@ func TestSimpleUse(t *testing.T) {
 }
 
 func TestUseFullyQualified(t *testing.T) {
+	t.Helper()
 	src := `<? use \Foo;`
 
 	expected := &stmt.StmtList{
@@ -77,6 +79,7 @@ func TestUseFullyQualified(t *testing.T) {
 }
 
 func TestUseFullyQualifiedAlias(t *testing.T) {
+	t.Helper()
 	src := `<? use \Foo as Bar;`
 
 	expected := &stmt.StmtList{
@@ -110,6 +113,7 @@ func TestUseFullyQualifiedAlias(t *testing.T) {
 }
 
 func TestSimpleUseList(t *testing.T) {
+	t.Helper()
 	src := `<? use Foo, Bar;`
 
 	expected := &stmt.StmtList{
@@ -149,6 +153,7 @@ func TestSimpleUseList(t *testing.T) {
 }
 
 func TestSimpleUseAlias(t *testing.T) {
+	t.Helper()
 	src := `<? use Foo, Bar as Baz;`
 
 	expected := &stmt.StmtList{
@@ -189,6 +194,7 @@ func TestSimpleUseAlias(t *testing.T) {
 }
 
 func TestSimpleUseFunctionType(t *testing.T) {
+	t.Helper()
 	src := `<? use function Foo, \Bar;`
 
 	expected := &stmt.StmtList{
@@ -229,6 +235,7 @@ func TestSimpleUseFunctionType(t *testing.T) {
 }
 
 func TestSimpleUseFunctionTypeAliases(t *testing.T) {
+	t.Helper()
 	src := `<? use function Foo as foo, \Bar as bar;`
 
 	expected := &stmt.StmtList{
@@ -271,6 +278,7 @@ func TestSimpleUseFunctionTypeAliases(t *testing.T) {
 }
 
 func TestSimpleUseConstType(t *testing.T) {
+	t.Helper()
 	src := `<? use const Foo, \Bar;`
 
 	expected := &stmt.StmtList{
@@ -311,6 +319,7 @@ func TestSimpleUseConstType(t *testing.T) {
 }
 
 func TestSimpleUseConstTypeAliases(t *testing.T) {
+	t.Helper()
 	src := `<? use const Foo as foo, \Bar as bar;`
 
 	expected := &stmt.StmtList{
@@ -353,6 +362,7 @@ func TestSimpleUseConstTypeAliases(t *testing.T) {
 }
 
 func TestGroupUse(t *testing.T) {
+	t.Helper()
 	src := `<? use Foo\{Bar, Baz};`
 
 	expected := &stmt.StmtList{
@@ -394,6 +404,7 @@ func TestGroupUse(t *testing.T) {
 }
 
 func TestGroupUseAlias(t *testing.T) {
+	t.Helper()
 	src := `<? use Foo\{Bar, Baz as quux};`
 
 	expected := &stmt.StmtList{
@@ -436,6 +447,7 @@ func TestGroupUseAlias(t *testing.T) {
 }
 
 func TestFunctionGroupUse(t *testing.T) {
+	t.Helper()
 	src := `<? use function Foo\{Bar, Baz};`
 
 	expected := &stmt.StmtList{
@@ -478,6 +490,7 @@ func TestFunctionGroupUse(t *testing.T) {
 }
 
 func TestConstGroupUse(t *testing.T) {
+	t.Helper()
 	src := `<? use const Foo\{Bar, Baz};`
 
 	expected := &stmt.StmtList{
@@ -520,6 +533,7 @@ func TestConstGroupUse(t *testing.T) {
 }
 
 func TestMixedGroupUse(t *testing.T) {
+	t.Helper()
 	src := `<? use Foo\{const Bar, function Baz};`
 
 	expected := &stmt.StmtList{

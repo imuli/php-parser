@@ -13,15 +13,18 @@ import (
 )
 
 func TestBreakEmpty(t *testing.T) {
+	t.Helper()
 	src := `<? while (1) { break; }`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Break{nil},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Break{nil},
+						},
 					},
 				},
 			},
@@ -40,16 +43,19 @@ func TestBreakEmpty(t *testing.T) {
 }
 
 func TestBreakLight(t *testing.T) {
+	t.Helper()
 	src := `<? while (1) { break 2; }`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
-					Stmts: []node.Node{
-						&stmt.Break{
-							Expr: &scalar.Lnumber{Value: "2"},
+				Stmt: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Break{
+								Expr: &scalar.Lnumber{Value: "2"},
+							},
 						},
 					},
 				},
@@ -69,6 +75,7 @@ func TestBreakLight(t *testing.T) {
 }
 
 func TestBreak(t *testing.T) {
+	t.Helper()
 	src := `<? while (1) : break(3); endwhile;`
 
 	expected := &stmt.StmtList{

@@ -11,6 +11,7 @@ import (
 )
 
 func TestGotoLabel(t *testing.T) {
+	t.Helper()
 	src := `<? a: goto a;`
 
 	expected := &stmt.StmtList{

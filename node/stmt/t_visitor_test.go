@@ -551,6 +551,7 @@ func (v *visitorMock) GetChildrenVisitor(key string) walker.Visitor {
 func (v *visitorMock) LeaveNode(n walker.Walkable) {}
 
 func TestVisitorDisableChildren(t *testing.T) {
+	t.Helper()
 	for _, tt := range nodesToTest {
 		v := &visitorMock{false, nil}
 		tt.node.Walk(v)
@@ -566,6 +567,7 @@ func TestVisitorDisableChildren(t *testing.T) {
 }
 
 func TestVisitor(t *testing.T) {
+	t.Helper()
 	for _, tt := range nodesToTest {
 		v := &visitorMock{true, nil}
 		tt.node.Walk(v)
@@ -583,6 +585,7 @@ func TestVisitor(t *testing.T) {
 // test Attributes()
 
 func TestNameAttributes(t *testing.T) {
+	t.Helper()
 	for _, tt := range nodesToTest {
 		expected := tt.expectedAttributes
 		actual := tt.node.Attributes()

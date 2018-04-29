@@ -13,6 +13,7 @@ import (
 )
 
 func TestAltSwitch(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		switch (1) :
 			case 1:
@@ -56,6 +57,7 @@ func TestAltSwitch(t *testing.T) {
 }
 
 func TestAltSwitchSemicolon(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		switch (1) :;
 			case 1;
@@ -95,6 +97,7 @@ func TestAltSwitchSemicolon(t *testing.T) {
 }
 
 func TestSwitch(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		switch (1) {
 			case 1: break;
@@ -140,6 +143,7 @@ func TestSwitch(t *testing.T) {
 }
 
 func TestSwitchSemicolon(t *testing.T) {
+	t.Helper()
 	src := `<? 
 		switch (1) {;
 			case 1; break;

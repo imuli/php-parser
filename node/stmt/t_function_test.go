@@ -15,6 +15,7 @@ import (
 )
 
 func TestSimpleFunction(t *testing.T) {
+	t.Helper()
 	src := `<? function foo() {}`
 
 	expected := &stmt.StmtList{
@@ -40,6 +41,7 @@ func TestSimpleFunction(t *testing.T) {
 }
 
 func TestFunctionReturn(t *testing.T) {
+	t.Helper()
 	src := `<? function foo() {return;}`
 
 	expected := &stmt.StmtList{
@@ -67,6 +69,7 @@ func TestFunctionReturn(t *testing.T) {
 }
 
 func TestFunctionReturnVar(t *testing.T) {
+	t.Helper()
 	src := `<? function foo(array $a, callable $b) {return $a;}`
 
 	expected := &stmt.StmtList{
@@ -110,6 +113,7 @@ func TestFunctionReturnVar(t *testing.T) {
 }
 
 func TestRefFunction(t *testing.T) {
+	t.Helper()
 	src := `<? function &foo() {return 1;}`
 
 	expected := &stmt.StmtList{
@@ -139,6 +143,7 @@ func TestRefFunction(t *testing.T) {
 }
 
 func TestReturnTypeFunction(t *testing.T) {
+	t.Helper()
 	src := `<? function &foo(): void {}`
 
 	expected := &stmt.StmtList{
