@@ -323,7 +323,7 @@ top_statement:
             }
     |   T_USE use_declarations ';'
             {
-                $$ = stmt.NewUseList(nil, $2)
+                $$ = stmt.NewSimpleUse(nil, $2)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
@@ -333,7 +333,7 @@ top_statement:
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
                 yylex.(*Parser).comments.AddComments($$, $2.Comments())
 
-                $$ = stmt.NewUseList(useType, $3)
+                $$ = stmt.NewSimpleUse(useType, $3)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
@@ -343,7 +343,7 @@ top_statement:
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
                 yylex.(*Parser).comments.AddComments($$, $2.Comments())
 
-                $$ = stmt.NewUseList(useType, $3)
+                $$ = stmt.NewSimpleUse(useType, $3)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }

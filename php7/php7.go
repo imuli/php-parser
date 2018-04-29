@@ -2787,7 +2787,7 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php7/php7.y:473
 		{
-			yyVAL.node = stmt.NewUseList(nil, yyDollar[2].list)
+			yyVAL.node = stmt.NewSimpleUse(nil, yyDollar[2].list)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
@@ -2800,7 +2800,7 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:484
 		{
-			yyVAL.node = stmt.NewUseList(yyDollar[2].node, yyDollar[3].list)
+			yyVAL.node = stmt.NewSimpleUse(yyDollar[2].node, yyDollar[3].list)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))

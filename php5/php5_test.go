@@ -1690,7 +1690,7 @@ func TestPhp5(t *testing.T) {
 					&expr.Variable{VarName: &node.Identifier{Value: "b"}},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -1701,7 +1701,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -1712,7 +1712,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -1724,7 +1724,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -1742,7 +1742,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -1761,7 +1761,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -1780,7 +1780,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -1801,7 +1801,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -1820,7 +1820,7 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
 				Uses: []node.Node{
 					&stmt.Use{

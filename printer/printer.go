@@ -422,8 +422,8 @@ func (p *Printer) printNode(n node.Node) {
 		p.printStmtTry(n)
 	case *stmt.Unset:
 		p.printStmtUnset(n)
-	case *stmt.UseList:
-		p.printStmtUseList(n)
+	case *stmt.SimpleUse:
+		p.printStmtSimpleUse(n)
 	case *stmt.Use:
 		p.printStmtUse(n)
 	case *stmt.While:
@@ -2125,8 +2125,8 @@ func (p *Printer) printStmtUnset(n node.Node) {
 	io.WriteString(p.w, ");")
 }
 
-func (p *Printer) printStmtUseList(n node.Node) {
-	nn := n.(*stmt.UseList)
+func (p *Printer) printStmtSimpleUse(n node.Node) {
+	nn := n.(*stmt.SimpleUse)
 
 	io.WriteString(p.w, "use ")
 

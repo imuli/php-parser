@@ -471,7 +471,7 @@ top_statement:
         }
     |   T_USE use_declarations ';'
         {
-            $$ = stmt.NewUseList(nil, $2)
+            $$ = stmt.NewSimpleUse(nil, $2)
 
             // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
@@ -482,7 +482,7 @@ top_statement:
         }
     |   T_USE use_type use_declarations ';'
         {
-            $$ = stmt.NewUseList($2, $3)
+            $$ = stmt.NewSimpleUse($2, $3)
 
             // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))

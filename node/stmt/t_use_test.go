@@ -17,7 +17,7 @@ func TestSimpleUse(t *testing.T) {
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -47,7 +47,7 @@ func TestUseFullyQualified(t *testing.T) {
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -77,7 +77,7 @@ func TestUseFullyQualifiedAlias(t *testing.T) {
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -103,12 +103,12 @@ func TestUseFullyQualifiedAlias(t *testing.T) {
 	assertEqual(t, expected, actual)
 }
 
-func TestUseList(t *testing.T) {
+func TestSimpleUseList(t *testing.T) {
 	src := `<? use Foo, Bar;`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -140,12 +140,12 @@ func TestUseList(t *testing.T) {
 	assertEqual(t, expected, actual)
 }
 
-func TestUseListAlias(t *testing.T) {
+func TestSimpleUseAlias(t *testing.T) {
 	src := `<? use Foo, Bar as Baz;`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: &name.Name{
@@ -178,12 +178,12 @@ func TestUseListAlias(t *testing.T) {
 	assertEqual(t, expected, actual)
 }
 
-func TestUseListFunctionType(t *testing.T) {
+func TestSimpleUseFunctionType(t *testing.T) {
 	src := `<? use function Foo, \Bar;`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -216,12 +216,12 @@ func TestUseListFunctionType(t *testing.T) {
 	assertEqual(t, expected, actual)
 }
 
-func TestUseListFunctionTypeAliases(t *testing.T) {
+func TestSimpleUseFunctionTypeAliases(t *testing.T) {
 	src := `<? use function Foo as foo, \Bar as bar;`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -256,12 +256,12 @@ func TestUseListFunctionTypeAliases(t *testing.T) {
 	assertEqual(t, expected, actual)
 }
 
-func TestUseListConstType(t *testing.T) {
+func TestSimpleUseConstType(t *testing.T) {
 	src := `<? use const Foo, \Bar;`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -294,12 +294,12 @@ func TestUseListConstType(t *testing.T) {
 	assertEqual(t, expected, actual)
 }
 
-func TestUseListConstTypeAliases(t *testing.T) {
+func TestSimpleUseConstTypeAliases(t *testing.T) {
 	src := `<? use const Foo as foo, \Bar as bar;`
 
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
 				Uses: []node.Node{
 					&stmt.Use{

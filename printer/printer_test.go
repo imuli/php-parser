@@ -4010,11 +4010,11 @@ func TestPrintStmtUset(t *testing.T) {
 	}
 }
 
-func TestPrintStmtUseList(t *testing.T) {
+func TestPrintStmtSimpleUse(t *testing.T) {
 	o := bytes.NewBufferString("")
 
 	p := printer.NewPrinter(o, "    ")
-	p.Print(&stmt.UseList{
+	p.Print(&stmt.SimpleUse{
 		UseType: &node.Identifier{Value: "function"},
 		Uses: []node.Node{
 			&stmt.Use{

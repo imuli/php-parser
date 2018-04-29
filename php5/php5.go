@@ -345,7 +345,6 @@ const yyErrCode = 2
 const yyInitialStackSize = 16
 
 //line php5/php5.y:3836
-
 type foreachVariable struct {
 	node  node.Node
 	byRef bool
@@ -2412,7 +2411,7 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php5/php5.y:325
 		{
-			yyVAL.node = stmt.NewUseList(nil, yyDollar[2].list)
+			yyVAL.node = stmt.NewSimpleUse(nil, yyDollar[2].list)
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}
@@ -2424,7 +2423,7 @@ yydefault:
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[2].token.Comments())
 
-			yyVAL.node = stmt.NewUseList(useType, yyDollar[3].list)
+			yyVAL.node = stmt.NewSimpleUse(useType, yyDollar[3].list)
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}
@@ -2436,7 +2435,7 @@ yydefault:
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[2].token.Comments())
 
-			yyVAL.node = stmt.NewUseList(useType, yyDollar[3].list)
+			yyVAL.node = stmt.NewSimpleUse(useType, yyDollar[3].list)
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}

@@ -38,7 +38,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 			nsr.Namespace = NewNamespace(concatNameParts(NSParts))
 		}
 
-	case *stmt.UseList:
+	case *stmt.SimpleUse:
 		useType := ""
 		if n.UseType != nil {
 			useType = n.UseType.(*node.Identifier).Value

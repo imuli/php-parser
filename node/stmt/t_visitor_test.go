@@ -444,7 +444,7 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
-		&stmt.UseList{
+		&stmt.SimpleUse{
 			UseType: &node.Identifier{},
 			Uses:    []node.Node{&stmt.Expression{}},
 		},

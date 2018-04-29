@@ -35,7 +35,7 @@ func TestResolveStaticCall(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -66,7 +66,7 @@ func TestResolveStaticPropertyFetch(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -96,7 +96,7 @@ func TestResolveClassConstFetch(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -126,7 +126,7 @@ func TestResolveNew(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -156,7 +156,7 @@ func TestResolveInstanceOf(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -189,7 +189,7 @@ func TestResolveInstanceCatch(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -233,7 +233,7 @@ func TestResolveFunctionCall(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -264,7 +264,7 @@ func TestResolveConstFetch(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
 				Uses: []node.Node{
 					&stmt.Use{
@@ -364,7 +364,7 @@ func TestResolveTraitUse(t *testing.T) {
 
 	ast := &stmt.StmtList{
 		Stmts: []node.Node{
-			&stmt.UseList{
+			&stmt.SimpleUse{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use: nameAB,
@@ -682,7 +682,7 @@ func TestResolveNamespaces(t *testing.T) {
 				Stmt: &stmt.InnerStmtList{
 					Stmts: &stmt.StmtList{
 						Stmts: []node.Node{
-							&stmt.UseList{
+							&stmt.SimpleUse{
 								Uses: []node.Node{
 									&stmt.Use{
 										Use: nameAC,
