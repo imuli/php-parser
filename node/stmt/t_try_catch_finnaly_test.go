@@ -22,7 +22,11 @@ func TestTry(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Try{
-				Stmts:   []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{},
 			},
 		},
@@ -48,7 +52,11 @@ func TestTryCatch(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Try{
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{
 					&stmt.Catch{
 						Types: []node.Node{
@@ -88,7 +96,11 @@ func TestPhp7TryCatch(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Try{
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{
 					&stmt.Catch{
 						Types: []node.Node{
@@ -128,7 +140,11 @@ func TestTryCatchCatch(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Try{
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{
 					&stmt.Catch{
 						Types: []node.Node{
@@ -181,7 +197,11 @@ func TestTryCatchFinally(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Try{
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{
 					&stmt.Catch{
 						Types: []node.Node{
@@ -222,7 +242,11 @@ func TestTryCatchCatchCatch(t *testing.T) {
 	expected := &stmt.StmtList{
 		Stmts: []node.Node{
 			&stmt.Try{
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{
 					&stmt.Catch{
 						Types: []node.Node{

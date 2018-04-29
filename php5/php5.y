@@ -825,13 +825,18 @@ unticked_statement:
             }
     |   T_TRY '{' inner_statement_list '}' catch_statement finally_statement
             {
-                $$ = stmt.NewTry($3, $5, $6)
+                stmtList := stmt.NewStmtList($3)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewTry(innerStmtList, $5, $6)
 
                 if $6 == nil {
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $5))
                 } else {
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $6))
                 }
+
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }

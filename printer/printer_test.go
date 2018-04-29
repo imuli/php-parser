@@ -3973,8 +3973,12 @@ func TestPrintStmtTry(t *testing.T) {
 			Stmts: &stmt.StmtList{
 				Stmts: []node.Node{
 					&stmt.Try{
-						Stmts: []node.Node{
-							&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{
+									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								},
+							},
 						},
 						Catches: []node.Node{
 							&stmt.Catch{

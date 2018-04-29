@@ -433,11 +433,11 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Try{
-			Stmts:   []node.Node{&stmt.Expression{}},
-			Catches: []node.Node{&stmt.Expression{}},
-			Finally: &stmt.Finally{},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			Catches:       []node.Node{&stmt.Expression{}},
+			Finally:       &stmt.Finally{},
 		},
-		[]string{"Stmts", "Catches", "Finally"},
+		[]string{"InnerStmtList", "Catches", "Finally"},
 		map[string]interface{}{},
 	},
 	{

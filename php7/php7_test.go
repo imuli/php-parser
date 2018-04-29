@@ -149,12 +149,6 @@ func TestPhp7(t *testing.T) {
 		class Foo { use Bar, Baz { one as public two; } }
 		class Foo { use Bar, Baz { Bar::one insteadof Baz, Quux; Baz::one as two; } }
 
-		try {}
-		try {} catch (Exception $e) {}
-		try {} catch (Exception|RuntimeException $e) {}
-		try {} catch (Exception $e) {} catch (RuntimeException $e) {}
-		try {} catch (Exception $e) {} finally {}
-
 		unset($a, $b,);
 
 		use Foo;
@@ -1353,103 +1347,6 @@ func TestPhp7(t *testing.T) {
 							},
 						},
 					},
-				},
-			},
-			&stmt.Try{
-				Stmts:   []node.Node{},
-				Catches: []node.Node{},
-			},
-			&stmt.Try{
-				Stmts: []node.Node{},
-				Catches: []node.Node{
-					&stmt.Catch{
-						Types: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Exception"},
-								},
-							},
-						},
-						Variable: &expr.Variable{
-							VarName: &node.Identifier{Value: "e"},
-						},
-						Stmts: []node.Node{},
-					},
-				},
-			},
-			&stmt.Try{
-				Stmts: []node.Node{},
-				Catches: []node.Node{
-					&stmt.Catch{
-						Types: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Exception"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "RuntimeException"},
-								},
-							},
-						},
-						Variable: &expr.Variable{
-							VarName: &node.Identifier{Value: "e"},
-						},
-						Stmts: []node.Node{},
-					},
-				},
-			},
-			&stmt.Try{
-				Stmts: []node.Node{},
-				Catches: []node.Node{
-					&stmt.Catch{
-						Types: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Exception"},
-								},
-							},
-						},
-						Variable: &expr.Variable{
-							VarName: &node.Identifier{Value: "e"},
-						},
-						Stmts: []node.Node{},
-					},
-					&stmt.Catch{
-						Types: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "RuntimeException"},
-								},
-							},
-						},
-						Variable: &expr.Variable{
-							VarName: &node.Identifier{Value: "e"},
-						},
-						Stmts: []node.Node{},
-					},
-				},
-			},
-			&stmt.Try{
-				Stmts: []node.Node{},
-				Catches: []node.Node{
-					&stmt.Catch{
-						Types: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Exception"},
-								},
-							},
-						},
-						Variable: &expr.Variable{
-							VarName: &node.Identifier{Value: "e"},
-						},
-						Stmts: []node.Node{},
-					},
-				},
-				Finally: &stmt.Finally{
-					Stmts: []node.Node{},
 				},
 			},
 			&stmt.Unset{
@@ -3552,6 +3449,143 @@ func TestDeclareStmts(t *testing.T) {
 					},
 				},
 				Stmt: &stmt.StmtList{
+					Stmts: []node.Node{},
+				},
+			},
+		},
+	}
+
+	php7parser := php7.NewParser(bytes.NewBufferString(src), "test.php")
+	php7parser.Parse()
+	actual := php7parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestTryStmts(t *testing.T) {
+	src := `<?
+		try {}
+		try {} catch (Exception $e) {}
+		try {} catch (Exception|RuntimeException $e) {}
+		try {} catch (Exception $e) {} catch (RuntimeException $e) {}
+		try {} catch (Exception $e) {} finally {}
+	`
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.Try{
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+				Catches: []node.Node{},
+			},
+			&stmt.Try{
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+				Catches: []node.Node{
+					&stmt.Catch{
+						Types: []node.Node{
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Exception"},
+								},
+							},
+						},
+						Variable: &expr.Variable{
+							VarName: &node.Identifier{Value: "e"},
+						},
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Try{
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+				Catches: []node.Node{
+					&stmt.Catch{
+						Types: []node.Node{
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Exception"},
+								},
+							},
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "RuntimeException"},
+								},
+							},
+						},
+						Variable: &expr.Variable{
+							VarName: &node.Identifier{Value: "e"},
+						},
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Try{
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+				Catches: []node.Node{
+					&stmt.Catch{
+						Types: []node.Node{
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Exception"},
+								},
+							},
+						},
+						Variable: &expr.Variable{
+							VarName: &node.Identifier{Value: "e"},
+						},
+						Stmts: []node.Node{},
+					},
+					&stmt.Catch{
+						Types: []node.Node{
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "RuntimeException"},
+								},
+							},
+						},
+						Variable: &expr.Variable{
+							VarName: &node.Identifier{Value: "e"},
+						},
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Try{
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+				Catches: []node.Node{
+					&stmt.Catch{
+						Types: []node.Node{
+							&name.Name{
+								Parts: []node.Node{
+									&name.NamePart{Value: "Exception"},
+								},
+							},
+						},
+						Variable: &expr.Variable{
+							VarName: &node.Identifier{Value: "e"},
+						},
+						Stmts: []node.Node{},
+					},
+				},
+				Finally: &stmt.Finally{
 					Stmts: []node.Node{},
 				},
 			},

@@ -2099,7 +2099,7 @@ func (p *Printer) printStmtTry(n node.Node) {
 	nn := n.(*stmt.Try)
 
 	io.WriteString(p.w, "try {\n")
-	p.printNodes(nn.Stmts)
+	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")

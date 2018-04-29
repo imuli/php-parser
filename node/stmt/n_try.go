@@ -7,15 +7,15 @@ import (
 
 // Try node
 type Try struct {
-	Stmts   []node.Node
-	Catches []node.Node
-	Finally node.Node
+	InnerStmtList *InnerStmtList
+	Catches       []node.Node
+	Finally       node.Node
 }
 
 // NewTry node constructor
-func NewTry(Stmts []node.Node, Catches []node.Node, Finally node.Node) *Try {
+func NewTry(InnerStmtList *InnerStmtList, Catches []node.Node, Finally node.Node) *Try {
 	return &Try{
-		Stmts,
+		InnerStmtList,
 		Catches,
 		Finally,
 	}
@@ -33,13 +33,9 @@ func (n *Try) Walk(v walker.Visitor) {
 		return
 	}
 
-	if n.Stmts != nil {
-		vv := v.GetChildrenVisitor("Stmts")
-		for _, nn := range n.Stmts {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerStmtList != nil {
+		vv := v.GetChildrenVisitor("InnerStmtList")
+		n.InnerStmtList.Walk(vv)
 	}
 
 	if n.Catches != nil {

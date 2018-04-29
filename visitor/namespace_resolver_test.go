@@ -217,7 +217,11 @@ func TestResolveInstanceCatch(t *testing.T) {
 				},
 			},
 			&stmt.Try{
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 				Catches: []node.Node{
 					&stmt.Catch{
 						Types: []node.Node{
