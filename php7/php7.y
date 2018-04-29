@@ -230,12 +230,13 @@ import (
 %type <node> array_pair possible_array_pair
 %type <node> isset_variable type return_type type_expr
 %type <node> class_modifier
+%type <node> argument_list ctor_arguments
 
 %type <node> member_modifier
 %type <node> use_type
 %type <foreachVariable> foreach_variable
 
-%type <nodesWithEndToken> method_body switch_case_list trait_adaptations argument_list ctor_arguments
+%type <nodesWithEndToken> method_body switch_case_list trait_adaptations
 
 %type <list> encaps_list backticks_expr namespace_name catch_name_list catch_list class_const_list
 %type <list> const_list echo_expr_list for_exprs non_empty_for_exprs global_var_list
@@ -1372,8 +1373,23 @@ return_type:
 ;
 
 argument_list:
-        '(' ')'                                         { $$ = &nodesWithEndToken{[]node.Node{}, $2} }
-    |   '(' non_empty_argument_list possible_comma ')'  { $$ = &nodesWithEndToken{$2, $4} }
+        '(' ')'
+        {
+            argumentList := node.NewArgumentList(nil)
+            $$ = node.NewInnerArgumentList(argumentList)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
+        }
+    |   '(' non_empty_argument_list possible_comma ')'
+        {
+            argumentList := node.NewArgumentList($2)
+            $$ = node.NewInnerArgumentList(argumentList)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition(argumentList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+        }
 ;
 
 non_empty_argument_list:
@@ -1723,7 +1739,7 @@ anonymous_class:
     T_CLASS ctor_arguments extends_from implements_list backup_doc_comment '{' class_statement_list '}'
         {
             if $2 != nil {
-                $$ = stmt.NewClass(nil, nil, $2.nodes, $3, $4, $7, $5)
+                $$ = stmt.NewClass(nil, nil, $2.(*node.InnerArgumentList), $3, $4, $7, $5)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
             } else {
                 $$ = stmt.NewClass(nil, nil, nil, $3, $4, $7, $5)
@@ -1737,9 +1753,10 @@ anonymous_class:
 new_expr:
     T_NEW class_name_reference ctor_arguments
         {
+            
             if $3 != nil {
-                $$ = expr.NewNew($2, $3.nodes)
-                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3.endToken))
+                $$ = expr.NewNew($2, $3.(*node.InnerArgumentList))
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $3))
             } else {
                 $$ = expr.NewNew($2, nil)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
@@ -1747,7 +1764,14 @@ new_expr:
 
             yylex.(*Parser).comments.AddComments($$, $1.Comments())
         }
-    |   T_NEW anonymous_class                           { $$ = expr.NewNew($2, nil) }
+    |   T_NEW anonymous_class
+        {
+            $$ = expr.NewNew($2, nil)
+
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
+
+            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+        }
 ;
 
 expr_without_variable:
@@ -2254,26 +2278,26 @@ lexical_var:
 function_call:
     name argument_list
         {
-            $$ = expr.NewFunctionCall($1, $2.nodes)
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeTokenPosition($1, $2.endToken))
+            $$ = expr.NewFunctionCall($1, $2.(*node.InnerArgumentList))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $2))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   class_name T_PAAMAYIM_NEKUDOTAYIM member_name argument_list
         {
-            $$ = expr.NewStaticCall($1, $3, $4.nodes)
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeTokenPosition($1, $4.endToken))
+            $$ = expr.NewStaticCall($1, $3, $4.(*node.InnerArgumentList))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   variable_class_name T_PAAMAYIM_NEKUDOTAYIM member_name argument_list
         {
-            $$ = expr.NewStaticCall($1, $3, $4.nodes)
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeTokenPosition($1, $4.endToken))
+            $$ = expr.NewStaticCall($1, $3, $4.(*node.InnerArgumentList))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   callable_expr argument_list
         {
-            $$ = expr.NewFunctionCall($1, $2.nodes)
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeTokenPosition($1, $2.endToken))
+            $$ = expr.NewFunctionCall($1, $2.(*node.InnerArgumentList))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $2))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
 ;
@@ -2504,8 +2528,8 @@ callable_variable:
         }
     |   dereferencable T_OBJECT_OPERATOR property_name argument_list
         {
-            $$ = expr.NewMethodCall($1, $3, $4.nodes)
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeTokenPosition($1, $4.endToken))
+            $$ = expr.NewMethodCall($1, $3, $4.(*node.InnerArgumentList))
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   function_call                                   { $$ = $1; }

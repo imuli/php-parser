@@ -7,17 +7,17 @@ import (
 
 // StaticCall node
 type StaticCall struct {
-	Class     node.Node
-	Call      node.Node
-	Arguments []node.Node
+	Class             node.Node
+	Call              node.Node
+	InnerArgumentList *node.InnerArgumentList
 }
 
 // NewStaticCall node constructor
-func NewStaticCall(Class node.Node, Call node.Node, Arguments []node.Node) *StaticCall {
+func NewStaticCall(Class node.Node, Call node.Node, InnerArgumentList *node.InnerArgumentList) *StaticCall {
 	return &StaticCall{
 		Class,
 		Call,
-		Arguments,
+		InnerArgumentList,
 	}
 }
 
@@ -43,13 +43,9 @@ func (n *StaticCall) Walk(v walker.Visitor) {
 		n.Call.Walk(vv)
 	}
 
-	if n.Arguments != nil {
-		vv := v.GetChildrenVisitor("Arguments")
-		for _, nn := range n.Arguments {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerArgumentList != nil {
+		vv := v.GetChildrenVisitor("InnerArgumentList")
+		n.InnerArgumentList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

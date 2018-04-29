@@ -7,22 +7,22 @@ import (
 
 // Class node
 type Class struct {
-	PhpDocComment string
-	ClassName     node.Node
-	Modifiers     []node.Node
-	Args          []node.Node
-	Extends       node.Node
-	Implements    []node.Node
-	Stmts         []node.Node
+	PhpDocComment     string
+	ClassName         node.Node
+	Modifiers         []node.Node
+	InnerArgumentList *node.InnerArgumentList
+	Extends           node.Node
+	Implements        []node.Node
+	Stmts             []node.Node
 }
 
 // NewClass node constructor
-func NewClass(ClassName node.Node, Modifiers []node.Node, Args []node.Node, Extends node.Node, Implements []node.Node, Stmts []node.Node, PhpDocComment string) *Class {
+func NewClass(ClassName node.Node, Modifiers []node.Node, InnerArgumentList *node.InnerArgumentList, Extends node.Node, Implements []node.Node, Stmts []node.Node, PhpDocComment string) *Class {
 	return &Class{
 		PhpDocComment,
 		ClassName,
 		Modifiers,
-		Args,
+		InnerArgumentList,
 		Extends,
 		Implements,
 		Stmts,
@@ -57,13 +57,9 @@ func (n *Class) Walk(v walker.Visitor) {
 		}
 	}
 
-	if n.Args != nil {
-		vv := v.GetChildrenVisitor("Args")
-		for _, nn := range n.Args {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerArgumentList != nil {
+		vv := v.GetChildrenVisitor("InnerArgumentList")
+		n.InnerArgumentList.Walk(vv)
 	}
 
 	if n.Extends != nil {

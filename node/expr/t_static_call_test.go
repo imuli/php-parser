@@ -26,8 +26,10 @@ func TestStaticCall(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Call: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 		},
@@ -56,8 +58,10 @@ func TestStaticCallRelative(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Call: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 		},
@@ -86,8 +90,10 @@ func TestStaticCallFullyQualified(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Call: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 		},
@@ -116,8 +122,10 @@ func TestStaticCallVar(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					Arguments: []node.Node{},
+					Call: &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 		},
@@ -141,9 +149,11 @@ func TestStaticCallVarVar(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
-					Class:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					Call:      &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					Arguments: []node.Node{},
+					Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					Call:  &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 		},

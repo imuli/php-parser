@@ -146,10 +146,12 @@ var nodesToTest = []struct {
 	},
 	{
 		&expr.FunctionCall{
-			Function:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-			Arguments: []node.Node{&node.Argument{}},
+			Function: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+			InnerArgumentList: &node.InnerArgumentList{
+				ArgumentList: &node.ArgumentList{},
+			},
 		},
-		[]string{"Function", "Arguments"},
+		[]string{"Function", "InnerArgumentList"},
 		map[string]interface{}{},
 	},
 	{
@@ -194,19 +196,23 @@ var nodesToTest = []struct {
 	},
 	{
 		&expr.MethodCall{
-			Variable:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-			Method:    &node.Identifier{Value: "foo"},
-			Arguments: []node.Node{&node.Argument{}},
+			Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+			Method:   &node.Identifier{Value: "foo"},
+			InnerArgumentList: &node.InnerArgumentList{
+				ArgumentList: &node.ArgumentList{},
+			},
 		},
-		[]string{"Variable", "Method", "Arguments"},
+		[]string{"Variable", "Method", "InnerArgumentList"},
 		map[string]interface{}{},
 	},
 	{
 		&expr.New{
-			Class:     &name.Name{},
-			Arguments: []node.Node{&node.Argument{}},
+			Class: &name.Name{},
+			InnerArgumentList: &node.InnerArgumentList{
+				ArgumentList: &node.ArgumentList{},
+			},
 		},
-		[]string{"Class", "Arguments"},
+		[]string{"Class", "InnerArgumentList"},
 		map[string]interface{}{},
 	},
 	{
@@ -295,11 +301,13 @@ var nodesToTest = []struct {
 	},
 	{
 		&expr.StaticCall{
-			Class:     &name.Name{},
-			Call:      &node.Identifier{Value: "foo"},
-			Arguments: []node.Node{&node.Argument{}},
+			Class: &name.Name{},
+			Call:  &node.Identifier{Value: "foo"},
+			InnerArgumentList: &node.InnerArgumentList{
+				ArgumentList: &node.ArgumentList{},
+			},
 		},
-		[]string{"Class", "Call", "Arguments"},
+		[]string{"Class", "Call", "InnerArgumentList"},
 		map[string]interface{}{},
 	},
 	{

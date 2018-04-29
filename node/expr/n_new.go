@@ -7,15 +7,15 @@ import (
 
 // New node
 type New struct {
-	Class     node.Node
-	Arguments []node.Node
+	Class             node.Node
+	InnerArgumentList *node.InnerArgumentList
 }
 
 // NewNew node constructor
-func NewNew(Class node.Node, Arguments []node.Node) *New {
+func NewNew(Class node.Node, InnerArgumentList *node.InnerArgumentList) *New {
 	return &New{
 		Class,
-		Arguments,
+		InnerArgumentList,
 	}
 }
 
@@ -36,13 +36,9 @@ func (n *New) Walk(v walker.Visitor) {
 		n.Class.Walk(vv)
 	}
 
-	if n.Arguments != nil {
-		vv := v.GetChildrenVisitor("Arguments")
-		for _, nn := range n.Arguments {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerArgumentList != nil {
+		vv := v.GetChildrenVisitor("InnerArgumentList")
+		n.InnerArgumentList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

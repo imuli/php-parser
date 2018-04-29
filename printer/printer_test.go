@@ -1526,17 +1526,21 @@ func TestPrintFunctionCall(t *testing.T) {
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.FunctionCall{
 		Function: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
-		Arguments: []node.Node{
-			&node.Argument{
-				IsReference: true,
-				Expr:        &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-			},
-			&node.Argument{
-				Variadic: true,
-				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-			},
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
+		InnerArgumentList: &node.InnerArgumentList{
+			ArgumentList: &node.ArgumentList{
+				Arguments: []node.Node{
+					&node.Argument{
+						IsReference: true,
+						Expr:        &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					},
+					&node.Argument{
+						Variadic: true,
+						Expr:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					},
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
+					},
+				},
 			},
 		},
 	})
@@ -1651,13 +1655,16 @@ func TestPrintMethodCall(t *testing.T) {
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.MethodCall{
 		Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-		Method:   &node.Identifier{Value: "bar"},
-		Arguments: []node.Node{
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-			},
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+		Method:   &node.Identifier{Value: "bar"}, InnerArgumentList: &node.InnerArgumentList{
+			ArgumentList: &node.ArgumentList{
+				Arguments: []node.Node{
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					},
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					},
+				},
 			},
 		},
 	})
@@ -1675,13 +1682,16 @@ func TestPrintNew(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.New{
-		Class: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-		Arguments: []node.Node{
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-			},
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+		Class: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}}, InnerArgumentList: &node.InnerArgumentList{
+			ArgumentList: &node.ArgumentList{
+				Arguments: []node.Node{
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					},
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					},
+				},
 			},
 		},
 	})
@@ -1904,13 +1914,16 @@ func TestPrintStaticCall(t *testing.T) {
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.StaticCall{
 		Class: &node.Identifier{Value: "Foo"},
-		Call:  &node.Identifier{Value: "bar"},
-		Arguments: []node.Node{
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-			},
-			&node.Argument{
-				Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+		Call:  &node.Identifier{Value: "bar"}, InnerArgumentList: &node.InnerArgumentList{
+			ArgumentList: &node.ArgumentList{
+				Arguments: []node.Node{
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					},
+					&node.Argument{
+						Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					},
+				},
 			},
 		},
 	})
@@ -2542,13 +2555,16 @@ func TestPrintStmtAnonymousClass(t *testing.T) {
 			Stmts: &stmt.StmtList{
 				Stmts: []node.Node{
 					&stmt.Class{
-						Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
-						Args: []node.Node{
-							&node.Argument{
-								Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-							},
-							&node.Argument{
-								Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Modifiers: []node.Node{&node.Identifier{Value: "abstract"}}, InnerArgumentList: &node.InnerArgumentList{
+							ArgumentList: &node.ArgumentList{
+								Arguments: []node.Node{
+									&node.Argument{
+										Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+									},
+									&node.Argument{
+										Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+									},
+								},
 							},
 						},
 						Extends: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},

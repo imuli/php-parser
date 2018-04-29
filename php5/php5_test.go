@@ -434,18 +434,26 @@ func TestPhp5(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
 					Function: &name.Name{Parts: []node.Node{&name.NamePart{Value: "foo"}}},
-					Arguments: []node.Node{
-						&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
-						&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+							},
+						},
 					},
 				},
 			},
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
 					Function: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					Arguments: []node.Node{
-						&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
-						&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+							},
+						},
 					},
 				},
 			},
@@ -453,9 +461,13 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.MethodCall{
 					Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
 					Method:   &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{
-						&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
-						&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+							},
+						},
 					},
 				},
 			},
@@ -463,9 +475,13 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.StaticCall{
 					Class: &name.Name{Parts: []node.Node{&name.NamePart{Value: "foo"}}},
 					Call:  &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{
-						&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
-						&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+							},
+						},
 					},
 				},
 			},
@@ -473,18 +489,26 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.StaticCall{
 					Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
 					Call:  &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{
-						&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
-						&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+							},
+						},
 					},
 				},
 			},
 			&stmt.Expression{
 				Expr: &expr.New{
 					Class: &name.Name{Parts: []node.Node{&name.NamePart{Value: "foo"}}},
-					Arguments: []node.Node{
-						&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
-						&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+							},
+						},
 					},
 				},
 			},
@@ -665,9 +689,11 @@ func TestPhp5(t *testing.T) {
 					Parts: []node.Node{
 						&scalar.EncapsedStringPart{Value: "test "},
 						&expr.MethodCall{
-							Variable:  &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-							Method:    &node.Identifier{Value: "bar"},
-							Arguments: []node.Node{},
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+							Method:   &node.Identifier{Value: "bar"},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 					},
 				},
@@ -1134,7 +1160,9 @@ func TestPhp5(t *testing.T) {
 									&name.NamePart{Value: "foo"},
 								},
 							},
-							Arguments: []node.Node{},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 					},
 				},
@@ -2107,7 +2135,9 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "foo"},
 						},
 					},
-					Arguments: []node.Node{},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2117,11 +2147,15 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "foo"},
 						},
 					},
-					Arguments: []node.Node{
-						&node.Argument{
-							Variadic:    false,
-							IsReference: true,
-							Expr:        &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{
+									Variadic:    false,
+									IsReference: true,
+									Expr:        &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								},
+							},
 						},
 					},
 				},
@@ -2133,12 +2167,16 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "foo"},
 						},
 					},
-					Arguments: []node.Node{
-						&node.Argument{
-							Variadic:    false,
-							IsReference: false,
-							Expr: &expr.ShortArray{
-								Items: []node.Node{},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{
+									Variadic:    false,
+									IsReference: false,
+									Expr: &expr.ShortArray{
+										Items: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -2147,12 +2185,16 @@ func TestPhp5(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
 					Function: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					Arguments: []node.Node{
-						&node.Argument{
-							Variadic:    false,
-							IsReference: false,
-							Expr: &expr.Yield{
-								Value: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{
+							Arguments: []node.Node{
+								&node.Argument{
+									Variadic:    false,
+									IsReference: false,
+									Expr: &expr.Yield{
+										Value: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+									},
+								},
 							},
 						},
 					},
@@ -2307,9 +2349,11 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.Expression{
 				Expr: &expr.MethodCall{
-					Variable:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-					Method:    &node.Identifier{Value: "foo"},
-					Arguments: []node.Node{},
+					Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					Method:   &node.Identifier{Value: "foo"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2328,7 +2372,9 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Arguments: []node.Node{},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2338,7 +2384,9 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Arguments: []node.Node{},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2372,8 +2420,10 @@ func TestPhp5(t *testing.T) {
 								},
 								Property: &node.Identifier{Value: "bar"},
 							},
-							Method:    &node.Identifier{Value: "baz"},
-							Arguments: []node.Node{},
+							Method: &node.Identifier{Value: "baz"},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 						Property: &node.Identifier{Value: "quux"},
 					},
@@ -2384,9 +2434,11 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.ArrayDimFetch{
 					Variable: &expr.ArrayDimFetch{
 						Variable: &expr.MethodCall{
-							Variable:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-							Method:    &node.Identifier{Value: "foo"},
-							Arguments: []node.Node{},
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							Method:   &node.Identifier{Value: "foo"},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 						Dim: &scalar.Lnumber{Value: "1"},
 					},
@@ -2450,8 +2502,10 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Call: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2461,8 +2515,10 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Call: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2472,8 +2528,10 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Call: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2483,15 +2541,19 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Call:      &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					Arguments: []node.Node{},
+					Call: &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
-					Class:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					Call:      &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					Arguments: []node.Node{},
+					Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					Call:  &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2841,11 +2903,15 @@ func TestPhp5(t *testing.T) {
 								&name.NamePart{Value: "Foo"},
 							},
 						},
-						Arguments: []node.Node{
-							&node.Argument{
-								Variadic:    false,
-								IsReference: false,
-								Expr:        &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						InnerArgumentList: &node.InnerArgumentList{
+							ArgumentList: &node.ArgumentList{
+								Arguments: []node.Node{
+									&node.Argument{
+										Variadic:    false,
+										IsReference: false,
+										Expr:        &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+									},
+								},
 							},
 						},
 					},
@@ -2936,7 +3002,9 @@ func TestPhp5(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					Arguments: []node.Node{},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -2948,10 +3016,14 @@ func TestPhp5(t *testing.T) {
 									&name.NamePart{Value: "Foo"},
 								},
 							},
-							Arguments: []node.Node{},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
-						Method:    &node.Identifier{Value: "bar"},
-						Arguments: []node.Node{},
+						Method: &node.Identifier{Value: "bar"},
+						InnerArgumentList: &node.InnerArgumentList{
+							ArgumentList: &node.ArgumentList{},
+						},
 					},
 					Property: &node.Identifier{Value: "baz"},
 				},
@@ -2965,7 +3037,9 @@ func TestPhp5(t *testing.T) {
 									&name.NamePart{Value: "Foo"},
 								},
 							},
-							Arguments: []node.Node{},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 						Dim: &scalar.Lnumber{Value: "0"},
 					},
@@ -2981,12 +3055,16 @@ func TestPhp5(t *testing.T) {
 									&name.NamePart{Value: "Foo"},
 								},
 							},
-							Arguments: []node.Node{},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 						Dim: &scalar.Lnumber{Value: "0"},
 					},
-					Method:    &node.Identifier{Value: "bar"},
-					Arguments: []node.Node{},
+					Method: &node.Identifier{Value: "bar"},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -3600,16 +3678,20 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
-					Function:  &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					Arguments: []node.Node{},
+					Function: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{
 				Expr: &expr.ArrayDimFetch{
 					Variable: &expr.ArrayDimFetch{
 						Variable: &expr.FunctionCall{
-							Function:  &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-							Arguments: []node.Node{},
+							Function: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 						Dim: &scalar.Lnumber{Value: "0"},
 					},
@@ -3627,9 +3709,11 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
-					Class:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					Call:      &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					Arguments: []node.Node{},
+					Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					Call:  &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
+					InnerArgumentList: &node.InnerArgumentList{
+						ArgumentList: &node.ArgumentList{},
+					},
 				},
 			},
 			&stmt.Expression{

@@ -44,6 +44,22 @@ var nodesToTest = []struct {
 		[]string{"VariableType", "Variable", "DefaultValue"},
 		map[string]interface{}{"ByRef": false, "Variadic": true},
 	},
+	{
+		&node.ArgumentList{
+			Arguments: []node.Node{
+				&node.Argument{},
+			},
+		},
+		[]string{"Arguments"},
+		map[string]interface{}{},
+	},
+	{
+		&node.InnerArgumentList{
+			ArgumentList: &node.ArgumentList{},
+		},
+		[]string{"ArgumentList"},
+		map[string]interface{}{},
+	},
 }
 
 type visitorMock struct {

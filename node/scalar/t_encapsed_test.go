@@ -221,9 +221,11 @@ func TestCurlyOpenMethodCall(t *testing.T) {
 					Parts: []node.Node{
 						&scalar.EncapsedStringPart{Value: "test "},
 						&expr.MethodCall{
-							Variable:  &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-							Method:    &node.Identifier{Value: "bar"},
-							Arguments: []node.Node{},
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+							Method:   &node.Identifier{Value: "bar"},
+							InnerArgumentList: &node.InnerArgumentList{
+								ArgumentList: &node.ArgumentList{},
+							},
 						},
 					},
 				},
