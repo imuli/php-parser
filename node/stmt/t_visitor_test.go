@@ -59,11 +59,11 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Catch{
-			Types:    []node.Node{&stmt.Expression{}},
-			Variable: &expr.Variable{},
-			Stmts:    []node.Node{&stmt.Expression{}},
+			Types:         []node.Node{&stmt.Expression{}},
+			Variable:      &expr.Variable{},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
 		},
-		[]string{"Types", "Variable", "Stmts"},
+		[]string{"Types", "Variable", "InnerStmtList"},
 		map[string]interface{}{},
 	},
 	{
@@ -197,9 +197,9 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Finally{
-			Stmts: []node.Node{&stmt.Expression{}},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
 		},
-		[]string{"Stmts"},
+		[]string{"InnerStmtList"},
 		map[string]interface{}{},
 	},
 	{

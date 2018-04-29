@@ -1484,7 +1484,7 @@ func (p *Printer) printStmtCatch(n node.Node) {
 	io.WriteString(p.w, " ")
 	p.Print(nn.Variable)
 	io.WriteString(p.w, ") {\n")
-	p.printNodes(nn.Stmts)
+	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1715,7 +1715,7 @@ func (p *Printer) printStmtFinally(n node.Node) {
 	nn := n.(*stmt.Finally)
 
 	io.WriteString(p.w, "finally {\n")
-	p.printNodes(nn.Stmts)
+	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")

@@ -3918,7 +3918,11 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -3940,7 +3944,11 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 					&stmt.Catch{
 						Types: []node.Node{
@@ -3953,7 +3961,11 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -3975,7 +3987,11 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 					&stmt.Catch{
 						Types: []node.Node{
@@ -3988,7 +4004,11 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 					&stmt.Catch{
 						Types: []node.Node{
@@ -4001,7 +4021,11 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -4023,11 +4047,19 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 				Finally: &stmt.Finally{
-					Stmts: []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 		},

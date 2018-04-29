@@ -864,15 +864,19 @@ catch_statement:
     |   T_CATCH '(' fully_qualified_class_name T_VARIABLE ')' '{' inner_statement_list '}' additional_catches
             {
                 identifier := node.NewIdentifier(strings.TrimLeft($4.Value, "$"))
-                yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).comments.AddComments(identifier, $4.Comments())
-                
                 variable := expr.NewVariable(identifier)
+                stmtList := stmt.NewStmtList($7)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                catch := stmt.NewCatch([]node.Node{$3}, variable, innerStmtList)
+
+                yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).comments.AddComments(variable, $4.Comments())
-                
-                catch := stmt.NewCatch([]node.Node{$3}, variable, $7)
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
                 yylex.(*Parser).positions.AddPosition(catch, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
+                
+                yylex.(*Parser).comments.AddComments(identifier, $4.Comments())
+                yylex.(*Parser).comments.AddComments(variable, $4.Comments())
                 yylex.(*Parser).comments.AddComments(catch, $1.Comments())
 
                 $$ = append([]node.Node{catch}, $9...)
@@ -883,8 +887,14 @@ finally_statement:
             { $$ = nil }
     |   T_FINALLY '{' inner_statement_list '}'
             {
-                $$ = stmt.NewFinally($3)
+                stmtList := stmt.NewStmtList($3)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewFinally(innerStmtList)
+
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
+                
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
 ;
@@ -907,15 +917,19 @@ additional_catch:
         T_CATCH '(' fully_qualified_class_name T_VARIABLE ')' '{' inner_statement_list '}'
             {
                 identifier := node.NewIdentifier(strings.TrimLeft($4.Value, "$"))
-                yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).comments.AddComments(identifier, $4.Comments())
-                
                 variable := expr.NewVariable(identifier)
+                stmtList := stmt.NewStmtList($7)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewCatch([]node.Node{$3}, variable, innerStmtList)
+
+                yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).comments.AddComments(variable, $4.Comments())
-                
-                $$ = stmt.NewCatch([]node.Node{$3}, variable, $7)
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
+
+                yylex.(*Parser).comments.AddComments(identifier, $4.Comments())
+                yylex.(*Parser).comments.AddComments(variable, $4.Comments())
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
 ;

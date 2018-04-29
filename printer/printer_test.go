@@ -2444,8 +2444,13 @@ func TestPrintStmtCatch(t *testing.T) {
 							&name.FullyQualified{Parts: []node.Node{&name.NamePart{Value: "RuntimeException"}}},
 						},
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "e"}},
-						Stmts: []node.Node{
-							&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{
+
+									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								},
+							},
 						},
 					},
 				},
@@ -3002,8 +3007,12 @@ func TestPrintStmtFinally(t *testing.T) {
 			Stmts: &stmt.StmtList{
 				Stmts: []node.Node{
 					&stmt.Finally{
-						Stmts: []node.Node{
-							&stmt.Nop{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{
+									&stmt.Nop{},
+								},
+							},
 						},
 					},
 				},
@@ -3987,14 +3996,23 @@ func TestPrintStmtTry(t *testing.T) {
 									&name.FullyQualified{Parts: []node.Node{&name.NamePart{Value: "RuntimeException"}}},
 								},
 								Variable: &expr.Variable{VarName: &node.Identifier{Value: "e"}},
-								Stmts: []node.Node{
-									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{
+
+											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+										},
+									},
 								},
 							},
 						},
 						Finally: &stmt.Finally{
-							Stmts: []node.Node{
-								&stmt.Nop{},
+							InnerStmtList: &stmt.InnerStmtList{
+								Stmts: &stmt.StmtList{
+									Stmts: []node.Node{
+										&stmt.Nop{},
+									},
+								},
 							},
 						},
 					},

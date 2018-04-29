@@ -229,7 +229,11 @@ func TestResolveInstanceCatch(t *testing.T) {
 							nameF,
 						},
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-						Stmts:    []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
