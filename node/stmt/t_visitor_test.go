@@ -296,9 +296,9 @@ var nodesToTest = []struct {
 			PhpDocComment: "/** */",
 			InterfaceName: &node.Identifier{},
 			Extends:       []node.Node{&stmt.Expression{}},
-			Stmts:         []node.Node{&stmt.Expression{}},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
 		},
-		[]string{"InterfaceName", "Extends", "Stmts"},
+		[]string{"InterfaceName", "Extends", "InnerStmtList"},
 		map[string]interface{}{"PhpDocComment": "/** */"},
 	},
 	{

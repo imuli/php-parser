@@ -3499,13 +3499,17 @@ func TestPrintInterface(t *testing.T) {
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Baz"}}},
 						},
-						Stmts: []node.Node{
-							&stmt.ClassMethod{
-								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-								MethodName: &node.Identifier{Value: "foo"},
-								Params:     []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
 								Stmts: []node.Node{
-									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+									&stmt.ClassMethod{
+										Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
+										MethodName: &node.Identifier{Value: "foo"},
+										Params:     []node.Node{},
+										Stmts: []node.Node{
+											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+										},
+									},
 								},
 							},
 						},

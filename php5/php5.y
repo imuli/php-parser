@@ -1025,11 +1025,16 @@ unticked_class_declaration_statement:
     |   interface_entry T_STRING interface_extends_list '{' class_statement_list '}'
             {
                 name := node.NewIdentifier($2.Value)
-                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-                yylex.(*Parser).comments.AddComments(name, $2.Comments())
+                stmtList := stmt.NewStmtList($5)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewInterface(name, $3, innerStmtList, "")
                 
-                $$ = stmt.NewInterface(name, $3, $5, "")
+                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $6))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $6))
+                
+                yylex.(*Parser).comments.AddComments(name, $2.Comments())
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
 ;

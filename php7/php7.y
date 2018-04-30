@@ -1127,8 +1127,13 @@ interface_declaration_statement:
     T_INTERFACE T_STRING interface_extends_list backup_doc_comment '{' class_statement_list '}'
         {
             name := node.NewIdentifier($2.Value)
+            stmtList := stmt.NewStmtList($6)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewInterface(name, $3, innerStmtList, $4)
+            
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-            $$ = stmt.NewInterface(name, $3, $6, $4)
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $7))
             
             yylex.(*Parser).comments.AddComments(name, $2.Comments())

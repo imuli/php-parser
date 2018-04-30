@@ -868,7 +868,11 @@ func TestPhp5(t *testing.T) {
 			&stmt.Interface{
 				PhpDocComment: "",
 				InterfaceName: &node.Identifier{Value: "Foo"},
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Interface{
 				PhpDocComment: "",
@@ -880,7 +884,11 @@ func TestPhp5(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Interface{
 				PhpDocComment: "",
@@ -897,7 +905,11 @@ func TestPhp5(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Namespace{
 				NamespaceName: &name.Name{

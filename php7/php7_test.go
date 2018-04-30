@@ -968,7 +968,11 @@ func TestPhp7(t *testing.T) {
 			&stmt.Interface{
 				PhpDocComment: "",
 				InterfaceName: &node.Identifier{Value: "Foo"},
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Interface{
 				PhpDocComment: "",
@@ -980,7 +984,11 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Interface{
 				PhpDocComment: "",
@@ -997,7 +1005,11 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Namespace{
 				NamespaceName: &name.Name{
@@ -3753,7 +3765,11 @@ func TestFunctionStmts(t *testing.T) {
 							},
 							&stmt.Interface{
 								InterfaceName: &node.Identifier{Value: "Quuux"},
-								Stmts:         []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
