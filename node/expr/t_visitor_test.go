@@ -97,9 +97,9 @@ var nodesToTest = []struct {
 			Params:        []node.Node{&node.Parameter{}},
 			Uses:          []node.Node{&expr.ClosureUse{}},
 			ReturnType:    &name.Name{},
-			Stmts:         []node.Node{&stmt.Nop{}},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
 		},
-		[]string{"Params", "Uses", "ReturnType", "Stmts"},
+		[]string{"Params", "Uses", "ReturnType", "InnerStmtList"},
 		map[string]interface{}{"ReturnsRef": true, "Static": false, "PhpDocComment": ""},
 	},
 	{

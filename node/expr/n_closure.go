@@ -2,6 +2,7 @@ package expr
 
 import (
 	"github.com/z7zmey/php-parser/node"
+	"github.com/z7zmey/php-parser/node/stmt"
 	"github.com/z7zmey/php-parser/walker"
 )
 
@@ -13,11 +14,11 @@ type Closure struct {
 	Params        []node.Node
 	Uses          []node.Node
 	ReturnType    node.Node
-	Stmts         []node.Node
+	InnerStmtList *stmt.InnerStmtList
 }
 
 // NewClosure node constructor
-func NewClosure(Params []node.Node, Uses []node.Node, ReturnType node.Node, Stmts []node.Node, Static bool, ReturnsRef bool, PhpDocComment string) *Closure {
+func NewClosure(Params []node.Node, Uses []node.Node, ReturnType node.Node, InnerStmtList *stmt.InnerStmtList, Static bool, ReturnsRef bool, PhpDocComment string) *Closure {
 	return &Closure{
 		ReturnsRef,
 		Static,
@@ -25,7 +26,7 @@ func NewClosure(Params []node.Node, Uses []node.Node, ReturnType node.Node, Stmt
 		Params,
 		Uses,
 		ReturnType,
-		Stmts,
+		InnerStmtList,
 	}
 }
 
@@ -68,13 +69,9 @@ func (n *Closure) Walk(v walker.Visitor) {
 		n.ReturnType.Walk(vv)
 	}
 
-	if n.Stmts != nil {
-		vv := v.GetChildrenVisitor("Stmts")
-		for _, nn := range n.Stmts {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerStmtList != nil {
+		vv := v.GetChildrenVisitor("InnerStmtList")
+		n.InnerStmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

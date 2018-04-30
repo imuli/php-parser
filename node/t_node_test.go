@@ -335,7 +335,11 @@ func TestPhp7ParameterNode(t *testing.T) {
 				Expr: &expr.Closure{
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					Stmts:  []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -343,7 +347,11 @@ func TestPhp7ParameterNode(t *testing.T) {
 					Static: true,
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					Stmts:  []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 		},
@@ -411,7 +419,11 @@ func TestPhp5ParameterNode(t *testing.T) {
 				Expr: &expr.Closure{
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					Stmts:  []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -419,7 +431,11 @@ func TestPhp5ParameterNode(t *testing.T) {
 					Static: true,
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					Stmts:  []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 		},

@@ -2443,14 +2443,24 @@ expr_without_variable:
             }
     |   function is_reference '(' parameter_list ')' lexical_vars '{' inner_statement_list '}'
             {
-                $$ = expr.NewClosure($4, $6, nil, $8, false, $2.value, "")
+                stmtList := stmt.NewStmtList($8)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = expr.NewClosure($4, $6, nil, innerStmtList, false, $2.value, "")
+
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $9))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
     |   T_STATIC function is_reference '(' parameter_list ')' lexical_vars '{' inner_statement_list '}'
             {
-                $$ = expr.NewClosure($5, $7, nil, $9, true, $3.value, "")
+                stmtList := stmt.NewStmtList($9)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = expr.NewClosure($5, $7, nil, innerStmtList, true, $3.value, "")
+
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($9))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($8, $10))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $10))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())

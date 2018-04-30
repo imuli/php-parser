@@ -474,7 +474,11 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.Closure{
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					Stmts:  []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -482,7 +486,11 @@ func TestPhp5(t *testing.T) {
 					Static: true,
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					Stmts:  []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -1568,7 +1576,11 @@ func TestPhp5(t *testing.T) {
 					Static:        false,
 					PhpDocComment: "",
 					Uses:          []node.Node{},
-					Stmts:         []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -1598,7 +1610,11 @@ func TestPhp5(t *testing.T) {
 							Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}},
 						},
 					},
-					Stmts: []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -1628,7 +1644,11 @@ func TestPhp5(t *testing.T) {
 							Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}},
 						},
 					},
-					Stmts: []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
@@ -1637,7 +1657,11 @@ func TestPhp5(t *testing.T) {
 					Static:        false,
 					PhpDocComment: "",
 					Uses:          []node.Node{},
-					Stmts:         []node.Node{},
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: &stmt.StmtList{
+							Stmts: []node.Node{},
+						},
+					},
 				},
 			},
 			&stmt.Expression{
