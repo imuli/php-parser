@@ -20,11 +20,15 @@ func TestSimpleClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						MethodName:    &node.Identifier{Value: "bar"},
-						Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								MethodName:    &node.Identifier{Value: "bar"},
+								Stmts:         []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -50,25 +54,29 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    false,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "final"},
-							&node.Identifier{Value: "private"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    false,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "final"},
+									&node.Identifier{Value: "private"},
+								},
+								Stmts: []node.Node{},
+							},
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    false,
+								MethodName:    &node.Identifier{Value: "baz"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "protected"},
+								},
+								Stmts: []node.Node{},
+							},
 						},
-						Stmts: []node.Node{},
-					},
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    false,
-						MethodName:    &node.Identifier{Value: "baz"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "protected"},
-						},
-						Stmts: []node.Node{},
 					},
 				},
 			},
@@ -94,16 +102,20 @@ func TestPhp5ClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    true,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    true,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								Stmts: []node.Node{},
+							},
 						},
-						Stmts: []node.Node{},
 					},
 				},
 			},
@@ -124,21 +136,25 @@ func TestPhp7ClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    true,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
-						},
-						ReturnType: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "void"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    true,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								ReturnType: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "void"},
+									},
+								},
+								Stmts: []node.Node{},
 							},
 						},
-						Stmts: []node.Node{},
 					},
 				},
 			},
@@ -160,14 +176,18 @@ func TestAbstractClassMethod(t *testing.T) {
 			&stmt.Class{
 				Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
 				ClassName: &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    false,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "abstract"},
-							&node.Identifier{Value: "public"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    false,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "abstract"},
+									&node.Identifier{Value: "public"},
+								},
+							},
 						},
 					},
 				},
@@ -195,17 +215,21 @@ func TestPhp7AbstractClassMethod(t *testing.T) {
 			&stmt.Class{
 				Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
 				ClassName: &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    false,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-						},
-						ReturnType: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "void"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    false,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+								},
+								ReturnType: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "void"},
+									},
+								},
 							},
 						},
 					},

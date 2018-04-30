@@ -20,21 +20,25 @@ func TestClassConstList(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassConstList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-						},
-						Consts: []node.Node{
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "FOO"},
-								Expr:          &scalar.Lnumber{Value: "1"},
-							},
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "BAR"},
-								Expr:          &scalar.Lnumber{Value: "2"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassConstList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+								},
+								Consts: []node.Node{
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "FOO"},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "BAR"},
+										Expr:          &scalar.Lnumber{Value: "2"},
+									},
+								},
 							},
 						},
 					},
@@ -57,18 +61,22 @@ func TestClassConstListWithoutModifiers(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassConstList{
-						Consts: []node.Node{
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "FOO"},
-								Expr:          &scalar.Lnumber{Value: "1"},
-							},
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "BAR"},
-								Expr:          &scalar.Lnumber{Value: "2"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassConstList{
+								Consts: []node.Node{
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "FOO"},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "BAR"},
+										Expr:          &scalar.Lnumber{Value: "2"},
+									},
+								},
 							},
 						},
 					},

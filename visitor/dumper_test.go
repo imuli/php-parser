@@ -66,62 +66,68 @@ func ExampleDumper() {
 	//|                     [*node.Identifier]
 	//|                       "Position": Pos{Line: 4-4 Pos: 35-37};
 	//|                       "Value": Bar;
-	//|                   "Stmts":
-	//|                     [*stmt.ClassMethod]
-	//|                       "Position": Pos{Line: 5-9 Pos: 45-134};
-	//|                       "ReturnsRef": false;
-	//|                       "PhpDocComment": ;
-	//|                       "MethodName":
-	//|                         [*node.Identifier]
-	//|                           "Position": Pos{Line: 5-5 Pos: 61-72};
-	//|                           "Value": FunctionName;
-	//|                       "Modifiers":
-	//|                         [*node.Identifier]
-	//|                           "Position": Pos{Line: 5-5 Pos: 45-50};
-	//|                           "Value": public;
-	//|                       "Params":
-	//|                         [*node.Parameter]
-	//|                           "Position": Pos{Line: 5-5 Pos: 74-89};
-	//|                           "ByRef": false;
-	//|                           "Variadic": false;
-	//|                           "VariableType":
-	//|                             [*name.Name]
-	//|                               "Position": Pos{Line: 5-5 Pos: 74-77};
-	//|                               "NamespacedName": Foo\Type;
-	//|                               "Parts":
-	//|                                 [*name.NamePart]
-	//|                                   "Position": Pos{Line: 5-5 Pos: 74-77};
-	//|                                   "Value": Type;
-	//|                           "Variable":
-	//|                             [*expr.Variable]
-	//|                               "Position": Pos{Line: 5-5 Pos: 79-82};
-	//|                               "VarName":
-	//|                                 [*node.Identifier]
-	//|                                   "Position": Pos{Line: 5-5 Pos: 79-82};
-	//|                                   "Value": var;
-	//|                           "DefaultValue":
-	//|                             [*expr.ConstFetch]
-	//|                               "Position": Pos{Line: 5-5 Pos: 86-89};
-	//|                               "Constant":
-	//|                                 [*name.Name]
-	//|                                   "Position": Pos{Line: 5-5 Pos: 86-89};
-	//|                                   "NamespacedName": Foo\null;
-	//|                                   "Parts":
-	//|                                     [*name.NamePart]
-	//|                                       "Position": Pos{Line: 5-5 Pos: 86-89};
-	//|                                       "Value": null;
+	//|                   "InnerStmtList":
+	//|                     [*stmt.InnerStmtList]
+	//|                       "Position": Pos{Line: 4-10 Pos: 39-139};
 	//|                       "Stmts":
-	//|                         [*stmt.Expression]
-	//|                           "Position": Pos{Line: 8-8 Pos: 124-128};
-	//|                           "Comments":
-	//|                             "// some comment\n"
-	//|                           "Expr":
-	//|                             [*expr.Variable]
-	//|                               "Position": Pos{Line: 8-8 Pos: 124-127};
-	//|                               "VarName":
+	//|                         [*stmt.StmtList]
+	//|                           "Position": Pos{Line: 5-9 Pos: 45-134};
+	//|                           "Stmts":
+	//|                             [*stmt.ClassMethod]
+	//|                               "Position": Pos{Line: 5-9 Pos: 45-134};
+	//|                               "ReturnsRef": false;
+	//|                               "PhpDocComment": ;
+	//|                               "MethodName":
 	//|                                 [*node.Identifier]
-	//|                                   "Position": Pos{Line: 8-8 Pos: 124-127};
+	//|                                   "Position": Pos{Line: 5-5 Pos: 61-72};
+	//|                                   "Value": FunctionName;
+	//|                               "Modifiers":
+	//|                                 [*node.Identifier]
+	//|                                   "Position": Pos{Line: 5-5 Pos: 45-50};
+	//|                                   "Value": public;
+	//|                               "Params":
+	//|                                 [*node.Parameter]
+	//|                                   "Position": Pos{Line: 5-5 Pos: 74-89};
+	//|                                   "ByRef": false;
+	//|                                   "Variadic": false;
+	//|                                   "VariableType":
+	//|                                     [*name.Name]
+	//|                                       "Position": Pos{Line: 5-5 Pos: 74-77};
+	//|                                       "NamespacedName": Foo\Type;
+	//|                                       "Parts":
+	//|                                         [*name.NamePart]
+	//|                                           "Position": Pos{Line: 5-5 Pos: 74-77};
+	//|                                           "Value": Type;
+	//|                                   "Variable":
+	//|                                     [*expr.Variable]
+	//|                                       "Position": Pos{Line: 5-5 Pos: 79-82};
+	//|                                       "VarName":
+	//|                                         [*node.Identifier]
+	//|                                           "Position": Pos{Line: 5-5 Pos: 79-82};
+	//|                                           "Value": var;
+	//|                                   "DefaultValue":
+	//|                                     [*expr.ConstFetch]
+	//|                                       "Position": Pos{Line: 5-5 Pos: 86-89};
+	//|                                       "Constant":
+	//|                                         [*name.Name]
+	//|                                           "Position": Pos{Line: 5-5 Pos: 86-89};
+	//|                                           "NamespacedName": Foo\null;
+	//|                                           "Parts":
+	//|                                             [*name.NamePart]
+	//|                                               "Position": Pos{Line: 5-5 Pos: 86-89};
+	//|                                               "Value": null;
+	//|                               "Stmts":
+	//|                                 [*stmt.Expression]
+	//|                                   "Position": Pos{Line: 8-8 Pos: 124-128};
 	//|                                   "Comments":
 	//|                                     "// some comment\n"
-	//|                                   "Value": var;
+	//|                                   "Expr":
+	//|                                     [*expr.Variable]
+	//|                                       "Position": Pos{Line: 8-8 Pos: 124-127};
+	//|                                       "VarName":
+	//|                                         [*node.Identifier]
+	//|                                           "Position": Pos{Line: 8-8 Pos: 124-127};
+	//|                                           "Comments":
+	//|                                             "// some comment\n"
+	//|                                           "Value": var;
 }

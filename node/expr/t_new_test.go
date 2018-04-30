@@ -121,7 +121,11 @@ func TestNewAnonymous(t *testing.T) {
 								},
 							},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},

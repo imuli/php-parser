@@ -21,7 +21,11 @@ func TestSimpleClass(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts:     []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}
@@ -48,7 +52,11 @@ func TestAbstractClass(t *testing.T) {
 				Modifiers: []node.Node{
 					&node.Identifier{Value: "abstract"},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}
@@ -80,7 +88,11 @@ func TestClassExtends(t *testing.T) {
 						&name.NamePart{Value: "bar"},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}
@@ -114,7 +126,11 @@ func TestClassImplement(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}
@@ -153,7 +169,11 @@ func TestClassImplements(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}
@@ -198,7 +218,11 @@ func TestAnonimousClass(t *testing.T) {
 								},
 							},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},

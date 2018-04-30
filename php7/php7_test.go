@@ -427,7 +427,11 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -435,7 +439,11 @@ func TestPhp7(t *testing.T) {
 				Expr: &expr.New{
 					Class: &stmt.Class{
 						PhpDocComment: "",
-						Stmts:         []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -486,12 +494,16 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						MethodName: &node.Identifier{Value: "foo"},
-						Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-						Params:     expectedParams,
-						Stmts:      []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								MethodName: &node.Identifier{Value: "foo"},
+								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
+								Params:     expectedParams,
+								Stmts:      []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -698,40 +710,25 @@ func TestPhp7(t *testing.T) {
 
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassConstList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-						},
-						Consts: []node.Node{
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "FOO"},
-								Expr:          &scalar.Lnumber{Value: "1"},
-							},
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "BAR"},
-								Expr:          &scalar.Lnumber{Value: "2"},
-							},
-						},
-					},
-				},
-			},
-			&stmt.Class{
-				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassConstList{
-						Consts: []node.Node{
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "FOO"},
-								Expr:          &scalar.Lnumber{Value: "1"},
-							},
-							&stmt.Constant{
-								PhpDocComment: "",
-								ConstantName:  &node.Identifier{Value: "BAR"},
-								Expr:          &scalar.Lnumber{Value: "2"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassConstList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+								},
+								Consts: []node.Node{
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "FOO"},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "BAR"},
+										Expr:          &scalar.Lnumber{Value: "2"},
+									},
+								},
 							},
 						},
 					},
@@ -739,46 +736,81 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						MethodName:    &node.Identifier{Value: "bar"},
-						Stmts:         []node.Node{},
-					},
-				},
-			},
-			&stmt.Class{
-				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    true,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
-						},
-						Stmts: []node.Node{},
-					},
-				},
-			},
-			&stmt.Class{
-				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						PhpDocComment: "",
-						ReturnsRef:    true,
-						MethodName:    &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
-						},
-						ReturnType: &name.Name{
-							Parts: []node.Node{
-								&name.NamePart{Value: "void"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassConstList{
+								Consts: []node.Node{
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "FOO"},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+									&stmt.Constant{
+										PhpDocComment: "",
+										ConstantName:  &node.Identifier{Value: "BAR"},
+										Expr:          &scalar.Lnumber{Value: "2"},
+									},
+								},
 							},
 						},
-						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Class{
+				ClassName: &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								MethodName:    &node.Identifier{Value: "bar"},
+								Stmts:         []node.Node{},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				ClassName: &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    true,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								Stmts: []node.Node{},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				ClassName: &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    true,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								ReturnType: &name.Name{
+									Parts: []node.Node{
+										&name.NamePart{Value: "void"},
+									},
+								},
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -787,7 +819,11 @@ func TestPhp7(t *testing.T) {
 				Modifiers: []node.Node{
 					&node.Identifier{Value: "abstract"},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -799,7 +835,11 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "bar"},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -813,7 +853,11 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -832,7 +876,11 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Expression{
 				Expr: &expr.New{
@@ -857,7 +905,11 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -967,15 +1019,19 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.PropertyList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "var"},
-						},
-						Properties: []node.Node{
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.PropertyList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "var"},
+								},
+								Properties: []node.Node{
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+									},
+								},
 							},
 						},
 					},
@@ -983,21 +1039,25 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.PropertyList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
-						},
-						Properties: []node.Node{
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-							},
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-								Expr:          &scalar.Lnumber{Value: "1"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.PropertyList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								Properties: []node.Node{
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+									},
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+								},
 							},
 						},
 					},
@@ -1100,66 +1160,15 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-						},
-					},
-				},
-			},
-			&stmt.Class{
-				PhpDocComment: "",
-				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Baz"},
-								},
-							},
-						},
-						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-							TraitAdaptationList: &stmt.TraitAdaptationList{},
-						},
-					},
-				},
-			},
-			&stmt.Class{
-				PhpDocComment: "",
-				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Baz"},
-								},
-							},
-						},
-						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-							TraitAdaptationList: &stmt.TraitAdaptationList{
-								Adaptations: []node.Node{
-									&stmt.TraitUseAlias{
-										Ref: &stmt.TraitMethodRef{
-											Method: &node.Identifier{Value: "one"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.TraitUse{
+								Traits: []node.Node{
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Bar"},
 										},
-										Alias: &node.Identifier{Value: "include"},
 									},
 								},
 							},
@@ -1170,29 +1179,24 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Baz"},
-								},
-							},
-						},
-						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-							TraitAdaptationList: &stmt.TraitAdaptationList{
-								Adaptations: []node.Node{
-									&stmt.TraitUseAlias{
-										Ref: &stmt.TraitMethodRef{
-											Method: &node.Identifier{Value: "one"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.TraitUse{
+								Traits: []node.Node{
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Bar"},
 										},
-										Modifier: &node.Identifier{Value: "public"},
 									},
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Baz"},
+										},
+									},
+								},
+								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+									TraitAdaptationList: &stmt.TraitAdaptationList{},
 								},
 							},
 						},
@@ -1202,88 +1206,168 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Baz"},
-								},
-							},
-						},
-						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-							TraitAdaptationList: &stmt.TraitAdaptationList{
-								Adaptations: []node.Node{
-									&stmt.TraitUseAlias{
-										Ref: &stmt.TraitMethodRef{
-											Method: &node.Identifier{Value: "one"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.TraitUse{
+								Traits: []node.Node{
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Bar"},
 										},
-										Modifier: &node.Identifier{Value: "public"},
-										Alias:    &node.Identifier{Value: "two"},
+									},
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Baz"},
+										},
 									},
 								},
-							},
-						},
-					},
-				},
-			},
-			&stmt.Class{
-				PhpDocComment: "",
-				ClassName:     &node.Identifier{Value: "Foo"},
-				Stmts: []node.Node{
-					&stmt.TraitUse{
-						Traits: []node.Node{
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Bar"},
-								},
-							},
-							&name.Name{
-								Parts: []node.Node{
-									&name.NamePart{Value: "Baz"},
-								},
-							},
-						},
-						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-							TraitAdaptationList: &stmt.TraitAdaptationList{
-								Adaptations: []node.Node{
-									&stmt.TraitUsePrecedence{
-										Ref: &stmt.TraitMethodRef{
-											Trait: &name.Name{
-												Parts: []node.Node{
-													&name.NamePart{Value: "Bar"},
+								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+									TraitAdaptationList: &stmt.TraitAdaptationList{
+										Adaptations: []node.Node{
+											&stmt.TraitUseAlias{
+												Ref: &stmt.TraitMethodRef{
+													Method: &node.Identifier{Value: "one"},
 												},
-											},
-											Method: &node.Identifier{Value: "one"},
-										},
-										Insteadof: []node.Node{
-											&name.Name{
-												Parts: []node.Node{
-													&name.NamePart{Value: "Baz"},
-												},
-											},
-											&name.Name{
-												Parts: []node.Node{
-													&name.NamePart{Value: "Quux"},
-												},
+												Alias: &node.Identifier{Value: "include"},
 											},
 										},
 									},
-									&stmt.TraitUseAlias{
-										Ref: &stmt.TraitMethodRef{
-											Trait: &name.Name{
-												Parts: []node.Node{
-													&name.NamePart{Value: "Baz"},
+								},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				PhpDocComment: "",
+				ClassName:     &node.Identifier{Value: "Foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.TraitUse{
+								Traits: []node.Node{
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Bar"},
+										},
+									},
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Baz"},
+										},
+									},
+								},
+								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+									TraitAdaptationList: &stmt.TraitAdaptationList{
+										Adaptations: []node.Node{
+											&stmt.TraitUseAlias{
+												Ref: &stmt.TraitMethodRef{
+													Method: &node.Identifier{Value: "one"},
+												},
+												Modifier: &node.Identifier{Value: "public"},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				PhpDocComment: "",
+				ClassName:     &node.Identifier{Value: "Foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.TraitUse{
+								Traits: []node.Node{
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Bar"},
+										},
+									},
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Baz"},
+										},
+									},
+								},
+								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+									TraitAdaptationList: &stmt.TraitAdaptationList{
+										Adaptations: []node.Node{
+											&stmt.TraitUseAlias{
+												Ref: &stmt.TraitMethodRef{
+													Method: &node.Identifier{Value: "one"},
+												},
+												Modifier: &node.Identifier{Value: "public"},
+												Alias:    &node.Identifier{Value: "two"},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				PhpDocComment: "",
+				ClassName:     &node.Identifier{Value: "Foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.TraitUse{
+								Traits: []node.Node{
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Bar"},
+										},
+									},
+									&name.Name{
+										Parts: []node.Node{
+											&name.NamePart{Value: "Baz"},
+										},
+									},
+								},
+								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
+									TraitAdaptationList: &stmt.TraitAdaptationList{
+										Adaptations: []node.Node{
+											&stmt.TraitUsePrecedence{
+												Ref: &stmt.TraitMethodRef{
+													Trait: &name.Name{
+														Parts: []node.Node{
+															&name.NamePart{Value: "Bar"},
+														},
+													},
+													Method: &node.Identifier{Value: "one"},
+												},
+												Insteadof: []node.Node{
+													&name.Name{
+														Parts: []node.Node{
+															&name.NamePart{Value: "Baz"},
+														},
+													},
+													&name.Name{
+														Parts: []node.Node{
+															&name.NamePart{Value: "Quux"},
+														},
+													},
 												},
 											},
-											Method: &node.Identifier{Value: "one"},
+											&stmt.TraitUseAlias{
+												Ref: &stmt.TraitMethodRef{
+													Trait: &name.Name{
+														Parts: []node.Node{
+															&name.NamePart{Value: "Baz"},
+														},
+													},
+													Method: &node.Identifier{Value: "one"},
+												},
+												Alias: &node.Identifier{Value: "two"},
+											},
 										},
-										Alias: &node.Identifier{Value: "two"},
 									},
 								},
 							},
@@ -2011,7 +2095,11 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						Stmts: []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -2564,11 +2652,15 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						MethodName: &node.Identifier{Value: "class"},
-						Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-						Stmts:      []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								MethodName: &node.Identifier{Value: "class"},
+								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
+								Stmts:      []node.Node{},
+							},
+						},
 					},
 				},
 			},
@@ -2591,22 +2683,26 @@ func TestPhp7(t *testing.T) {
 					&node.Identifier{Value: "abstract"},
 					&node.Identifier{Value: "final"},
 				},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						MethodName: &node.Identifier{Value: "bar"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "abstract"},
-							&node.Identifier{Value: "protected"},
-							&node.Identifier{Value: "static"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								MethodName: &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "abstract"},
+									&node.Identifier{Value: "protected"},
+									&node.Identifier{Value: "static"},
+								},
+							},
+							&stmt.ClassMethod{
+								MethodName: &node.Identifier{Value: "baz"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "final"},
+									&node.Identifier{Value: "private"},
+								},
+								Stmts: []node.Node{},
+							},
 						},
-					},
-					&stmt.ClassMethod{
-						MethodName: &node.Identifier{Value: "baz"},
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "final"},
-							&node.Identifier{Value: "private"},
-						},
-						Stmts: []node.Node{},
 					},
 				},
 			},
@@ -3617,7 +3713,11 @@ func TestFunctionStmts(t *testing.T) {
 							},
 							&stmt.Class{
 								ClassName: &node.Identifier{Value: "Baz"},
-								Stmts:     []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 							&stmt.Trait{
 								TraitName: &node.Identifier{Value: "Quux"},

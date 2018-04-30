@@ -1056,8 +1056,13 @@ class_declaration_statement:
     class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
         {
             name := node.NewIdentifier($3.Value)
+            stmtList := stmt.NewStmtList($8)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewClass(name, $1, nil, $4, $5, innerStmtList, $6)
+
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
-            $$ = stmt.NewClass(name, $1, nil, $4, $5, $8, $6)
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewOptionalListTokensPosition($1, $2, $9))
             
             yylex.(*Parser).comments.AddComments(name, $3.Comments())
@@ -1066,8 +1071,13 @@ class_declaration_statement:
     |   T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
         {
             name := node.NewIdentifier($2.Value)
+            stmtList := stmt.NewStmtList($7)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewClass(name, nil, nil, $3, $4, innerStmtList, $5)
+
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-            $$ = stmt.NewClass(name, nil, nil, $3, $4, $7, $5)
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
 
             yylex.(*Parser).comments.AddComments(name, $2.Comments())
@@ -1830,13 +1840,19 @@ non_empty_for_exprs:
 anonymous_class:
     T_CLASS ctor_arguments extends_from implements_list backup_doc_comment '{' class_statement_list '}'
         {
+            stmtList := stmt.NewStmtList($7)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+
             if $2 != nil {
-                $$ = stmt.NewClass(nil, nil, $2.(*node.InnerArgumentList), $3, $4, $7, $5)
+                $$ = stmt.NewClass(nil, nil, $2.(*node.InnerArgumentList), $3, $4, innerStmtList, $5)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
             } else {
-                $$ = stmt.NewClass(nil, nil, nil, $3, $4, $7, $5)
+                $$ = stmt.NewClass(nil, nil, nil, $3, $4, innerStmtList, $5)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
             }
+
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
 
             yylex.(*Parser).comments.AddComments($$, $1.Comments())
         }

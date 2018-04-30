@@ -40,14 +40,18 @@ func TestPrintFile(t *testing.T) {
 						&name.NamePart{Value: "Baz"},
 					},
 				},
-				Stmts: []node.Node{
-					&stmt.ClassMethod{
-						Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-						MethodName: &node.Identifier{Value: "greet"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
 						Stmts: []node.Node{
-							&stmt.Echo{
-								Exprs: []node.Node{
-									&scalar.String{Value: "'Hello world'"},
+							&stmt.ClassMethod{
+								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
+								MethodName: &node.Identifier{Value: "greet"},
+								Stmts: []node.Node{
+									&stmt.Echo{
+										Exprs: []node.Node{
+											&scalar.String{Value: "'Hello world'"},
+										},
+									},
 								},
 							},
 						},
@@ -2523,13 +2527,17 @@ func TestPrintStmtClass(t *testing.T) {
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Baz"}}},
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Quuz"}}},
 						},
-						Stmts: []node.Node{
-							&stmt.ClassConstList{
-								Modifiers: []node.Node{&node.Identifier{Value: "public"}},
-								Consts: []node.Node{
-									&stmt.Constant{
-										ConstantName: &node.Identifier{Value: "FOO"},
-										Expr:         &scalar.String{Value: "'bar'"},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{
+									&stmt.ClassConstList{
+										Modifiers: []node.Node{&node.Identifier{Value: "public"}},
+										Consts: []node.Node{
+											&stmt.Constant{
+												ConstantName: &node.Identifier{Value: "FOO"},
+												Expr:         &scalar.String{Value: "'bar'"},
+											},
+										},
 									},
 								},
 							},
@@ -2579,13 +2587,17 @@ func TestPrintStmtAnonymousClass(t *testing.T) {
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Baz"}}},
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Quuz"}}},
 						},
-						Stmts: []node.Node{
-							&stmt.ClassConstList{
-								Modifiers: []node.Node{&node.Identifier{Value: "public"}},
-								Consts: []node.Node{
-									&stmt.Constant{
-										ConstantName: &node.Identifier{Value: "FOO"},
-										Expr:         &scalar.String{Value: "'bar'"},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{
+									&stmt.ClassConstList{
+										Modifiers: []node.Node{&node.Identifier{Value: "public"}},
+										Consts: []node.Node{
+											&stmt.Constant{
+												ConstantName: &node.Identifier{Value: "FOO"},
+												Expr:         &scalar.String{Value: "'bar'"},
+											},
+										},
 									},
 								},
 							},

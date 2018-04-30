@@ -21,15 +21,19 @@ func TestProperty(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.PropertyList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "var"},
-						},
-						Properties: []node.Node{
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.PropertyList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "var"},
+								},
+								Properties: []node.Node{
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+									},
+								},
 							},
 						},
 					},
@@ -57,21 +61,25 @@ func TestProperties(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.PropertyList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
-						},
-						Properties: []node.Node{
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-							},
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-								Expr:          &scalar.Lnumber{Value: "1"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.PropertyList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								Properties: []node.Node{
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+									},
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+								},
 							},
 						},
 					},
@@ -99,21 +107,25 @@ func TestProperties2(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.PropertyList{
-						Modifiers: []node.Node{
-							&node.Identifier{Value: "public"},
-							&node.Identifier{Value: "static"},
-						},
-						Properties: []node.Node{
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-								Expr:          &scalar.Lnumber{Value: "1"},
-							},
-							&stmt.Property{
-								PhpDocComment: "",
-								Variable:      &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.PropertyList{
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								Properties: []node.Node{
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+										Expr:          &scalar.Lnumber{Value: "1"},
+									},
+									&stmt.Property{
+										PhpDocComment: "",
+										Variable:      &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+									},
+								},
 							},
 						},
 					},

@@ -994,9 +994,15 @@ unticked_class_declaration_statement:
                 switch n := $1.(type) {
                     case *stmt.Class :
                         name := node.NewIdentifier($2.Value)
+                        stmtList := stmt.NewStmtList($6)
+                        innerStmtList := stmt.NewInnerStmtList(stmtList)
+                        
                         yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
+                        yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+                        yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
+                        
                         n.ClassName = name
-                        n.Stmts = $6
+                        n.InnerStmtList = innerStmtList
                         n.Extends = $3
                         n.Implements = $4
 
