@@ -40,7 +40,6 @@ func TestPhp5(t *testing.T) {
 		$foo::bar($a, ...$b);
 		new foo($a, ...$b);
 
-		function foo(bar $bar=null, baz &...$baz) {}
 		class foo {public function foo(bar $bar=null, baz &...$baz) {}}
 		function(bar $bar=null, baz &...$baz) {};
 		static function(bar $bar=null, baz &...$baz) {};
@@ -84,18 +83,6 @@ func TestPhp5(t *testing.T) {
 		const FOO = 1, BAR = 2;
 		echo $a, 1;
 		echo($a);
-		function foo() {}
-
-		function foo() {
-			__halt_compiler();
-			function bar() {}
-			class Baz {}
-			return $a;
-		}
-		
-		function foo(array $a, callable $b) {return;}
-		function &foo() {return 1;}
-		function &foo() {}
 		global $a, $b, $$c, ${foo()};
 		a: 
 		goto a;
@@ -468,13 +455,6 @@ func TestPhp5(t *testing.T) {
 					},
 				},
 			},
-			&stmt.Function{
-				ReturnsRef:    false,
-				PhpDocComment: "",
-				FunctionName:  &node.Identifier{Value: "foo"},
-				Params:        expectedParams,
-				Stmts:         []node.Node{},
-			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
 				Stmts: []node.Node{
@@ -812,72 +792,6 @@ func TestPhp5(t *testing.T) {
 						VarName: &node.Identifier{Value: "a"},
 					},
 				},
-			},
-			&stmt.Function{
-				ReturnsRef:    false,
-				PhpDocComment: "",
-				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts:         []node.Node{},
-			},
-			&stmt.Function{
-				ReturnsRef:    false,
-				PhpDocComment: "",
-				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.HaltCompiler{},
-					&stmt.Function{
-						ReturnsRef:    false,
-						PhpDocComment: "",
-						FunctionName:  &node.Identifier{Value: "bar"},
-						Stmts:         []node.Node{},
-					},
-					&stmt.Class{
-						PhpDocComment: "",
-						ClassName:     &node.Identifier{Value: "Baz"},
-						Stmts:         []node.Node{},
-					},
-					&stmt.Return{
-						Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-					},
-				},
-			},
-			&stmt.Function{
-				ReturnsRef:    false,
-				PhpDocComment: "",
-				FunctionName:  &node.Identifier{Value: "foo"},
-				Params: []node.Node{
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						VariableType: &node.Identifier{Value: "array"},
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-					},
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						VariableType: &node.Identifier{Value: "callable"},
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-					},
-				},
-				Stmts: []node.Node{
-					&stmt.Return{},
-				},
-			},
-			&stmt.Function{
-				ReturnsRef:    true,
-				PhpDocComment: "",
-				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.Return{
-						Expr: &scalar.Lnumber{Value: "1"},
-					},
-				},
-			},
-			&stmt.Function{
-				ReturnsRef:    true,
-				PhpDocComment: "",
-				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts:         []node.Node{},
 			},
 			&stmt.Global{
 				Vars: []node.Node{
@@ -4059,6 +3973,151 @@ func TestTryStmts(t *testing.T) {
 						Stmts: &stmt.StmtList{
 							Stmts: []node.Node{},
 						},
+					},
+				},
+			},
+		},
+	}
+
+	php5parser := php5.NewParser(bytes.NewBufferString(src), "test.php")
+	php5parser.Parse()
+	actual := php5parser.GetRootNode()
+	assertEqual(t, expected, actual)
+}
+
+func TestFunctionStmts(t *testing.T) {
+	src := `<?
+		function foo(bar $bar=null, baz &...$baz) {}
+		function foo() {}
+
+		function foo() {
+			__halt_compiler();
+			function bar() {}
+			class Baz {}
+			return $a;
+		}
+		
+		function foo(array $a, callable $b) {return;}
+		function &foo() {return 1;}
+		function &foo() {}
+	`
+
+	expectedParams := []node.Node{
+		&node.Parameter{
+			ByRef:        false,
+			Variadic:     false,
+			VariableType: &name.Name{Parts: []node.Node{&name.NamePart{Value: "bar"}}},
+			Variable:     &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
+			DefaultValue: &expr.ConstFetch{Constant: &name.Name{Parts: []node.Node{&name.NamePart{Value: "null"}}}},
+		},
+		&node.Parameter{
+			ByRef:        true,
+			Variadic:     true,
+			VariableType: &name.Name{Parts: []node.Node{&name.NamePart{Value: "baz"}}},
+			Variable:     &expr.Variable{VarName: &node.Identifier{Value: "baz"}},
+		},
+	}
+
+	expected := &stmt.StmtList{
+		Stmts: []node.Node{
+			&stmt.Function{
+				ReturnsRef:    false,
+				PhpDocComment: "",
+				FunctionName:  &node.Identifier{Value: "foo"},
+				Params:        expectedParams,
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Function{
+				ReturnsRef:    false,
+				PhpDocComment: "",
+				FunctionName:  &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
+			},
+			&stmt.Function{
+				ReturnsRef:    false,
+				PhpDocComment: "",
+				FunctionName:  &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.HaltCompiler{},
+							&stmt.Function{
+								ReturnsRef:    false,
+								PhpDocComment: "",
+								FunctionName:  &node.Identifier{Value: "bar"},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
+							},
+							&stmt.Class{
+								PhpDocComment: "",
+								ClassName:     &node.Identifier{Value: "Baz"},
+								Stmts:         []node.Node{},
+							},
+							&stmt.Return{
+								Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Function{
+				ReturnsRef:    false,
+				PhpDocComment: "",
+				FunctionName:  &node.Identifier{Value: "foo"},
+				Params: []node.Node{
+					&node.Parameter{
+						ByRef:        false,
+						Variadic:     false,
+						VariableType: &node.Identifier{Value: "array"},
+						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+					},
+					&node.Parameter{
+						ByRef:        false,
+						Variadic:     false,
+						VariableType: &node.Identifier{Value: "callable"},
+						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					},
+				},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Return{},
+						},
+					},
+				},
+			},
+			&stmt.Function{
+				ReturnsRef:    true,
+				PhpDocComment: "",
+				FunctionName:  &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Return{
+								Expr: &scalar.Lnumber{Value: "1"},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Function{
+				ReturnsRef:    true,
+				PhpDocComment: "",
+				FunctionName:  &node.Identifier{Value: "foo"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
 					},
 				},
 			},

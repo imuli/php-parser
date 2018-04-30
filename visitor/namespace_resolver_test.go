@@ -552,7 +552,11 @@ func TestResolveFunctionName(t *testing.T) {
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},
-		Stmts:      []node.Node{},
+		InnerStmtList: &stmt.InnerStmtList{
+			Stmts: &stmt.StmtList{
+				Stmts: []node.Node{},
+			},
+		},
 	}
 
 	ast := &stmt.StmtList{

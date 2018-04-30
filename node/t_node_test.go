@@ -306,7 +306,11 @@ func TestPhp7ParameterNode(t *testing.T) {
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
 				Params:        expectedParams,
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -374,7 +378,11 @@ func TestPhp5ParameterNode(t *testing.T) {
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
 				Params:        expectedParams,
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},

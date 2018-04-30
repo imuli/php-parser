@@ -1803,7 +1803,7 @@ func (p *Printer) printStmtFunction(n node.Node) {
 	}
 
 	io.WriteString(p.w, " {\n")
-	p.printNodes(nn.Stmts)
+	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")

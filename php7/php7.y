@@ -1028,8 +1028,13 @@ function_declaration_statement:
     T_FUNCTION returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type '{' inner_statement_list '}'
         {
             name := node.NewIdentifier($3.Value)
+            stmtList := stmt.NewStmtList($10)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewFunction(name, $2.value, $6, $8, innerStmtList, $4)
+
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
-            $$ = stmt.NewFunction(name, $2.value, $6, $8, $10, $4)
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($10))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($9, $11))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $11))
 
             yylex.(*Parser).comments.AddComments(name, $3.Comments())

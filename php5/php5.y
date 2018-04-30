@@ -974,11 +974,16 @@ unticked_function_declaration_statement:
         function is_reference T_STRING '(' parameter_list ')' '{' inner_statement_list '}'
             {
                 name := node.NewIdentifier($3.Value)
-                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
-                yylex.(*Parser).comments.AddComments(name, $3.Comments())
+                stmtList := stmt.NewStmtList($8)
+                innerStmtList := stmt.NewInnerStmtList(stmtList)
+                $$ = stmt.NewFunction(name, $2.value, $5, nil, innerStmtList, "")
 
-                $$ = stmt.NewFunction(name, $2.value, $5, nil, $8, "")
+                yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $9))
+
+                yylex.(*Parser).comments.AddComments(name, $3.Comments())
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
 ;

@@ -24,7 +24,11 @@ func TestSimpleFunction(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}
@@ -50,8 +54,12 @@ func TestFunctionReturn(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.Return{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Return{},
+						},
+					},
 				},
 			},
 		},
@@ -92,9 +100,13 @@ func TestFunctionReturnVar(t *testing.T) {
 						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
 					},
 				},
-				Stmts: []node.Node{
-					&stmt.Return{
-						Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Return{
+								Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
+						},
 					},
 				},
 			},
@@ -122,9 +134,13 @@ func TestRefFunction(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Stmts: []node.Node{
-					&stmt.Return{
-						Expr: &scalar.Lnumber{Value: "1"},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{
+							&stmt.Return{
+								Expr: &scalar.Lnumber{Value: "1"},
+							},
+						},
 					},
 				},
 			},
@@ -157,7 +173,11 @@ func TestReturnTypeFunction(t *testing.T) {
 						&name.NamePart{Value: "void"},
 					},
 				},
-				Stmts: []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 		},
 	}

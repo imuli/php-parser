@@ -3240,8 +3240,12 @@ func TestPrintStmtFunction(t *testing.T) {
 							},
 						},
 						ReturnType: &name.FullyQualified{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-						Stmts: []node.Node{
-							&stmt.Nop{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
+								Stmts: []node.Node{
+									&stmt.Nop{},
+								},
+							},
 						},
 					},
 				},
