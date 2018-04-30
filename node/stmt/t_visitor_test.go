@@ -82,9 +82,9 @@ var nodesToTest = []struct {
 			Modifiers:     []node.Node{&stmt.Expression{}},
 			Params:        []node.Node{&stmt.Expression{}},
 			ReturnType:    &node.Identifier{},
-			Stmts:         []node.Node{&stmt.Expression{}},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
 		},
-		[]string{"MethodName", "Modifiers", "Params", "ReturnType", "Stmts"},
+		[]string{"MethodName", "Modifiers", "Params", "ReturnType", "InnerStmtList"},
 		map[string]interface{}{"ReturnsRef": true, "PhpDocComment": "/** */"},
 	},
 	{

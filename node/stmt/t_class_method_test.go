@@ -26,7 +26,11 @@ func TestSimpleClassMethod(t *testing.T) {
 							&stmt.ClassMethod{
 								PhpDocComment: "",
 								MethodName:    &node.Identifier{Value: "bar"},
-								Stmts:         []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -65,7 +69,11 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 									&node.Identifier{Value: "final"},
 									&node.Identifier{Value: "private"},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -74,7 +82,11 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "protected"},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -113,7 +125,11 @@ func TestPhp5ClassMethod(t *testing.T) {
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -152,7 +168,11 @@ func TestPhp7ClassMethod(t *testing.T) {
 										&name.NamePart{Value: "void"},
 									},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},

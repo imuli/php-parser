@@ -24,7 +24,6 @@ import (
     boolWithToken boolWithToken
     list []node.Node
     foreachVariable foreachVariable
-    nodesWithEndToken *nodesWithEndToken
     simpleIndirectReference simpleIndirectReference
     altSyntaxNode altSyntaxNode
 }
@@ -212,6 +211,7 @@ import (
 %type <node> ctor_arguments function_call_parameter_list
 %type <node> trait_adaptations
 %type <node> switch_case_list
+%type <node> method_body
 
 %type <list> top_statement_list namespace_name use_declarations use_function_declarations use_const_declarations
 %type <list> inner_statement_list global_var_list static_var_list encaps_list isset_variables non_empty_array_pair_list
@@ -228,7 +228,6 @@ import (
 
 %type <simpleIndirectReference> simple_indirect_reference
 %type <foreachVariable> foreach_variable foreach_optional_arg
-%type <nodesWithEndToken> method_body
 %type <boolWithToken> is_reference is_variadic
 %type <altSyntaxNode> while_statement for_statement foreach_statement
 
@@ -1612,12 +1611,27 @@ class_statement:
             { $$ = $1 }
     |   method_modifiers function is_reference T_STRING '(' parameter_list ')' method_body
             {
+                var innerStmtList *stmt.InnerStmtList
+                switch n := $8.(type) {
+                case *stmt.InnerStmtList:
+                    innerStmtList = n
+                default:
+                    innerStmtList = nil
+                }
+
                 name := node.NewIdentifier($4.Value)
+                $$ = stmt.NewClassMethod(name, $1, $3.value, $6, nil, innerStmtList, "")
+
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).comments.AddComments(name, $4.Comments())
                 
-                $$ = stmt.NewClassMethod(name, $1, $3.value, $6, nil, $8.nodes, "")
-                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewOptionalListTokensPosition($1, $2, $8.endToken))
+                if $1 == nil {
+                    yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($2, $8))
+                } else {
+                    yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListNodePosition($1, $8))
+                }
+                
+                
+                yylex.(*Parser).comments.AddComments(name, $4.Comments())
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).listGetFirstNodeComments($1))
             }
 ;
@@ -1755,10 +1769,20 @@ trait_modifiers:
 ;
 
 method_body:
-        ';' /* abstract method */
-            { $$ = &nodesWithEndToken{nil, $1} }
+        ';' /* abstract method */ 
+            {
+                $$ = stmt.NewNop()
+
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
+            }
     |   '{' inner_statement_list '}'
-            { $$ = &nodesWithEndToken{$2, $3} }
+            {
+                stmtList := stmt.NewStmtList($2)
+                $$ = stmt.NewInnerStmtList(stmtList)
+
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+            }
 ;
 
 variable_modifiers:
@@ -3978,11 +4002,6 @@ class_name_scalar:
 type foreachVariable struct {
 	node  node.Node
 	byRef bool
-}
-
-type nodesWithEndToken struct {
-	nodes    []node.Node
-	endToken *scanner.Token
 }
 
 type boolWithToken struct {

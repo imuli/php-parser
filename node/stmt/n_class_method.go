@@ -13,11 +13,11 @@ type ClassMethod struct {
 	Modifiers     []node.Node
 	Params        []node.Node
 	ReturnType    node.Node
-	Stmts         []node.Node
+	InnerStmtList *InnerStmtList
 }
 
 // NewClassMethod node constructor
-func NewClassMethod(MethodName node.Node, Modifiers []node.Node, ReturnsRef bool, Params []node.Node, ReturnType node.Node, Stmts []node.Node, PhpDocComment string) *ClassMethod {
+func NewClassMethod(MethodName node.Node, Modifiers []node.Node, ReturnsRef bool, Params []node.Node, ReturnType node.Node, InnerStmtList *InnerStmtList, PhpDocComment string) *ClassMethod {
 	return &ClassMethod{
 		ReturnsRef,
 		PhpDocComment,
@@ -25,7 +25,7 @@ func NewClassMethod(MethodName node.Node, Modifiers []node.Node, ReturnsRef bool
 		Modifiers,
 		Params,
 		ReturnType,
-		Stmts,
+		InnerStmtList,
 	}
 }
 
@@ -72,13 +72,9 @@ func (n *ClassMethod) Walk(v walker.Visitor) {
 		n.ReturnType.Walk(vv)
 	}
 
-	if n.Stmts != nil {
-		vv := v.GetChildrenVisitor("Stmts")
-		for _, nn := range n.Stmts {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerStmtList != nil {
+		vv := v.GetChildrenVisitor("InnerStmtList")
+		n.InnerStmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

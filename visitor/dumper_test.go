@@ -116,18 +116,24 @@ func ExampleDumper() {
 	//|                                             [*name.NamePart]
 	//|                                               "Position": Pos{Line: 5-5 Pos: 86-89};
 	//|                                               "Value": null;
-	//|                               "Stmts":
-	//|                                 [*stmt.Expression]
-	//|                                   "Position": Pos{Line: 8-8 Pos: 124-128};
-	//|                                   "Comments":
-	//|                                     "// some comment\n"
-	//|                                   "Expr":
-	//|                                     [*expr.Variable]
-	//|                                       "Position": Pos{Line: 8-8 Pos: 124-127};
-	//|                                       "VarName":
-	//|                                         [*node.Identifier]
-	//|                                           "Position": Pos{Line: 8-8 Pos: 124-127};
+	//|                               "InnerStmtList":
+	//|                                 [*stmt.InnerStmtList]
+	//|                                   "Position": Pos{Line: 6-9 Pos: 96-134};
+	//|                                   "Stmts":
+	//|                                     [*stmt.StmtList]
+	//|                                       "Position": Pos{Line: 8-8 Pos: 124-128};
+	//|                                       "Stmts":
+	//|                                         [*stmt.Expression]
+	//|                                           "Position": Pos{Line: 8-8 Pos: 124-128};
 	//|                                           "Comments":
 	//|                                             "// some comment\n"
-	//|                                           "Value": var;
+	//|                                           "Expr":
+	//|                                             [*expr.Variable]
+	//|                                               "Position": Pos{Line: 8-8 Pos: 124-127};
+	//|                                               "VarName":
+	//|                                                 [*node.Identifier]
+	//|                                                   "Position": Pos{Line: 8-8 Pos: 124-127};
+	//|                                                   "Comments":
+	//|                                                     "// some comment\n"
+	//|                                                   "Value": var;
 }

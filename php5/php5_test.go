@@ -464,7 +464,11 @@ func TestPhp5(t *testing.T) {
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 								Params:     expectedParams,
-								Stmts:      []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -677,7 +681,11 @@ func TestPhp5(t *testing.T) {
 							&stmt.ClassMethod{
 								PhpDocComment: "",
 								MethodName:    &node.Identifier{Value: "bar"},
-								Stmts:         []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -696,7 +704,11 @@ func TestPhp5(t *testing.T) {
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
@@ -715,7 +727,11 @@ func TestPhp5(t *testing.T) {
 									&node.Identifier{Value: "final"},
 									&node.Identifier{Value: "private"},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -724,7 +740,11 @@ func TestPhp5(t *testing.T) {
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "protected"},
 								},
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 						},
 					},
