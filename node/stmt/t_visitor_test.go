@@ -426,9 +426,9 @@ var nodesToTest = []struct {
 		&stmt.Trait{
 			PhpDocComment: "/** */",
 			TraitName:     &node.Identifier{},
-			Stmts:         []node.Node{&stmt.Expression{}},
+			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
 		},
-		[]string{"TraitName", "Stmts"},
+		[]string{"TraitName", "InnerStmtList"},
 		map[string]interface{}{"PhpDocComment": "/** */"},
 	},
 	{

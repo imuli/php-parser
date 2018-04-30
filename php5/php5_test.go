@@ -1101,7 +1101,11 @@ func TestPhp5(t *testing.T) {
 			&stmt.Trait{
 				PhpDocComment: "",
 				TraitName:     &node.Identifier{Value: "Foo"},
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				PhpDocComment: "",

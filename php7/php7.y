@@ -1109,8 +1109,13 @@ trait_declaration_statement:
     T_TRAIT T_STRING backup_doc_comment '{' class_statement_list '}'
         {
             name := node.NewIdentifier($2.Value)
+            stmtList := stmt.NewStmtList($5)
+            innerStmtList := stmt.NewInnerStmtList(stmtList)
+            $$ = stmt.NewTrait(name, innerStmtList, $3)
+
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-            $$ = stmt.NewTrait(name, $5, $3)
+            yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+            yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $6))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $6))
 
             yylex.(*Parser).comments.AddComments(name, $2.Comments())

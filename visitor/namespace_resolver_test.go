@@ -516,7 +516,11 @@ func TestResolveTraitName(t *testing.T) {
 	traitNode := &stmt.Trait{
 		PhpDocComment: "",
 		TraitName:     &node.Identifier{Value: "A"},
-		Stmts:         []node.Node{},
+		InnerStmtList: &stmt.InnerStmtList{
+			Stmts: &stmt.StmtList{
+				Stmts: []node.Node{},
+			},
+		},
 	}
 
 	ast := &stmt.StmtList{

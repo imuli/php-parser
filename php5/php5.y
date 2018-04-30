@@ -1009,9 +1009,15 @@ unticked_class_declaration_statement:
                     case *stmt.Trait :
                         // TODO: is it possible that trait extend or implement
                         name := node.NewIdentifier($2.Value)
+                        stmtList := stmt.NewStmtList($6)
+                        innerStmtList := stmt.NewInnerStmtList(stmtList)
+
                         yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
+                        yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+                        yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
+                        
                         n.TraitName = name
-                        n.Stmts = $6
+                        n.InnerStmtList = innerStmtList
                 }
 
                 $$ = $1

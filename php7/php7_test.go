@@ -1163,7 +1163,11 @@ func TestPhp7(t *testing.T) {
 			&stmt.Trait{
 				PhpDocComment: "",
 				TraitName:     &node.Identifier{Value: "Foo"},
-				Stmts:         []node.Node{},
+				InnerStmtList: &stmt.InnerStmtList{
+					Stmts: &stmt.StmtList{
+						Stmts: []node.Node{},
+					},
+				},
 			},
 			&stmt.Class{
 				PhpDocComment: "",
@@ -3741,7 +3745,11 @@ func TestFunctionStmts(t *testing.T) {
 							},
 							&stmt.Trait{
 								TraitName: &node.Identifier{Value: "Quux"},
-								Stmts:     []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: &stmt.StmtList{
+										Stmts: []node.Node{},
+									},
+								},
 							},
 							&stmt.Interface{
 								InterfaceName: &node.Identifier{Value: "Quuux"},

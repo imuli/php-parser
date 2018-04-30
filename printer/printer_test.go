@@ -3961,13 +3961,17 @@ func TestPrintTrait(t *testing.T) {
 				Stmts: []node.Node{
 					&stmt.Trait{
 						TraitName: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-						Stmts: []node.Node{
-							&stmt.ClassMethod{
-								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-								MethodName: &node.Identifier{Value: "foo"},
-								Params:     []node.Node{},
+						InnerStmtList: &stmt.InnerStmtList{
+							Stmts: &stmt.StmtList{
 								Stmts: []node.Node{
-									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+									&stmt.ClassMethod{
+										Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
+										MethodName: &node.Identifier{Value: "foo"},
+										Params:     []node.Node{},
+										Stmts: []node.Node{
+											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+										},
+									},
 								},
 							},
 						},
