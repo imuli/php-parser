@@ -7,18 +7,18 @@ import (
 
 // GroupUse node
 type GroupUse struct {
-	UseType      node.Node
-	Prefix       node.Node
-	InnerUseList *InnerUseList
+	UseType node.Node
+	Prefix  node.Node
+	UseList *UseList
 }
 
 // NewGroupUse node constructor
-func NewGroupUse(UseType node.Node, Prefix node.Node, InnerUseList *InnerUseList) *GroupUse {
+func NewGroupUse(UseType node.Node, Prefix node.Node, UseList *UseList) *GroupUse {
 
 	return &GroupUse{
 		UseType,
 		Prefix,
-		InnerUseList,
+		UseList,
 	}
 }
 
@@ -50,9 +50,9 @@ func (n *GroupUse) Walk(v walker.Visitor) {
 		n.Prefix.Walk(vv)
 	}
 
-	if n.InnerUseList != nil {
-		vv := v.GetChildrenVisitor("InnerUseList")
-		n.InnerUseList.Walk(vv)
+	if n.UseList != nil {
+		vv := v.GetChildrenVisitor("UseList")
+		n.UseList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

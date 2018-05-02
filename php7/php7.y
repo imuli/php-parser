@@ -470,31 +470,31 @@ top_statement:
         }
     |   T_USE use_declarations ';'
         {
-            useList := stmt.NewUseList($2)
-            $$ = stmt.NewSimpleUse(nil, useList)
+            innerUseList := stmt.NewInnerUseList($2)
+            $$ = stmt.NewSimpleUse(nil, innerUseList)
 
             // save position
-            yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+            yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
 
             // save comments
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
-            yylex.(*Parser).addNodeCommentsFromChildNode(useList, $2[0])
-            yylex.(*Parser).addNodeAllCommentsFromNextToken(useList, $3)
+            yylex.(*Parser).addNodeCommentsFromChildNode(innerUseList, $2[0])
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerUseList, $3)
         }
     |   T_USE use_type use_declarations ';'
         {
-            useList := stmt.NewUseList($3)
-            $$ = stmt.NewSimpleUse($2, useList)
+            innerUseList := stmt.NewInnerUseList($3)
+            $$ = stmt.NewSimpleUse($2, innerUseList)
 
             // save position
-            yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+            yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
 
             // save comments
             yylex.(*Parser).addNodeCommentsFromToken($$, $1)
-            yylex.(*Parser).addNodeCommentsFromChildNode(useList, $3[0])
-            yylex.(*Parser).addNodeAllCommentsFromNextToken(useList, $4)
+            yylex.(*Parser).addNodeCommentsFromChildNode(innerUseList, $3[0])
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerUseList, $4)
         }
     |   T_CONST const_list ';'
         {
@@ -536,8 +536,8 @@ group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                innerStmtList := stmt.NewUseList($4)
-                stmtList := stmt.NewInnerUseList(innerStmtList)
+                innerStmtList := stmt.NewInnerUseList($4)
+                stmtList := stmt.NewUseList(innerStmtList)
                 $$ = stmt.NewGroupUse(nil, name, stmtList)
 
                 // save position
@@ -557,8 +557,8 @@ group_use_declaration:
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' unprefixed_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                innerStmtList := stmt.NewUseList($5)
-                stmtList := stmt.NewInnerUseList(innerStmtList)
+                innerStmtList := stmt.NewInnerUseList($5)
+                stmtList := stmt.NewUseList(innerStmtList)
                 $$ = stmt.NewGroupUse(nil, name, stmtList)
 
                 // save position
@@ -582,8 +582,8 @@ mixed_group_use_declaration:
         namespace_name T_NS_SEPARATOR '{' inline_use_declarations possible_comma '}'
             {
                 name := name.NewName($1)
-                innerStmtList := stmt.NewUseList($4)
-                stmtList := stmt.NewInnerUseList(innerStmtList)
+                innerStmtList := stmt.NewInnerUseList($4)
+                stmtList := stmt.NewUseList(innerStmtList)
                 $$ = stmt.NewGroupUse(nil, name, stmtList)
 
                 // save position
@@ -603,8 +603,8 @@ mixed_group_use_declaration:
     |   T_NS_SEPARATOR namespace_name T_NS_SEPARATOR '{' inline_use_declarations possible_comma '}'
             {
                 name := name.NewName($2)
-                innerStmtList := stmt.NewUseList($5)
-                stmtList := stmt.NewInnerUseList(innerStmtList)
+                innerStmtList := stmt.NewInnerUseList($5)
+                stmtList := stmt.NewUseList(innerStmtList)
                 $$ = stmt.NewGroupUse(nil, name, stmtList)
 
                 // save position

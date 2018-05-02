@@ -1328,7 +1328,7 @@ func TestPhp5(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1341,7 +1341,7 @@ func TestPhp5(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1354,7 +1354,7 @@ func TestPhp5(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1368,7 +1368,7 @@ func TestPhp5(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1388,7 +1388,7 @@ func TestPhp5(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1410,7 +1410,7 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1431,7 +1431,7 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1454,7 +1454,7 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1475,7 +1475,7 @@ func TestPhp5(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{

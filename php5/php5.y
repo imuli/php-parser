@@ -324,10 +324,10 @@ top_statement:
             }
     |   T_USE use_declarations ';'
             {
-                useList := stmt.NewUseList($2)
-                $$ = stmt.NewSimpleUse(nil, useList)
+                innerUseList := stmt.NewInnerUseList($2)
+                $$ = stmt.NewSimpleUse(nil, innerUseList)
 
-                yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
@@ -335,11 +335,11 @@ top_statement:
     |   T_USE T_FUNCTION use_function_declarations ';'
             {
                 useType := node.NewIdentifier($2.Value)
-                useList := stmt.NewUseList($3)
-                $$ = stmt.NewSimpleUse(useType, useList)
+                innerUseList := stmt.NewInnerUseList($3)
+                $$ = stmt.NewSimpleUse(useType, innerUseList)
 
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-                yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
                 yylex.(*Parser).comments.AddComments($$, $2.Comments())
 
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
@@ -348,11 +348,11 @@ top_statement:
     |   T_USE T_CONST use_const_declarations ';'
             {
                 useType := node.NewIdentifier($2.Value)
-                useList := stmt.NewUseList($3)
-                $$ = stmt.NewSimpleUse(useType, useList)
+                innerUseList := stmt.NewInnerUseList($3)
+                $$ = stmt.NewSimpleUse(useType, innerUseList)
 
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-                yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
                 yylex.(*Parser).comments.AddComments($$, $2.Comments())
 
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))

@@ -3331,8 +3331,8 @@ func TestPrintStmtGroupUse(t *testing.T) {
 	p.Print(&stmt.GroupUse{
 		UseType: &node.Identifier{Value: "function"},
 		Prefix:  &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
-		InnerUseList: &stmt.InnerUseList{
-			UseList: &stmt.UseList{
+		UseList: &stmt.UseList{
+			InnerUseList: &stmt.InnerUseList{
 				Uses: []node.Node{
 					&stmt.Use{
 						Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
@@ -4109,7 +4109,7 @@ func TestPrintStmtSimpleUse(t *testing.T) {
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.SimpleUse{
 		UseType: &node.Identifier{Value: "function"},
-		UseList: &stmt.UseList{
+		InnerUseList: &stmt.InnerUseList{
 			Uses: []node.Node{
 				&stmt.Use{
 					Use:   &name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},

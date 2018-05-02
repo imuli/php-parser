@@ -1422,7 +1422,7 @@ func TestPhp7(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1435,7 +1435,7 @@ func TestPhp7(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1448,7 +1448,7 @@ func TestPhp7(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1462,7 +1462,7 @@ func TestPhp7(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1482,7 +1482,7 @@ func TestPhp7(t *testing.T) {
 				},
 			},
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1504,7 +1504,7 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1525,7 +1525,7 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1548,7 +1548,7 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1569,7 +1569,7 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: &name.Name{
@@ -1596,8 +1596,8 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
@@ -1623,8 +1623,8 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
@@ -1652,8 +1652,8 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
@@ -1680,8 +1680,8 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								Use: &name.Name{
@@ -1707,8 +1707,8 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								UseType: &node.Identifier{Value: "const"},

@@ -5,9 +5,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/z7zmey/php-parser/node/expr"
-
 	"github.com/z7zmey/php-parser/node"
+	"github.com/z7zmey/php-parser/node/expr"
 	"github.com/z7zmey/php-parser/node/name"
 	"github.com/z7zmey/php-parser/node/stmt"
 	"github.com/z7zmey/php-parser/walker"
@@ -44,7 +43,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 			useType = n.UseType.(*node.Identifier).Value
 		}
 
-		for _, nn := range n.UseList.Uses {
+		for _, nn := range n.InnerUseList.Uses {
 			nsr.AddAlias(useType, nn, nil)
 		}
 
@@ -56,7 +55,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 		if n.UseType != nil {
 			useType = n.UseType.(*node.Identifier).Value
 		}
-		for _, nn := range n.InnerUseList.UseList.Uses {
+		for _, nn := range n.UseList.InnerUseList.Uses {
 			nsr.AddAlias(useType, nn, n.Prefix.(*name.Name).Parts)
 		}
 

@@ -2400,10 +2400,10 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php5/php5.y:326
 		{
-			useList := stmt.NewUseList(yyDollar[2].list)
-			yyVAL.node = stmt.NewSimpleUse(nil, useList)
+			innerUseList := stmt.NewInnerUseList(yyDollar[2].list)
+			yyVAL.node = stmt.NewSimpleUse(nil, innerUseList)
 
-			yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
@@ -2413,11 +2413,11 @@ yydefault:
 		//line php5/php5.y:336
 		{
 			useType := node.NewIdentifier(yyDollar[2].token.Value)
-			useList := stmt.NewUseList(yyDollar[3].list)
-			yyVAL.node = stmt.NewSimpleUse(useType, useList)
+			innerUseList := stmt.NewInnerUseList(yyDollar[3].list)
+			yyVAL.node = stmt.NewSimpleUse(useType, innerUseList)
 
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
-			yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[2].token.Comments())
 
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
@@ -2428,11 +2428,11 @@ yydefault:
 		//line php5/php5.y:349
 		{
 			useType := node.NewIdentifier(yyDollar[2].token.Value)
-			useList := stmt.NewUseList(yyDollar[3].list)
-			yyVAL.node = stmt.NewSimpleUse(useType, useList)
+			innerUseList := stmt.NewInnerUseList(yyDollar[3].list)
+			yyVAL.node = stmt.NewSimpleUse(useType, innerUseList)
 
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
-			yylex.(*Parser).positions.AddPosition(useList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(innerUseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[2].token.Comments())
 
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))

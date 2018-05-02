@@ -36,7 +36,7 @@ func TestResolveStaticCall(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -71,7 +71,7 @@ func TestResolveStaticPropertyFetch(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -103,7 +103,7 @@ func TestResolveClassConstFetch(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -135,7 +135,7 @@ func TestResolveNew(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -169,7 +169,7 @@ func TestResolveInstanceOf(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -204,7 +204,7 @@ func TestResolveInstanceCatch(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -259,7 +259,7 @@ func TestResolveFunctionCall(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -294,7 +294,7 @@ func TestResolveConstFetch(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -329,8 +329,8 @@ func TestResolveGroupUse(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: nameAB,
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								UseType: &node.Identifier{Value: "Function"},
@@ -347,8 +347,8 @@ func TestResolveGroupUse(t *testing.T) {
 			&stmt.GroupUse{
 				Prefix:  nameBD,
 				UseType: &node.Identifier{Value: "Function"},
-				InnerUseList: &stmt.InnerUseList{
-					UseList: &stmt.UseList{
+				UseList: &stmt.UseList{
+					InnerUseList: &stmt.InnerUseList{
 						Uses: []node.Node{
 							&stmt.Use{
 								Use: nameE,
@@ -399,7 +399,7 @@ func TestResolveTraitUse(t *testing.T) {
 	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
-				UseList: &stmt.UseList{
+				InnerUseList: &stmt.InnerUseList{
 					Uses: []node.Node{
 						&stmt.Use{
 							Use: nameAB,
@@ -741,7 +741,7 @@ func TestResolveNamespaces(t *testing.T) {
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.SimpleUse{
-								UseList: &stmt.UseList{
+								InnerUseList: &stmt.InnerUseList{
 									Uses: []node.Node{
 										&stmt.Use{
 											Use: nameAC,
