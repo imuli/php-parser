@@ -16,7 +16,7 @@ func TestSimpleClassMethod(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ function bar() {} }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -54,7 +54,7 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ final private function bar() {} protected function baz() {} }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -110,7 +110,7 @@ func TestPhp5ClassMethod(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ public static function &bar() {} }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -148,7 +148,7 @@ func TestPhp7ClassMethod(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ public static function &bar(): void {} }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -191,7 +191,7 @@ func TestAbstractClassMethod(t *testing.T) {
 	t.Helper()
 	src := `<? abstract class Foo{ abstract public function bar(); }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
@@ -230,7 +230,7 @@ func TestPhp7AbstractClassMethod(t *testing.T) {
 	t.Helper()
 	src := `<? abstract class Foo{ public function bar(): void; }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},

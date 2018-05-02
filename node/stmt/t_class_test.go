@@ -17,7 +17,7 @@ func TestSimpleClass(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -45,7 +45,7 @@ func TestAbstractClass(t *testing.T) {
 	t.Helper()
 	src := `<? abstract class foo{ }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -76,7 +76,7 @@ func TestClassExtends(t *testing.T) {
 	t.Helper()
 	src := `<? final class foo extends bar { }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -112,7 +112,7 @@ func TestClassImplement(t *testing.T) {
 	t.Helper()
 	src := `<? final class foo implements bar { }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -150,7 +150,7 @@ func TestClassImplements(t *testing.T) {
 	t.Helper()
 	src := `<? final class foo implements bar, baz { }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -193,7 +193,7 @@ func TestAnonimousClass(t *testing.T) {
 	t.Helper()
 	src := `<? new class() extends foo implements bar, baz { };`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.New{

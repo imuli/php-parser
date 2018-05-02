@@ -372,7 +372,7 @@ func TestPhp5(t *testing.T) {
 		},
 	}
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -3361,7 +3361,7 @@ func TestPhp5Strings(t *testing.T) {
 		';
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &scalar.String{Value: "\"test\""},
@@ -3405,7 +3405,7 @@ CAD;
 CAD;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &scalar.Heredoc{
@@ -3472,7 +3472,7 @@ func TestAltIfStmts(t *testing.T) {
 		endif;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -3531,7 +3531,7 @@ func TestIfStmts(t *testing.T) {
 		if (yield 1) {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -3614,7 +3614,7 @@ func TestDoStmts(t *testing.T) {
 		do {} while(1);
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Do{
 				Stmt: &stmt.InnerStmtList{
@@ -3644,7 +3644,7 @@ func TestWhileStmts(t *testing.T) {
 		while (1) { continue(3); }
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
@@ -3727,7 +3727,7 @@ func TestForStmts(t *testing.T) {
 		for(; $i < 10; $i++, $i++) : endfor;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.For{
 				Init: []node.Node{
@@ -3793,7 +3793,7 @@ func TestForeachStmts(t *testing.T) {
 		foreach ($a as $k => list($v)) {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Foreach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -3871,7 +3871,7 @@ func TestDeclareStmts(t *testing.T) {
 		declare(ticks=1): enddeclare;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Declare{
 				Consts: []node.Node{
@@ -3932,7 +3932,7 @@ func TestTryStmts(t *testing.T) {
 		try {} catch (Exception $e) {} finally {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{
@@ -4146,7 +4146,7 @@ func TestFunctionStmts(t *testing.T) {
 		},
 	}
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Function{
 				ReturnsRef:    false,

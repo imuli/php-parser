@@ -16,7 +16,7 @@ func TestInterface(t *testing.T) {
 	t.Helper()
 	src := `<? interface Foo {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Interface{
 				PhpDocComment: "",
@@ -45,7 +45,7 @@ func TestInterfaceExtend(t *testing.T) {
 	t.Helper()
 	src := `<? interface Foo extends Bar {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Interface{
 				PhpDocComment: "",
@@ -81,7 +81,7 @@ func TestInterfaceExtends(t *testing.T) {
 	t.Helper()
 	src := `<? interface Foo extends Bar, Baz {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Interface{
 				PhpDocComment: "",

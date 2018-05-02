@@ -14,7 +14,7 @@ func TestGotoLabel(t *testing.T) {
 	t.Helper()
 	src := `<? a: goto a;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Label{
 				LabelName: &node.Identifier{Value: "a"},

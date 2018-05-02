@@ -32,7 +32,7 @@ func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
 func TestIdentifier(t *testing.T) {
 	src := `<? $foo;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.Variable{
@@ -65,7 +65,7 @@ func TestPhp7ArgumentNode(t *testing.T) {
 		new class ($a, ...$b) {};
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -187,7 +187,7 @@ func TestPhp5ArgumentNode(t *testing.T) {
 		new foo($a, ...$b);
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -303,7 +303,7 @@ func TestPhp7ParameterNode(t *testing.T) {
 		},
 	}
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Function{
 				ReturnsRef:    false,
@@ -391,7 +391,7 @@ func TestPhp5ParameterNode(t *testing.T) {
 		},
 	}
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Function{
 				ReturnsRef:    false,
@@ -458,7 +458,7 @@ func TestPhp5ParameterNode(t *testing.T) {
 func TestCommentEndFile(t *testing.T) {
 	src := `<? //comment at the end)`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{},
 	}
 

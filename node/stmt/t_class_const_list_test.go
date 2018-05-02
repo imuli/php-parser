@@ -16,7 +16,7 @@ func TestClassConstList(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ public const FOO = 1, BAR = 2; }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -57,7 +57,7 @@ func TestClassConstListWithoutModifiers(t *testing.T) {
 	t.Helper()
 	src := `<? class foo{ const FOO = 1, BAR = 2; }`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},

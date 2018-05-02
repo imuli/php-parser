@@ -34,7 +34,7 @@ func TestAltIf(t *testing.T) {
 		endif;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -62,7 +62,7 @@ func TestAltElseIf(t *testing.T) {
 		endif;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -96,7 +96,7 @@ func TestAltElse(t *testing.T) {
 		endif;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -129,7 +129,7 @@ func TestAltElseElseIf(t *testing.T) {
 		endif;
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},

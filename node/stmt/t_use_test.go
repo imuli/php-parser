@@ -16,7 +16,7 @@ func TestSimpleUse(t *testing.T) {
 	t.Helper()
 	src := `<? use Foo;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -49,7 +49,7 @@ func TestUseFullyQualified(t *testing.T) {
 	t.Helper()
 	src := `<? use \Foo;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -82,7 +82,7 @@ func TestUseFullyQualifiedAlias(t *testing.T) {
 	t.Helper()
 	src := `<? use \Foo as Bar;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -116,7 +116,7 @@ func TestSimpleUseList(t *testing.T) {
 	t.Helper()
 	src := `<? use Foo, Bar;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -156,7 +156,7 @@ func TestSimpleUseAlias(t *testing.T) {
 	t.Helper()
 	src := `<? use Foo, Bar as Baz;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -197,7 +197,7 @@ func TestSimpleUseFunctionType(t *testing.T) {
 	t.Helper()
 	src := `<? use function Foo, \Bar;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
@@ -238,7 +238,7 @@ func TestSimpleUseFunctionTypeAliases(t *testing.T) {
 	t.Helper()
 	src := `<? use function Foo as foo, \Bar as bar;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
@@ -281,7 +281,7 @@ func TestSimpleUseConstType(t *testing.T) {
 	t.Helper()
 	src := `<? use const Foo, \Bar;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
@@ -322,7 +322,7 @@ func TestSimpleUseConstTypeAliases(t *testing.T) {
 	t.Helper()
 	src := `<? use const Foo as foo, \Bar as bar;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
@@ -365,7 +365,7 @@ func TestGroupUse(t *testing.T) {
 	t.Helper()
 	src := `<? use Foo\{Bar, Baz};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: &name.Name{
@@ -407,7 +407,7 @@ func TestGroupUseAlias(t *testing.T) {
 	t.Helper()
 	src := `<? use Foo\{Bar, Baz as quux};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: &name.Name{
@@ -450,7 +450,7 @@ func TestFunctionGroupUse(t *testing.T) {
 	t.Helper()
 	src := `<? use function Foo\{Bar, Baz};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				UseType: &node.Identifier{Value: "function"},
@@ -493,7 +493,7 @@ func TestConstGroupUse(t *testing.T) {
 	t.Helper()
 	src := `<? use const Foo\{Bar, Baz};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				UseType: &node.Identifier{Value: "const"},
@@ -536,7 +536,7 @@ func TestMixedGroupUse(t *testing.T) {
 	t.Helper()
 	src := `<? use Foo\{const Bar, function Baz};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: &name.Name{

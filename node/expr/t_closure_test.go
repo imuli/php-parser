@@ -17,7 +17,7 @@ import (
 func TestClosure(t *testing.T) {
 	src := `<? function(){};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.Closure{
@@ -49,7 +49,7 @@ func TestClosure(t *testing.T) {
 func TestClosureUse(t *testing.T) {
 	src := `<? function($a, $b) use ($c, &$d) {};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.Closure{
@@ -102,7 +102,7 @@ func TestClosureUse(t *testing.T) {
 func TestClosureUse2(t *testing.T) {
 	src := `<? function($a, $b) use (&$c, $d) {};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.Closure{
@@ -155,7 +155,7 @@ func TestClosureUse2(t *testing.T) {
 func TestClosureReturnType(t *testing.T) {
 	src := `<? function(): void {};`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.Closure{

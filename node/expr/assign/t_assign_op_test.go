@@ -32,7 +32,7 @@ func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
 func TestReference(t *testing.T) {
 	src := `<? $a =& $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Reference{
@@ -57,7 +57,7 @@ func TestReference(t *testing.T) {
 func TestReferenceNew(t *testing.T) {
 	src := `<? $a =& new Foo;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Reference{
@@ -88,7 +88,7 @@ func TestReferenceNew(t *testing.T) {
 func TestReferenceArgs(t *testing.T) {
 	src := `<? $a =& new Foo($b);`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Reference{
@@ -130,7 +130,7 @@ func TestReferenceArgs(t *testing.T) {
 func TestAssign(t *testing.T) {
 	src := `<? $a = $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Assign{
@@ -155,7 +155,7 @@ func TestAssign(t *testing.T) {
 func TestBitwiseAnd(t *testing.T) {
 	src := `<? $a &= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.BitwiseAnd{
@@ -180,7 +180,7 @@ func TestBitwiseAnd(t *testing.T) {
 func TestBitwiseOr(t *testing.T) {
 	src := `<? $a |= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.BitwiseOr{
@@ -205,7 +205,7 @@ func TestBitwiseOr(t *testing.T) {
 func TestBitwiseXor(t *testing.T) {
 	src := `<? $a ^= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.BitwiseXor{
@@ -230,7 +230,7 @@ func TestBitwiseXor(t *testing.T) {
 func TestConcat(t *testing.T) {
 	src := `<? $a .= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Concat{
@@ -255,7 +255,7 @@ func TestConcat(t *testing.T) {
 func TestDiv(t *testing.T) {
 	src := `<? $a /= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Div{
@@ -280,7 +280,7 @@ func TestDiv(t *testing.T) {
 func TestMinus(t *testing.T) {
 	src := `<? $a -= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Minus{
@@ -305,7 +305,7 @@ func TestMinus(t *testing.T) {
 func TestMod(t *testing.T) {
 	src := `<? $a %= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Mod{
@@ -330,7 +330,7 @@ func TestMod(t *testing.T) {
 func TestMul(t *testing.T) {
 	src := `<? $a *= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Mul{
@@ -355,7 +355,7 @@ func TestMul(t *testing.T) {
 func TestPlus(t *testing.T) {
 	src := `<? $a += $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Plus{
@@ -380,7 +380,7 @@ func TestPlus(t *testing.T) {
 func TestPow(t *testing.T) {
 	src := `<? $a **= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.Pow{
@@ -405,7 +405,7 @@ func TestPow(t *testing.T) {
 func TestShiftLeft(t *testing.T) {
 	src := `<? $a <<= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.ShiftLeft{
@@ -430,7 +430,7 @@ func TestShiftLeft(t *testing.T) {
 func TestShiftRight(t *testing.T) {
 	src := `<? $a >>= $b;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &assign.ShiftRight{

@@ -16,7 +16,7 @@ func TestIf(t *testing.T) {
 	t.Helper()
 	src := `<? if ($a) {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -41,7 +41,7 @@ func TestElseIf(t *testing.T) {
 	src := `<? if ($a) {} elseif ($b) {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -71,7 +71,7 @@ func TestElse(t *testing.T) {
 	t.Helper()
 	src := `<? if ($a) {} else {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -98,7 +98,7 @@ func TestElseElseIf(t *testing.T) {
 	t.Helper()
 	src := `<? if ($a) {} elseif ($b) {} elseif ($c) {} else {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -135,7 +135,7 @@ func TestElseIfElseIfElse(t *testing.T) {
 	t.Helper()
 	src := `<? if ($a) {} elseif ($b) {} else if ($c) {} else {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},

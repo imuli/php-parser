@@ -19,7 +19,7 @@ func TestTry(t *testing.T) {
 		try {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{
@@ -49,7 +49,7 @@ func TestTryCatch(t *testing.T) {
 		try {} catch (Exception $e) {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{
@@ -97,7 +97,7 @@ func TestPhp7TryCatch(t *testing.T) {
 		try {} catch (Exception|RuntimeException $e) {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{
@@ -145,7 +145,7 @@ func TestTryCatchCatch(t *testing.T) {
 		try {} catch (Exception $e) {} catch (RuntimeException $e) {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{
@@ -210,7 +210,7 @@ func TestTryCatchFinally(t *testing.T) {
 		try {} catch (Exception $e) {} finally {}
 	`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{
@@ -263,7 +263,7 @@ func TestTryCatchCatchCatch(t *testing.T) {
 	t.Helper()
 	src := `<? try {} catch (Exception $e) {} catch (\RuntimeException $e) {} catch (namespace\AdditionException $e) {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
 				InnerStmtList: &stmt.InnerStmtList{

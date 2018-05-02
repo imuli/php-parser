@@ -16,7 +16,7 @@ func TestDo(t *testing.T) {
 	t.Helper()
 	src := `<? do {} while(1);`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Do{
 				Stmt: &stmt.InnerStmtList{

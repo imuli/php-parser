@@ -20,7 +20,7 @@ import (
 func TestFunctionCall(t *testing.T) {
 	src := `<? foo();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -51,7 +51,7 @@ func TestFunctionCall(t *testing.T) {
 func TestFunctionCallRelative(t *testing.T) {
 	src := `<? namespace\foo();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -82,7 +82,7 @@ func TestFunctionCallRelative(t *testing.T) {
 func TestFunctionFullyQualified(t *testing.T) {
 	src := `<? \foo([]);`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -123,7 +123,7 @@ func TestFunctionFullyQualified(t *testing.T) {
 func TestFunctionCallVar(t *testing.T) {
 	src := `<? $foo(yield $a);`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -160,7 +160,7 @@ func TestFunctionCallVar(t *testing.T) {
 func TestFunctionCallExprArg(t *testing.T) {
 	src := `<? ceil($foo/3);`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{

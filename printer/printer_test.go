@@ -19,7 +19,7 @@ func TestPrintFile(t *testing.T) {
 	o := bytes.NewBufferString("")
 
 	p := printer.NewPrinter(o, "\t")
-	p.PrintFile(&stmt.StmtList{
+	p.Print(&node.Root{
 		Stmts: []node.Node{
 			&stmt.Namespace{
 				NamespaceName: &name.Name{
@@ -86,7 +86,7 @@ func TestPrintFileInlineHtml(t *testing.T) {
 	o := bytes.NewBufferString("")
 
 	p := printer.NewPrinter(o, "    ")
-	p.PrintFile(&stmt.StmtList{
+	p.Print(&node.Root{
 		Stmts: []node.Node{
 			&stmt.InlineHtml{Value: "<div>HTML</div>"},
 			&stmt.Expression{

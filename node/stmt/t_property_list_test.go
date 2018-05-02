@@ -17,7 +17,7 @@ func TestProperty(t *testing.T) {
 	t.Helper()
 	src := `<? class foo {var $a;}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -57,7 +57,7 @@ func TestProperties(t *testing.T) {
 	t.Helper()
 	src := `<? class foo {public static $a, $b = 1;}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
@@ -103,7 +103,7 @@ func TestProperties2(t *testing.T) {
 	t.Helper()
 	src := `<? class foo {public static $a = 1, $b;}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},

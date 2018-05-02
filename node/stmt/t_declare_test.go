@@ -16,7 +16,7 @@ func TestDeclare(t *testing.T) {
 	t.Helper()
 	src := `<? declare(ticks=1);`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Declare{
 				Consts: []node.Node{
@@ -46,7 +46,7 @@ func TestDeclareStmts(t *testing.T) {
 	t.Helper()
 	src := `<? declare(ticks=1, strict_types=1) {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Declare{
 				Consts: []node.Node{
@@ -85,7 +85,7 @@ func TestAltDeclare(t *testing.T) {
 	t.Helper()
 	src := `<? declare(ticks=1): enddeclare;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Declare{
 				Consts: []node.Node{

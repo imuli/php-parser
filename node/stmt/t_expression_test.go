@@ -16,7 +16,7 @@ func TestExpression(t *testing.T) {
 	t.Helper()
 	src := `<? 1;`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &scalar.Lnumber{Value: "1"},

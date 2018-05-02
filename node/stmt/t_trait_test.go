@@ -14,7 +14,7 @@ func TestTrait(t *testing.T) {
 	t.Helper()
 	src := `<? trait Foo {}`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Trait{
 				PhpDocComment: "",

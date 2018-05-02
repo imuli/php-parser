@@ -31,7 +31,7 @@ func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
 func TestName(t *testing.T) {
 	src := `<? foo();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -60,7 +60,7 @@ func TestName(t *testing.T) {
 func TestFullyQualified(t *testing.T) {
 	src := `<? \foo();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
@@ -89,7 +89,7 @@ func TestFullyQualified(t *testing.T) {
 func TestRelative(t *testing.T) {
 	src := `<? namespace\foo();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{

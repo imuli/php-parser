@@ -17,7 +17,7 @@ import (
 func TestStaticCall(t *testing.T) {
 	src := `<? Foo::bar();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
@@ -49,7 +49,7 @@ func TestStaticCall(t *testing.T) {
 func TestStaticCallRelative(t *testing.T) {
 	src := `<? namespace\Foo::bar();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
@@ -81,7 +81,7 @@ func TestStaticCallRelative(t *testing.T) {
 func TestStaticCallFullyQualified(t *testing.T) {
 	src := `<? \Foo::bar();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
@@ -113,7 +113,7 @@ func TestStaticCallFullyQualified(t *testing.T) {
 func TestStaticCallVar(t *testing.T) {
 	src := `<? Foo::$bar();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
@@ -145,7 +145,7 @@ func TestStaticCallVar(t *testing.T) {
 func TestStaticCallVarVar(t *testing.T) {
 	src := `<? $foo::$bar();`
 
-	expected := &stmt.StmtList{
+	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Expression{
 				Expr: &expr.StaticCall{
