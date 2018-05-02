@@ -21,8 +21,8 @@ func TestProperty(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.PropertyList{
 								Modifiers: []node.Node{
@@ -61,8 +61,8 @@ func TestProperties(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.PropertyList{
 								Modifiers: []node.Node{
@@ -107,8 +107,8 @@ func TestProperties2(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.PropertyList{
 								Modifiers: []node.Node{

@@ -21,8 +21,8 @@ func TestTraitUse(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -60,8 +60,8 @@ func TestTraitsUse(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -104,8 +104,8 @@ func TestTraitsUseEmptyAdaptations(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -151,8 +151,8 @@ func TestTraitsUseModifier(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -207,8 +207,8 @@ func TestTraitsUseAliasModifier(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -263,8 +263,8 @@ func TestTraitsUseAdaptions(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{

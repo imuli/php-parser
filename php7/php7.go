@@ -2704,46 +2704,46 @@ yydefault:
 		//line php7/php7.y:412
 		{
 			name := name.NewName(yyDollar[2].list)
-			stmtList := stmt.NewStmtList(yyDollar[4].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewNamespace(name, innerStmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[4].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewNamespace(name, stmtList)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[3].token, yyDollar[5].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[3].token, yyDollar[5].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[5].token))
 
 			// save comments
 			yylex.(*Parser).addNodeCommentsFromChildNode(name, yyDollar[2].list[0])
 			yylex.(*Parser).addNodeInlineCommentsFromNextToken(name, yyDollar[3].token)
-			yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, yyDollar[3].token)
+			yylex.(*Parser).addNodeCommentsFromToken(stmtList, yyDollar[3].token)
 			if len(yyDollar[4].list) > 0 {
 				yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode(yyDollar[4].list), yyDollar[5].token)
 			}
-			yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, yyDollar[5].token)
+			yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, yyDollar[5].token)
 			yylex.(*Parser).addNodeCommentsFromToken(yyVAL.node, yyDollar[1].token)
 		}
 	case 94:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:433
 		{
-			stmtList := stmt.NewStmtList(yyDollar[3].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewNamespace(nil, innerStmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[3].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewNamespace(nil, stmtList)
 
 			// save position
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[4].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[4].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 
 			// save comments
 			yylex.(*Parser).addNodeCommentsFromToken(yyVAL.node, yyDollar[1].token)
-			yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, yyDollar[2].token)
+			yylex.(*Parser).addNodeCommentsFromToken(stmtList, yyDollar[2].token)
 			if len(yyDollar[3].list) > 0 {
 				yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode(yyDollar[3].list), yyDollar[4].token)
 			}
-			yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, yyDollar[4].token)
+			yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, yyDollar[4].token)
 		}
 	case 95:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -2845,20 +2845,20 @@ yydefault:
 		//line php7/php7.y:537
 		{
 			name := name.NewName(yyDollar[1].list)
-			stmtList := stmt.NewUseList(yyDollar[4].list)
-			innerStmtList := stmt.NewInnerUseList(stmtList)
-			yyVAL.node = stmt.NewGroupUse(nil, name, innerStmtList)
+			innerStmtList := stmt.NewUseList(yyDollar[4].list)
+			stmtList := stmt.NewInnerUseList(innerStmtList)
+			yyVAL.node = stmt.NewGroupUse(nil, name, stmtList)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[1].list))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[3].token, yyDollar[6].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[3].token, yyDollar[6].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewNodeListTokenPosition(yyDollar[1].list, yyDollar[6].token))
 
 			// save comments
 			yylex.(*Parser).addNodeCommentsFromChildNode(name, yyDollar[1].list[0])
 			yylex.(*Parser).addNodeAllCommentsFromNextToken(name, yyDollar[2].token)
-			yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, yyDollar[3].token)
+			yylex.(*Parser).addNodeCommentsFromToken(stmtList, yyDollar[3].token)
 
 			if yyDollar[5].token != nil {
 				yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode(yyDollar[4].list), yyDollar[5].token)
@@ -2870,21 +2870,21 @@ yydefault:
 		//line php7/php7.y:558
 		{
 			name := name.NewName(yyDollar[2].list)
-			stmtList := stmt.NewUseList(yyDollar[5].list)
-			innerStmtList := stmt.NewInnerUseList(stmtList)
-			yyVAL.node = stmt.NewGroupUse(nil, name, innerStmtList)
+			innerStmtList := stmt.NewUseList(yyDollar[5].list)
+			stmtList := stmt.NewInnerUseList(innerStmtList)
+			yyVAL.node = stmt.NewGroupUse(nil, name, stmtList)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[5].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[4].token, yyDollar[7].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[5].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[4].token, yyDollar[7].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[7].token))
 
 			// save comments
 			yylex.(*Parser).addNodeCommentsFromToken(name, yyDollar[1].token)
 			yylex.(*Parser).addNodeCommentsFromChildNode(name, yyDollar[2].list[0])
 			yylex.(*Parser).addNodeAllCommentsFromNextToken(name, yyDollar[3].token)
-			yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, yyDollar[4].token)
+			yylex.(*Parser).addNodeCommentsFromToken(stmtList, yyDollar[4].token)
 
 			if yyDollar[6].token != nil {
 				yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode(yyDollar[5].list), yyDollar[6].token)
@@ -2896,20 +2896,20 @@ yydefault:
 		//line php7/php7.y:583
 		{
 			name := name.NewName(yyDollar[1].list)
-			stmtList := stmt.NewUseList(yyDollar[4].list)
-			innerStmtList := stmt.NewInnerUseList(stmtList)
-			yyVAL.node = stmt.NewGroupUse(nil, name, innerStmtList)
+			innerStmtList := stmt.NewUseList(yyDollar[4].list)
+			stmtList := stmt.NewInnerUseList(innerStmtList)
+			yyVAL.node = stmt.NewGroupUse(nil, name, stmtList)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[1].list))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[3].token, yyDollar[6].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[3].token, yyDollar[6].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewNodeListTokenPosition(yyDollar[1].list, yyDollar[6].token))
 
 			// save comments
 			yylex.(*Parser).addNodeCommentsFromChildNode(name, yyDollar[1].list[0])
 			yylex.(*Parser).addNodeAllCommentsFromNextToken(name, yyDollar[2].token)
-			yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, yyDollar[3].token)
+			yylex.(*Parser).addNodeCommentsFromToken(stmtList, yyDollar[3].token)
 
 			if yyDollar[5].token != nil {
 				yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode(yyDollar[4].list), yyDollar[5].token)
@@ -2921,21 +2921,21 @@ yydefault:
 		//line php7/php7.y:604
 		{
 			name := name.NewName(yyDollar[2].list)
-			stmtList := stmt.NewUseList(yyDollar[5].list)
-			innerStmtList := stmt.NewInnerUseList(stmtList)
-			yyVAL.node = stmt.NewGroupUse(nil, name, innerStmtList)
+			innerStmtList := stmt.NewUseList(yyDollar[5].list)
+			stmtList := stmt.NewInnerUseList(innerStmtList)
+			yyVAL.node = stmt.NewGroupUse(nil, name, stmtList)
 
 			// save position
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[5].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[4].token, yyDollar[7].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[5].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[4].token, yyDollar[7].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[7].token))
 
 			// save comments
 			yylex.(*Parser).addNodeCommentsFromToken(name, yyDollar[1].token)
 			yylex.(*Parser).addNodeCommentsFromChildNode(name, yyDollar[2].list[0])
 			yylex.(*Parser).addNodeAllCommentsFromNextToken(name, yyDollar[3].token)
-			yylex.(*Parser).addNodeCommentsFromToken(innerStmtList, yyDollar[4].token)
+			yylex.(*Parser).addNodeCommentsFromToken(stmtList, yyDollar[4].token)
 
 			if yyDollar[6].token != nil {
 				yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode(yyDollar[5].list), yyDollar[6].token)
@@ -3151,10 +3151,10 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php7/php7.y:783
 		{
-			stmtList := stmt.NewStmtList(yyDollar[2].list)
-			yyVAL.node = stmt.NewInnerStmtList(stmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[2].list)
+			yyVAL.node = stmt.NewStmtList(innerStmtList)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
@@ -3372,9 +3372,9 @@ yydefault:
 		yyDollar = yyS[yypt-6 : yypt+1]
 		//line php7/php7.y:958
 		{
-			stmtList := stmt.NewStmtList(yyDollar[3].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewTry(innerStmtList, yyDollar[5].list, yyDollar[6].node)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[3].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewTry(stmtList, yyDollar[5].list, yyDollar[6].node)
 
 			if yyDollar[6].node == nil {
 				yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition(yyDollar[1].token, yyDollar[5].list))
@@ -3382,8 +3382,8 @@ yydefault:
 				yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenNodePosition(yyDollar[1].token, yyDollar[6].node))
 			}
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[4].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[4].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}
@@ -3431,15 +3431,15 @@ yydefault:
 		{
 			identifier := node.NewIdentifier(strings.TrimLeft(yyDollar[5].token.Value, "$"))
 			variable := expr.NewVariable(identifier)
-			stmtList := stmt.NewStmtList(yyDollar[8].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			catch := stmt.NewCatch(yyDollar[4].list, variable, innerStmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[8].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			catch := stmt.NewCatch(yyDollar[4].list, variable, stmtList)
 			yyVAL.list = append(yyDollar[1].list, catch)
 
 			yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[5].token))
 			yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[5].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[8].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[7].token, yyDollar[9].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[8].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[7].token, yyDollar[9].token))
 			yylex.(*Parser).positions.AddPosition(catch, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[9].token))
 
 			yylex.(*Parser).comments.AddComments(identifier, yyDollar[5].token.Comments())
@@ -3468,13 +3468,13 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1031
 		{
-			stmtList := stmt.NewStmtList(yyDollar[3].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewFinally(innerStmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[3].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewFinally(stmtList)
 
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[4].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[2].token, yyDollar[4].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}
@@ -3501,13 +3501,13 @@ yydefault:
 		//line php7/php7.y:1055
 		{
 			name := node.NewIdentifier(yyDollar[3].token.Value)
-			stmtList := stmt.NewStmtList(yyDollar[10].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewFunction(name, yyDollar[2].boolWithToken.value, yyDollar[6].list, yyDollar[8].node, innerStmtList, yyDollar[4].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[10].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewFunction(name, yyDollar[2].boolWithToken.value, yyDollar[6].list, yyDollar[8].node, stmtList, yyDollar[4].str)
 
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[3].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[10].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[9].token, yyDollar[11].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[10].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[9].token, yyDollar[11].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[11].token))
 
 			yylex.(*Parser).comments.AddComments(name, yyDollar[3].token.Comments())
@@ -3542,13 +3542,13 @@ yydefault:
 		//line php7/php7.y:1083
 		{
 			name := node.NewIdentifier(yyDollar[3].token.Value)
-			stmtList := stmt.NewStmtList(yyDollar[8].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewClass(name, yyDollar[1].list, nil, yyDollar[4].node, yyDollar[5].list, innerStmtList, yyDollar[6].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[8].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewClass(name, yyDollar[1].list, nil, yyDollar[4].node, yyDollar[5].list, stmtList, yyDollar[6].str)
 
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[3].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[8].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[7].token, yyDollar[9].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[8].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[7].token, yyDollar[9].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewOptionalListTokensPosition(yyDollar[1].list, yyDollar[2].token, yyDollar[9].token))
 
 			yylex.(*Parser).comments.AddComments(name, yyDollar[3].token.Comments())
@@ -3559,13 +3559,13 @@ yydefault:
 		//line php7/php7.y:1098
 		{
 			name := node.NewIdentifier(yyDollar[2].token.Value)
-			stmtList := stmt.NewStmtList(yyDollar[7].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewClass(name, nil, nil, yyDollar[3].node, yyDollar[4].list, innerStmtList, yyDollar[5].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[7].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewClass(name, nil, nil, yyDollar[3].node, yyDollar[4].list, stmtList, yyDollar[5].str)
 
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[7].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[6].token, yyDollar[8].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[7].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[6].token, yyDollar[8].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[8].token))
 
 			yylex.(*Parser).comments.AddComments(name, yyDollar[2].token.Comments())
@@ -3604,13 +3604,13 @@ yydefault:
 		//line php7/php7.y:1136
 		{
 			name := node.NewIdentifier(yyDollar[2].token.Value)
-			stmtList := stmt.NewStmtList(yyDollar[5].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewTrait(name, innerStmtList, yyDollar[3].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[5].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewTrait(name, stmtList, yyDollar[3].str)
 
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[5].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[4].token, yyDollar[6].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[5].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[4].token, yyDollar[6].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[6].token))
 
 			yylex.(*Parser).comments.AddComments(name, yyDollar[2].token.Comments())
@@ -3621,13 +3621,13 @@ yydefault:
 		//line php7/php7.y:1154
 		{
 			name := node.NewIdentifier(yyDollar[2].token.Value)
-			stmtList := stmt.NewStmtList(yyDollar[6].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = stmt.NewInterface(name, yyDollar[3].list, innerStmtList, yyDollar[4].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[6].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = stmt.NewInterface(name, yyDollar[3].list, stmtList, yyDollar[4].str)
 
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[2].token))
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[6].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[5].token, yyDollar[7].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[6].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[5].token, yyDollar[7].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[7].token))
 
 			yylex.(*Parser).comments.AddComments(name, yyDollar[2].token.Comments())
@@ -3710,10 +3710,10 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1211
 		{
-			stmtList := stmt.NewStmtList(yyDollar[2].list)
-			yyVAL.node = stmt.NewAltFor(nil, nil, nil, stmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[2].list)
+			yyVAL.node = stmt.NewAltFor(nil, nil, nil, innerStmtList)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 		}
 	case 189:
@@ -3727,10 +3727,10 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1227
 		{
-			stmtList := stmt.NewStmtList(yyDollar[2].list)
-			yyVAL.node = stmt.NewAltForeach(nil, nil, nil, stmtList, false)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[2].list)
+			yyVAL.node = stmt.NewAltForeach(nil, nil, nil, innerStmtList, false)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 		}
 	case 191:
@@ -3743,7 +3743,7 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1239
 		{
-			yyVAL.node = stmt.NewStmtList(yyDollar[2].list)
+			yyVAL.node = stmt.NewInnerStmtList(yyDollar[2].list)
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}
@@ -3827,10 +3827,10 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1316
 		{
-			stmtList := stmt.NewStmtList(yyDollar[2].list)
-			yyVAL.node = stmt.NewAltWhile(nil, stmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[2].list)
+			yyVAL.node = stmt.NewAltWhile(nil, innerStmtList)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 		}
 	case 204:
@@ -3873,7 +3873,7 @@ yydefault:
 		yyDollar = yyS[yypt-6 : yypt+1]
 		//line php7/php7.y:1358
 		{
-			stmts := stmt.NewStmtList(yyDollar[6].list)
+			stmts := stmt.NewInnerStmtList(yyDollar[6].list)
 			yylex.(*Parser).positions.AddPosition(stmts, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[6].list))
 			yyVAL.node = stmt.NewAltIf(yyDollar[3].node, stmts, nil, nil)
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition(yyDollar[1].token, yyDollar[6].list))
@@ -3885,7 +3885,7 @@ yydefault:
 		yyDollar = yyS[yypt-7 : yypt+1]
 		//line php7/php7.y:1368
 		{
-			stmts := stmt.NewStmtList(yyDollar[7].list)
+			stmts := stmt.NewInnerStmtList(yyDollar[7].list)
 			yylex.(*Parser).positions.AddPosition(stmts, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[7].list))
 			_elseIf := stmt.NewAltElseIf(yyDollar[4].node, stmts)
 			yylex.(*Parser).positions.AddPosition(_elseIf, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition(yyDollar[2].token, yyDollar[7].list))
@@ -3905,7 +3905,7 @@ yydefault:
 		yyDollar = yyS[yypt-6 : yypt+1]
 		//line php7/php7.y:1387
 		{
-			stmts := stmt.NewStmtList(yyDollar[4].list)
+			stmts := stmt.NewInnerStmtList(yyDollar[4].list)
 			yylex.(*Parser).positions.AddPosition(stmts, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[4].list))
 			_else := stmt.NewAltElse(stmts)
 			yylex.(*Parser).positions.AddPosition(_else, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition(yyDollar[2].token, yyDollar[4].list))
@@ -4216,16 +4216,16 @@ yydefault:
 		yyDollar = yyS[yypt-10 : yypt+1]
 		//line php7/php7.y:1621
 		{
-			var innerStmtList *stmt.InnerStmtList
+			var stmtList *stmt.StmtList
 			switch n := yyDollar[10].node.(type) {
-			case *stmt.InnerStmtList:
-				innerStmtList = n
+			case *stmt.StmtList:
+				stmtList = n
 			default:
-				innerStmtList = nil
+				stmtList = nil
 			}
 
 			name := node.NewIdentifier(yyDollar[4].token.Value)
-			yyVAL.node = stmt.NewClassMethod(name, yyDollar[1].list, yyDollar[3].boolWithToken.value, yyDollar[7].list, yyDollar[9].node, innerStmtList, yyDollar[5].str)
+			yyVAL.node = stmt.NewClassMethod(name, yyDollar[1].list, yyDollar[3].boolWithToken.value, yyDollar[7].list, yyDollar[9].node, stmtList, yyDollar[5].str)
 
 			yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition(yyDollar[4].token))
 
@@ -4395,10 +4395,10 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php7/php7.y:1768
 		{
-			stmtList := stmt.NewStmtList(yyDollar[2].list)
-			yyVAL.node = stmt.NewInnerStmtList(stmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[2].list)
+			yyVAL.node = stmt.NewStmtList(innerStmtList)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 		}
 	case 265:
@@ -4612,19 +4612,19 @@ yydefault:
 		yyDollar = yyS[yypt-8 : yypt+1]
 		//line php7/php7.y:1922
 		{
-			stmtList := stmt.NewStmtList(yyDollar[7].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[7].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
 
 			if yyDollar[2].node != nil {
-				yyVAL.node = stmt.NewClass(nil, nil, yyDollar[2].node.(*node.InnerArgumentList), yyDollar[3].node, yyDollar[4].list, innerStmtList, yyDollar[5].str)
+				yyVAL.node = stmt.NewClass(nil, nil, yyDollar[2].node.(*node.InnerArgumentList), yyDollar[3].node, yyDollar[4].list, stmtList, yyDollar[5].str)
 				yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[8].token))
 			} else {
-				yyVAL.node = stmt.NewClass(nil, nil, nil, yyDollar[3].node, yyDollar[4].list, innerStmtList, yyDollar[5].str)
+				yyVAL.node = stmt.NewClass(nil, nil, nil, yyDollar[3].node, yyDollar[4].list, stmtList, yyDollar[5].str)
 				yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[8].token))
 			}
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[7].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[6].token, yyDollar[8].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[7].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[6].token, yyDollar[8].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
 		}
@@ -5253,12 +5253,12 @@ yydefault:
 		yyDollar = yyS[yypt-11 : yypt+1]
 		//line php7/php7.y:2403
 		{
-			stmtList := stmt.NewStmtList(yyDollar[10].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = expr.NewClosure(yyDollar[5].list, yyDollar[7].list, yyDollar[8].node, innerStmtList, false, yyDollar[2].boolWithToken.value, yyDollar[3].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[10].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = expr.NewClosure(yyDollar[5].list, yyDollar[7].list, yyDollar[8].node, stmtList, false, yyDollar[2].boolWithToken.value, yyDollar[3].str)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[10].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[9].token, yyDollar[11].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[10].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[9].token, yyDollar[11].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[11].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())
@@ -5267,12 +5267,12 @@ yydefault:
 		yyDollar = yyS[yypt-12 : yypt+1]
 		//line php7/php7.y:2415
 		{
-			stmtList := stmt.NewStmtList(yyDollar[11].list)
-			innerStmtList := stmt.NewInnerStmtList(stmtList)
-			yyVAL.node = expr.NewClosure(yyDollar[6].list, yyDollar[8].list, yyDollar[9].node, innerStmtList, true, yyDollar[3].boolWithToken.value, yyDollar[4].str)
+			innerStmtList := stmt.NewInnerStmtList(yyDollar[11].list)
+			stmtList := stmt.NewStmtList(innerStmtList)
+			yyVAL.node = expr.NewClosure(yyDollar[6].list, yyDollar[8].list, yyDollar[9].node, stmtList, true, yyDollar[3].boolWithToken.value, yyDollar[4].str)
 
-			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[11].list))
-			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[10].token, yyDollar[12].token))
+			yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[11].list))
+			yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[10].token, yyDollar[12].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[12].token))
 
 			yylex.(*Parser).comments.AddComments(yyVAL.node, yyDollar[1].token.Comments())

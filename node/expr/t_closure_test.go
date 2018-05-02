@@ -25,8 +25,8 @@ func TestClosure(t *testing.T) {
 					Static:        false,
 					PhpDocComment: "",
 					Uses:          []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -78,8 +78,8 @@ func TestClosureUse(t *testing.T) {
 							Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}},
 						},
 					},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -131,8 +131,8 @@ func TestClosureUse2(t *testing.T) {
 							Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}},
 						},
 					},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -166,8 +166,8 @@ func TestClosureReturnType(t *testing.T) {
 					ReturnType: &name.Name{
 						Parts: []node.Node{&name.NamePart{Value: "void"}},
 					},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},

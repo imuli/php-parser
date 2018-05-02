@@ -383,7 +383,7 @@ func (p *Printer) printNode(n node.Node) {
 		p.printStmtStaticVar(n)
 	case *stmt.Static:
 		p.printStmtStatic(n)
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		p.printStmtStmtList(n)
 	case *stmt.Switch:
 		p.printStmtSwitch(n)
@@ -1045,7 +1045,7 @@ func (p *Printer) printExprClosure(n node.Node) {
 	}
 
 	io.WriteString(p.w, " {\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1334,7 +1334,7 @@ func (p *Printer) printStmtAltElseIf(n node.Node) {
 	p.Print(nn.Cond)
 	io.WriteString(p.w, ") :")
 
-	if s := nn.Stmt.(*stmt.StmtList).Stmts; len(s) > 0 {
+	if s := nn.Stmt.(*stmt.InnerStmtList).Stmts; len(s) > 0 {
 		io.WriteString(p.w, "\n")
 		p.printNodes(s)
 	}
@@ -1345,7 +1345,7 @@ func (p *Printer) printStmtAltElse(n node.Node) {
 
 	io.WriteString(p.w, "else :")
 
-	if s := nn.Stmt.(*stmt.StmtList).Stmts; len(s) > 0 {
+	if s := nn.Stmt.(*stmt.InnerStmtList).Stmts; len(s) > 0 {
 		io.WriteString(p.w, "\n")
 		p.printNodes(s)
 	}
@@ -1362,7 +1362,7 @@ func (p *Printer) printStmtAltFor(n node.Node) {
 	p.joinPrint(", ", nn.Loop)
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.Stmt.(*stmt.StmtList)
+	s := nn.Stmt.(*stmt.InnerStmtList)
 	p.printNodes(s.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
@@ -1390,7 +1390,7 @@ func (p *Printer) printStmtAltForeach(n node.Node) {
 
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.Stmt.(*stmt.StmtList)
+	s := nn.Stmt.(*stmt.InnerStmtList)
 	p.printNodes(s.Stmts)
 
 	io.WriteString(p.w, "\n")
@@ -1405,7 +1405,7 @@ func (p *Printer) printStmtAltIf(n node.Node) {
 	p.Print(nn.Cond)
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.Stmt.(*stmt.StmtList)
+	s := nn.Stmt.(*stmt.InnerStmtList)
 	p.printNodes(s.Stmts)
 
 	for _, elseif := range nn.ElseIf {
@@ -1447,7 +1447,7 @@ func (p *Printer) printStmtAltWhile(n node.Node) {
 	p.Print(nn.Cond)
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.Stmt.(*stmt.StmtList)
+	s := nn.Stmt.(*stmt.InnerStmtList)
 	p.printNodes(s.Stmts)
 
 	io.WriteString(p.w, "\n")
@@ -1488,7 +1488,7 @@ func (p *Printer) printStmtCatch(n node.Node) {
 	io.WriteString(p.w, " ")
 	p.Print(nn.Variable)
 	io.WriteString(p.w, ") {\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1520,7 +1520,7 @@ func (p *Printer) printStmtClassMethod(n node.Node) {
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "{\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1559,7 +1559,7 @@ func (p *Printer) printStmtClass(n node.Node) {
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "{\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1610,7 +1610,7 @@ func (p *Printer) printStmtDeclare(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:
@@ -1637,7 +1637,7 @@ func (p *Printer) printStmtDo(n node.Node) {
 	io.WriteString(p.w, "do")
 
 	switch s := nn.Stmt.(type) {
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 		io.WriteString(p.w, " ")
@@ -1674,7 +1674,7 @@ func (p *Printer) printStmtElseif(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:
@@ -1695,7 +1695,7 @@ func (p *Printer) printStmtElse(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:
@@ -1719,7 +1719,7 @@ func (p *Printer) printStmtFinally(n node.Node) {
 	nn := n.(*stmt.Finally)
 
 	io.WriteString(p.w, "finally {\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1740,7 +1740,7 @@ func (p *Printer) printStmtFor(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:
@@ -1774,7 +1774,7 @@ func (p *Printer) printStmtForeach(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:
@@ -1807,7 +1807,7 @@ func (p *Printer) printStmtFunction(n node.Node) {
 	}
 
 	io.WriteString(p.w, " {\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1860,7 +1860,7 @@ func (p *Printer) printStmtIf(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:
@@ -1911,7 +1911,7 @@ func (p *Printer) printStmtInterface(n node.Node) {
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "{\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -1935,7 +1935,7 @@ func (p *Printer) printStmtNamespace(n node.Node) {
 	}
 
 	if nn.Stmt != nil {
-		stmts := nn.Stmt.Stmts.Stmts
+		stmts := nn.Stmt.InnerStmtList.Stmts
 
 		io.WriteString(p.w, " {\n")
 		p.printNodes(stmts)
@@ -1998,7 +1998,7 @@ func (p *Printer) printStmtStatic(n node.Node) {
 }
 
 func (p *Printer) printStmtStmtList(n node.Node) {
-	nn := n.(*stmt.StmtList)
+	nn := n.(*stmt.InnerStmtList)
 
 	io.WriteString(p.w, "{\n")
 	p.printNodes(nn.Stmts)
@@ -2093,7 +2093,7 @@ func (p *Printer) printStmtTrait(n node.Node) {
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "{\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -2103,7 +2103,7 @@ func (p *Printer) printStmtTry(n node.Node) {
 	nn := n.(*stmt.Try)
 
 	io.WriteString(p.w, "try {\n")
-	p.printNodes(nn.InnerStmtList.Stmts.Stmts)
+	p.printNodes(nn.StmtList.InnerStmtList.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
 	io.WriteString(p.w, "}")
@@ -2171,7 +2171,7 @@ func (p *Printer) printStmtWhile(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.StmtList:
+	case *stmt.InnerStmtList:
 		io.WriteString(p.w, " ")
 		p.Print(s)
 	default:

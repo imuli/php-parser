@@ -33,7 +33,7 @@ func TestResolveStaticCall(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameBC := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}, &name.NamePart{Value: "C"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -68,7 +68,7 @@ func TestResolveStaticPropertyFetch(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameBC := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}, &name.NamePart{Value: "C"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -100,7 +100,7 @@ func TestResolveClassConstFetch(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameBC := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}, &name.NamePart{Value: "C"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -132,7 +132,7 @@ func TestResolveNew(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameBC := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}, &name.NamePart{Value: "C"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -166,7 +166,7 @@ func TestResolveInstanceOf(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameBC := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}, &name.NamePart{Value: "C"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -201,7 +201,7 @@ func TestResolveInstanceCatch(t *testing.T) {
 	nameDE := &name.Name{Parts: []node.Node{&name.NamePart{Value: "D"}, &name.NamePart{Value: "E"}}}
 	nameF := &name.Name{Parts: []node.Node{&name.NamePart{Value: "F"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -217,8 +217,8 @@ func TestResolveInstanceCatch(t *testing.T) {
 				},
 			},
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -229,8 +229,8 @@ func TestResolveInstanceCatch(t *testing.T) {
 							nameF,
 						},
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -255,7 +255,7 @@ func TestResolveFunctionCall(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "function"},
@@ -290,7 +290,7 @@ func TestResolveConstFetch(t *testing.T) {
 	nameAB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "A"}, &name.NamePart{Value: "B"}}}
 	nameB := &name.Name{Parts: []node.Node{&name.NamePart{Value: "B"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseType: &node.Identifier{Value: "const"},
@@ -325,7 +325,7 @@ func TestResolveGroupUse(t *testing.T) {
 	nameC := &name.Name{Parts: []node.Node{&name.NamePart{Value: "C"}}}
 	nameF := &name.Name{Parts: []node.Node{&name.NamePart{Value: "F"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.GroupUse{
 				Prefix: nameAB,
@@ -396,7 +396,7 @@ func TestResolveTraitUse(t *testing.T) {
 	relativeNameB := &name.Relative{Parts: []node.Node{&name.NamePart{Value: "B"}}}
 	relativeNameBC := &name.Relative{Parts: []node.Node{&name.NamePart{Value: "B"}, &name.NamePart{Value: "C"}}}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.SimpleUse{
 				UseList: &stmt.UseList{
@@ -463,7 +463,7 @@ func TestResolveClassName(t *testing.T) {
 		},
 	}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			class,
 		},
@@ -494,7 +494,7 @@ func TestResolveInterfaceName(t *testing.T) {
 		},
 	}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			interfaceNode,
 		},
@@ -516,14 +516,14 @@ func TestResolveTraitName(t *testing.T) {
 	traitNode := &stmt.Trait{
 		PhpDocComment: "",
 		TraitName:     &node.Identifier{Value: "A"},
-		InnerStmtList: &stmt.InnerStmtList{
-			Stmts: &stmt.StmtList{
+		StmtList: &stmt.StmtList{
+			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{},
 			},
 		},
 	}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			traitNode,
 		},
@@ -556,14 +556,14 @@ func TestResolveFunctionName(t *testing.T) {
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},
-		InnerStmtList: &stmt.InnerStmtList{
-			Stmts: &stmt.StmtList{
+		StmtList: &stmt.StmtList{
+			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{},
 			},
 		},
 	}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			functionNode,
 		},
@@ -598,8 +598,8 @@ func TestResolveMethodName(t *testing.T) {
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},
-		InnerStmtList: &stmt.InnerStmtList{
-			Stmts: &stmt.StmtList{
+		StmtList: &stmt.StmtList{
+			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{},
 			},
 		},
@@ -633,8 +633,8 @@ func TestResolveClosureName(t *testing.T) {
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},
-		InnerStmtList: &stmt.InnerStmtList{
-			Stmts: &stmt.StmtList{
+		StmtList: &stmt.StmtList{
+			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{},
 			},
 		},
@@ -665,7 +665,7 @@ func TestResolveConstantsName(t *testing.T) {
 		Expr:          &scalar.Lnumber{Value: "1"},
 	}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Namespace{
 				NamespaceName: nameAB,
@@ -710,7 +710,7 @@ func TestResolveNamespaces(t *testing.T) {
 		Expr:          &scalar.Lnumber{Value: "1"},
 	}
 
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Namespace{
 				NamespaceName: namespaceAB,
@@ -729,16 +729,16 @@ func TestResolveNamespaces(t *testing.T) {
 				},
 			},
 			&stmt.Namespace{
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
 			},
 			&stmt.Namespace{
 				NamespaceName: namespaceCD,
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.SimpleUse{
 								UseList: &stmt.UseList{
@@ -785,7 +785,7 @@ func TestResolveNamespaces(t *testing.T) {
 }
 
 func TestResolveStaticCallDinamicClassName(t *testing.T) {
-	ast := &stmt.StmtList{
+	ast := &node.Root{
 		Stmts: []node.Node{
 			&expr.StaticCall{
 				Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},

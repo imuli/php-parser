@@ -24,8 +24,8 @@ func TestSimpleFunction(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -54,8 +54,8 @@ func TestFunctionReturn(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Return{},
 						},
@@ -100,8 +100,8 @@ func TestFunctionReturnVar(t *testing.T) {
 						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Return{
 								Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -134,8 +134,8 @@ func TestRefFunction(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Return{
 								Expr: &scalar.Lnumber{Value: "1"},
@@ -173,8 +173,8 @@ func TestReturnTypeFunction(t *testing.T) {
 						&name.NamePart{Value: "void"},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},

@@ -22,8 +22,8 @@ func TestTry(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -52,8 +52,8 @@ func TestTryCatch(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -69,8 +69,8 @@ func TestTryCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -100,8 +100,8 @@ func TestPhp7TryCatch(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -122,8 +122,8 @@ func TestPhp7TryCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -148,8 +148,8 @@ func TestTryCatchCatch(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -165,8 +165,8 @@ func TestTryCatchCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -182,8 +182,8 @@ func TestTryCatchCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -213,8 +213,8 @@ func TestTryCatchFinally(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -230,16 +230,16 @@ func TestTryCatchFinally(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
 					},
 				},
 				Finally: &stmt.Finally{
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -266,8 +266,8 @@ func TestTryCatchCatchCatch(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -283,8 +283,8 @@ func TestTryCatchCatchCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -300,8 +300,8 @@ func TestTryCatchCatchCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -317,8 +317,8 @@ func TestTryCatchCatchCatch(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},

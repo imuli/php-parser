@@ -21,8 +21,8 @@ func TestForeach(t *testing.T) {
 			&stmt.Foreach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -48,8 +48,8 @@ func TestForeachExpr(t *testing.T) {
 			&stmt.Foreach{
 				Expr:     &expr.ShortArray{Items: []node.Node{}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -75,7 +75,7 @@ func TestAltForeach(t *testing.T) {
 			&stmt.AltForeach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt:     &stmt.InnerStmtList{Stmts: []node.Node{}},
 			},
 		},
 	}
@@ -101,8 +101,8 @@ func TestForeachWithKey(t *testing.T) {
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -129,8 +129,8 @@ func TestForeachExprWithKey(t *testing.T) {
 				Expr:     &expr.ShortArray{Items: []node.Node{}},
 				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -158,8 +158,8 @@ func TestForeachWithRef(t *testing.T) {
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -194,8 +194,8 @@ func TestForeachWithList(t *testing.T) {
 						},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},

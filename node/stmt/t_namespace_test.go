@@ -51,8 +51,8 @@ func TestNamespaceStmts(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -78,8 +78,8 @@ func TestAnonymousNamespace(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Namespace{
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},

@@ -99,14 +99,14 @@ nodes := &stmt.StmtList{
 			Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
 			ClassName: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
 			Extends: &name.Name{Parts: []node.Node{&name.NamePart{Value: "Baz"}}},
-			InnerStmtList: &stmt.InnerStmtList{
-				Stmts: &stmt.StmtList{
+			StmtList: &stmt.StmtList{
+				InnerStmtList: &stmt.InnerStmtList{
 					Stmts: []node.Node{
 						&stmt.ClassMethod{
 							Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 							MethodName: &node.Identifier{Value: "greet"},
-							InnerStmtList: &stmt.InnerStmtList{
-								Stmts: &stmt.StmtList{
+							StmtList: &stmt.StmtList{
+								InnerStmtList: &stmt.InnerStmtList{
 									Stmts: []node.Node{
 										&stmt.Echo{
 											Exprs: []node.Node{

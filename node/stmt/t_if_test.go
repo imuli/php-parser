@@ -20,7 +20,7 @@ func TestIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 			},
 		},
 	}
@@ -45,11 +45,11 @@ func TestElseIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 				},
 			},
@@ -75,9 +75,9 @@ func TestElse(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				Else: &stmt.Else{
-					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				},
 			},
 		},
@@ -102,19 +102,19 @@ func TestElseElseIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 				},
 				Else: &stmt.Else{
-					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				},
 			},
 		},
@@ -139,19 +139,19 @@ func TestElseIfElseIfElse(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 				},
 				Else: &stmt.Else{
 					Stmt: &stmt.If{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 						Else: &stmt.Else{
-							Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+							Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 						},
 					},
 				},

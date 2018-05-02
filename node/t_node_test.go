@@ -160,8 +160,8 @@ func TestPhp7ArgumentNode(t *testing.T) {
 								},
 							},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -310,23 +310,23 @@ func TestPhp7ParameterNode(t *testing.T) {
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
 				Params:        expectedParams,
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 								Params:     expectedParams,
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -339,8 +339,8 @@ func TestPhp7ParameterNode(t *testing.T) {
 				Expr: &expr.Closure{
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -351,8 +351,8 @@ func TestPhp7ParameterNode(t *testing.T) {
 					Static: true,
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -398,23 +398,23 @@ func TestPhp5ParameterNode(t *testing.T) {
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
 				Params:        expectedParams,
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 								Params:     expectedParams,
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -427,8 +427,8 @@ func TestPhp5ParameterNode(t *testing.T) {
 				Expr: &expr.Closure{
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -439,8 +439,8 @@ func TestPhp5ParameterNode(t *testing.T) {
 					Static: true,
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},

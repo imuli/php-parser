@@ -44,8 +44,8 @@ func TestFor(t *testing.T) {
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -80,7 +80,7 @@ func TestAltFor(t *testing.T) {
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
 					},
 				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 			},
 		},
 	}

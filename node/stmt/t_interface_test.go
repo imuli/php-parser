@@ -21,8 +21,8 @@ func TestInterface(t *testing.T) {
 			&stmt.Interface{
 				PhpDocComment: "",
 				InterfaceName: &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -57,8 +57,8 @@ func TestInterfaceExtend(t *testing.T) {
 						},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -98,8 +98,8 @@ func TestInterfaceExtends(t *testing.T) {
 						},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},

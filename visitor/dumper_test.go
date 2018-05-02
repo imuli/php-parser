@@ -52,10 +52,10 @@ func ExampleDumper() {
 	//|               "Position": Pos{Line: 3-3 Pos: 20-22};
 	//|               "Value": Foo;
 	//|       "Stmt":
-	//|         [*stmt.InnerStmtList]
+	//|         [*stmt.StmtList]
 	//|           "Position": Pos{Line: 3-11 Pos: 24-143};
-	//|           "Stmts":
-	//|             [*stmt.StmtList]
+	//|           "InnerStmtList":
+	//|             [*stmt.InnerStmtList]
 	//|               "Position": Pos{Line: 4-10 Pos: 29-139};
 	//|               "Stmts":
 	//|                 [*stmt.Class]
@@ -66,11 +66,11 @@ func ExampleDumper() {
 	//|                     [*node.Identifier]
 	//|                       "Position": Pos{Line: 4-4 Pos: 35-37};
 	//|                       "Value": Bar;
-	//|                   "InnerStmtList":
-	//|                     [*stmt.InnerStmtList]
+	//|                   "StmtList":
+	//|                     [*stmt.StmtList]
 	//|                       "Position": Pos{Line: 4-10 Pos: 39-139};
-	//|                       "Stmts":
-	//|                         [*stmt.StmtList]
+	//|                       "InnerStmtList":
+	//|                         [*stmt.InnerStmtList]
 	//|                           "Position": Pos{Line: 5-9 Pos: 45-134};
 	//|                           "Stmts":
 	//|                             [*stmt.ClassMethod]
@@ -116,11 +116,11 @@ func ExampleDumper() {
 	//|                                             [*name.NamePart]
 	//|                                               "Position": Pos{Line: 5-5 Pos: 86-89};
 	//|                                               "Value": null;
-	//|                               "InnerStmtList":
-	//|                                 [*stmt.InnerStmtList]
+	//|                               "StmtList":
+	//|                                 [*stmt.StmtList]
 	//|                                   "Position": Pos{Line: 6-9 Pos: 96-134};
-	//|                                   "Stmts":
-	//|                                     [*stmt.StmtList]
+	//|                                   "InnerStmtList":
+	//|                                     [*stmt.InnerStmtList]
 	//|                                       "Position": Pos{Line: 8-8 Pos: 124-128};
 	//|                                       "Stmts":
 	//|                                         [*stmt.Expression]

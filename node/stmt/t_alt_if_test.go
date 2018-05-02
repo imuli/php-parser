@@ -38,7 +38,7 @@ func TestAltIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 			},
 		},
 	}
@@ -66,11 +66,11 @@ func TestAltElseIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				ElseIf: []node.Node{
 					&stmt.AltElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 					},
 				},
 			},
@@ -100,9 +100,9 @@ func TestAltElse(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				Else: &stmt.AltElse{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -133,19 +133,19 @@ func TestAltElseElseIf(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				ElseIf: []node.Node{
 					&stmt.AltElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 					},
 					&stmt.AltElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 					},
 				},
 				Else: &stmt.AltElse{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},

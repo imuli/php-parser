@@ -298,13 +298,13 @@ top_statement:
     |   T_NAMESPACE namespace_name '{' top_statement_list '}'
             {
                 name := name.NewName($2)
-                stmtList := stmt.NewStmtList($4)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewNamespace(name, innerStmtList)
+                innerStmtList := stmt.NewInnerStmtList($4)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewNamespace(name, stmtList)
 
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $5))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
 
                 yylex.(*Parser).comments.AddComments(name, yylex.(*Parser).listGetFirstNodeComments($2))
@@ -312,12 +312,12 @@ top_statement:
             }
     |   T_NAMESPACE '{' top_statement_list '}'
             {
-                stmtList := stmt.NewStmtList($3)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewNamespace(nil, innerStmtList)
+                innerStmtList := stmt.NewInnerStmtList($3)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewNamespace(nil, stmtList)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
@@ -616,10 +616,10 @@ statement:
 unticked_statement:
         '{' inner_statement_list '}'
             {
-                stmtList := stmt.NewStmtList($2)
-                $$ = stmt.NewInnerStmtList(stmtList)
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewStmtList(innerStmtList)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
@@ -640,7 +640,7 @@ unticked_statement:
             }
     |   T_IF parenthesis_expr ':' inner_statement_list new_elseif_list new_else_single T_ENDIF ';'
             {
-                stmts := stmt.NewStmtList($4)
+                stmts := stmt.NewInnerStmtList($4)
                 yylex.(*Parser).positions.AddPosition(stmts, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
 
                 $$ = stmt.NewAltIf($2, stmts, $5, $6)
@@ -865,9 +865,9 @@ unticked_statement:
             }
     |   T_TRY '{' inner_statement_list '}' catch_statement finally_statement
             {
-                stmtList := stmt.NewStmtList($3)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewTry(innerStmtList, $5, $6)
+                innerStmtList := stmt.NewInnerStmtList($3)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewTry(stmtList, $5, $6)
 
                 if $6 == nil {
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $5))
@@ -875,8 +875,8 @@ unticked_statement:
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $6))
                 }
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
@@ -905,14 +905,14 @@ catch_statement:
             {
                 identifier := node.NewIdentifier(strings.TrimLeft($4.Value, "$"))
                 variable := expr.NewVariable(identifier)
-                stmtList := stmt.NewStmtList($7)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                catch := stmt.NewCatch([]node.Node{$3}, variable, innerStmtList)
+                innerStmtList := stmt.NewInnerStmtList($7)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                catch := stmt.NewCatch([]node.Node{$3}, variable, stmtList)
 
                 yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
                 yylex.(*Parser).positions.AddPosition(catch, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
                 
                 yylex.(*Parser).comments.AddComments(identifier, $4.Comments())
@@ -927,13 +927,13 @@ finally_statement:
             { $$ = nil }
     |   T_FINALLY '{' inner_statement_list '}'
             {
-                stmtList := stmt.NewStmtList($3)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewFinally(innerStmtList)
+                innerStmtList := stmt.NewInnerStmtList($3)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewFinally(stmtList)
 
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
@@ -958,14 +958,14 @@ additional_catch:
             {
                 identifier := node.NewIdentifier(strings.TrimLeft($4.Value, "$"))
                 variable := expr.NewVariable(identifier)
-                stmtList := stmt.NewStmtList($7)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewCatch([]node.Node{$3}, variable, innerStmtList)
+                innerStmtList := stmt.NewInnerStmtList($7)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewCatch([]node.Node{$3}, variable, stmtList)
 
                 yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $8))
 
                 yylex.(*Parser).comments.AddComments(identifier, $4.Comments())
@@ -1014,13 +1014,13 @@ unticked_function_declaration_statement:
         function is_reference T_STRING '(' parameter_list ')' '{' inner_statement_list '}'
             {
                 name := node.NewIdentifier($3.Value)
-                stmtList := stmt.NewStmtList($8)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewFunction(name, $2.value, $5, nil, innerStmtList, "")
+                innerStmtList := stmt.NewInnerStmtList($8)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewFunction(name, $2.value, $5, nil, stmtList, "")
 
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $9))
 
                 yylex.(*Parser).comments.AddComments(name, $3.Comments())
@@ -1034,30 +1034,30 @@ unticked_class_declaration_statement:
                 switch n := $1.(type) {
                     case *stmt.Class :
                         name := node.NewIdentifier($2.Value)
-                        stmtList := stmt.NewStmtList($6)
-                        innerStmtList := stmt.NewInnerStmtList(stmtList)
+                        innerStmtList := stmt.NewInnerStmtList($6)
+                        stmtList := stmt.NewStmtList(innerStmtList)
                         
                         yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-                        yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
-                        yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
+                        yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+                        yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
                         
                         n.ClassName = name
-                        n.InnerStmtList = innerStmtList
+                        n.StmtList = stmtList
                         n.Extends = $3
                         n.Implements = $4
 
                     case *stmt.Trait :
                         // TODO: is it possible that trait extend or implement
                         name := node.NewIdentifier($2.Value)
-                        stmtList := stmt.NewStmtList($6)
-                        innerStmtList := stmt.NewInnerStmtList(stmtList)
+                        innerStmtList := stmt.NewInnerStmtList($6)
+                        stmtList := stmt.NewStmtList(innerStmtList)
 
                         yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-                        yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
-                        yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
+                        yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+                        yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
                         
                         n.TraitName = name
-                        n.InnerStmtList = innerStmtList
+                        n.StmtList = stmtList
                 }
 
                 $$ = $1
@@ -1065,13 +1065,13 @@ unticked_class_declaration_statement:
     |   interface_entry T_STRING interface_extends_list '{' class_statement_list '}'
             {
                 name := node.NewIdentifier($2.Value)
-                stmtList := stmt.NewStmtList($5)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = stmt.NewInterface(name, $3, innerStmtList, "")
+                innerStmtList := stmt.NewInnerStmtList($5)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewInterface(name, $3, stmtList, "")
                 
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $6))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $6))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $6))
                 
                 yylex.(*Parser).comments.AddComments(name, $2.Comments())
@@ -1177,10 +1177,10 @@ for_statement:
             }
     |   ':' inner_statement_list T_ENDFOR ';'
             {
-                stmtList := stmt.NewStmtList($2)
-                $$ = stmt.NewAltFor(nil, nil, nil, stmtList)
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewAltFor(nil, nil, nil, innerStmtList)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             }
 ;
@@ -1194,10 +1194,10 @@ foreach_statement:
             }
     |   ':' inner_statement_list T_ENDFOREACH ';'
             {
-                stmtList := stmt.NewStmtList($2)
-                $$ = stmt.NewAltForeach(nil, nil, nil, stmtList, false)
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewAltForeach(nil, nil, nil, innerStmtList, false)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             }
 ;
@@ -1208,7 +1208,7 @@ declare_statement:
             { $$ = $1; }
     |   ':' inner_statement_list T_ENDDECLARE ';'
             {
-                $$ = stmt.NewStmtList($2)
+                $$ = stmt.NewInnerStmtList($2)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
@@ -1318,10 +1318,10 @@ while_statement:
             }
     |   ':' inner_statement_list T_ENDWHILE ';'
             {
-                stmtList := stmt.NewStmtList($2)
-                $$ = stmt.NewAltWhile(nil, stmtList)
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewAltWhile(nil, innerStmtList)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             }
 ;
@@ -1347,7 +1347,7 @@ new_elseif_list:
             { $$ = nil }
     |   new_elseif_list T_ELSEIF parenthesis_expr ':' inner_statement_list
             {
-                stmts := stmt.NewStmtList($5)
+                stmts := stmt.NewInnerStmtList($5)
                 yylex.(*Parser).positions.AddPosition(stmts, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
 
                 _elseIf := stmt.NewAltElseIf($3, stmts)
@@ -1376,7 +1376,7 @@ new_else_single:
             { $$ = nil }
     |   T_ELSE ':' inner_statement_list
             {
-                stmts := stmt.NewStmtList($3)
+                stmts := stmt.NewInnerStmtList($3)
                 yylex.(*Parser).positions.AddPosition(stmts, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
 
                 $$ = stmt.NewAltElse(stmts)
@@ -1670,16 +1670,16 @@ class_statement:
             { $$ = $1 }
     |   method_modifiers function is_reference T_STRING '(' parameter_list ')' method_body
             {
-                var innerStmtList *stmt.InnerStmtList
+                var stmtList *stmt.StmtList
                 switch n := $8.(type) {
-                case *stmt.InnerStmtList:
-                    innerStmtList = n
+                case *stmt.StmtList:
+                    stmtList = n
                 default:
-                    innerStmtList = nil
+                    stmtList = nil
                 }
 
                 name := node.NewIdentifier($4.Value)
-                $$ = stmt.NewClassMethod(name, $1, $3.value, $6, nil, innerStmtList, "")
+                $$ = stmt.NewClassMethod(name, $1, $3.value, $6, nil, stmtList, "")
 
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
                 
@@ -1836,10 +1836,10 @@ method_body:
             }
     |   '{' inner_statement_list '}'
             {
-                stmtList := stmt.NewStmtList($2)
-                $$ = stmt.NewInnerStmtList(stmtList)
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewStmtList(innerStmtList)
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
             }
 ;
@@ -2537,24 +2537,24 @@ expr_without_variable:
             }
     |   function is_reference '(' parameter_list ')' lexical_vars '{' inner_statement_list '}'
             {
-                stmtList := stmt.NewStmtList($8)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = expr.NewClosure($4, $6, nil, innerStmtList, false, $2.value, "")
+                innerStmtList := stmt.NewInnerStmtList($8)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = expr.NewClosure($4, $6, nil, stmtList, false, $2.value, "")
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $9))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
     |   T_STATIC function is_reference '(' parameter_list ')' lexical_vars '{' inner_statement_list '}'
             {
-                stmtList := stmt.NewStmtList($9)
-                innerStmtList := stmt.NewInnerStmtList(stmtList)
-                $$ = expr.NewClosure($5, $7, nil, innerStmtList, true, $3.value, "")
+                innerStmtList := stmt.NewInnerStmtList($9)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = expr.NewClosure($5, $7, nil, stmtList, true, $3.value, "")
 
-                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($9))
-                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($8, $10))
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($9))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($8, $10))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $10))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())

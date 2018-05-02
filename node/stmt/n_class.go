@@ -13,11 +13,11 @@ type Class struct {
 	InnerArgumentList *node.InnerArgumentList
 	Extends           node.Node
 	Implements        []node.Node
-	InnerStmtList     *InnerStmtList
+	StmtList          *StmtList
 }
 
 // NewClass node constructor
-func NewClass(ClassName node.Node, Modifiers []node.Node, InnerArgumentList *node.InnerArgumentList, Extends node.Node, Implements []node.Node, InnerStmtList *InnerStmtList, PhpDocComment string) *Class {
+func NewClass(ClassName node.Node, Modifiers []node.Node, InnerArgumentList *node.InnerArgumentList, Extends node.Node, Implements []node.Node, StmtList *StmtList, PhpDocComment string) *Class {
 	return &Class{
 		PhpDocComment,
 		ClassName,
@@ -25,7 +25,7 @@ func NewClass(ClassName node.Node, Modifiers []node.Node, InnerArgumentList *nod
 		InnerArgumentList,
 		Extends,
 		Implements,
-		InnerStmtList,
+		StmtList,
 	}
 }
 
@@ -76,9 +76,9 @@ func (n *Class) Walk(v walker.Visitor) {
 		}
 	}
 
-	if n.InnerStmtList != nil {
-		vv := v.GetChildrenVisitor("InnerStmtList")
-		n.InnerStmtList.Walk(vv)
+	if n.StmtList != nil {
+		vv := v.GetChildrenVisitor("StmtList")
+		n.StmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

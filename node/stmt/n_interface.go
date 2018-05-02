@@ -10,16 +10,16 @@ type Interface struct {
 	PhpDocComment string
 	InterfaceName node.Node
 	Extends       []node.Node
-	InnerStmtList *InnerStmtList
+	StmtList      *StmtList
 }
 
 // NewInterface node constructor
-func NewInterface(InterfaceName node.Node, Extends []node.Node, InnerStmtList *InnerStmtList, PhpDocComment string) *Interface {
+func NewInterface(InterfaceName node.Node, Extends []node.Node, StmtList *StmtList, PhpDocComment string) *Interface {
 	return &Interface{
 		PhpDocComment,
 		InterfaceName,
 		Extends,
-		InnerStmtList,
+		StmtList,
 	}
 }
 
@@ -51,9 +51,9 @@ func (n *Interface) Walk(v walker.Visitor) {
 		}
 	}
 
-	if n.InnerStmtList != nil {
-		vv := v.GetChildrenVisitor("InnerStmtList")
-		n.InnerStmtList.Walk(vv)
+	if n.StmtList != nil {
+		vv := v.GetChildrenVisitor("StmtList")
+		n.StmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

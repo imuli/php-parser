@@ -6,13 +6,13 @@ import (
 
 // Finally node
 type Finally struct {
-	InnerStmtList *InnerStmtList
+	StmtList *StmtList
 }
 
 // NewFinally node constructor
-func NewFinally(InnerStmtList *InnerStmtList) *Finally {
+func NewFinally(StmtList *StmtList) *Finally {
 	return &Finally{
-		InnerStmtList,
+		StmtList,
 	}
 }
 
@@ -28,9 +28,9 @@ func (n *Finally) Walk(v walker.Visitor) {
 		return
 	}
 
-	if n.InnerStmtList != nil {
-		vv := v.GetChildrenVisitor("InnerStmtList")
-		n.InnerStmtList.Walk(vv)
+	if n.StmtList != nil {
+		vv := v.GetChildrenVisitor("StmtList")
+		n.StmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

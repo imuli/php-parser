@@ -427,8 +427,8 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -439,8 +439,8 @@ func TestPhp7(t *testing.T) {
 				Expr: &expr.New{
 					Class: &stmt.Class{
 						PhpDocComment: "",
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -494,15 +494,15 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 								Params:     expectedParams,
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -515,8 +515,8 @@ func TestPhp7(t *testing.T) {
 				Expr: &expr.Closure{
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -527,8 +527,8 @@ func TestPhp7(t *testing.T) {
 					Static: true,
 					Params: expectedParams,
 					Uses:   []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -722,8 +722,8 @@ func TestPhp7(t *testing.T) {
 
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassConstList{
 								Modifiers: []node.Node{
@@ -748,8 +748,8 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassConstList{
 								Consts: []node.Node{
@@ -771,14 +771,14 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
 								MethodName:    &node.Identifier{Value: "bar"},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -789,8 +789,8 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -800,8 +800,8 @@ func TestPhp7(t *testing.T) {
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -812,8 +812,8 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -828,8 +828,8 @@ func TestPhp7(t *testing.T) {
 										&name.NamePart{Value: "void"},
 									},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -843,8 +843,8 @@ func TestPhp7(t *testing.T) {
 				Modifiers: []node.Node{
 					&node.Identifier{Value: "abstract"},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -859,8 +859,8 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "bar"},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -877,8 +877,8 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -900,8 +900,8 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -929,8 +929,8 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -984,8 +984,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Interface{
 				PhpDocComment: "",
 				InterfaceName: &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -1000,8 +1000,8 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -1021,8 +1021,8 @@ func TestPhp7(t *testing.T) {
 						},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -1040,23 +1040,23 @@ func TestPhp7(t *testing.T) {
 						&name.NamePart{Value: "Foo"},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
 			},
 			&stmt.Namespace{
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.PropertyList{
 								Modifiers: []node.Node{
@@ -1075,8 +1075,8 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.PropertyList{
 								Modifiers: []node.Node{
@@ -1191,8 +1191,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Trait{
 				PhpDocComment: "",
 				TraitName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -1200,8 +1200,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -1219,8 +1219,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -1246,8 +1246,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -1282,8 +1282,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -1318,8 +1318,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -1355,8 +1355,8 @@ func TestPhp7(t *testing.T) {
 			&stmt.Class{
 				PhpDocComment: "",
 				ClassName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.TraitUse{
 								Traits: []node.Node{
@@ -1817,8 +1817,8 @@ func TestPhp7(t *testing.T) {
 					Static:        false,
 					PhpDocComment: "",
 					Uses:          []node.Node{},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -1851,8 +1851,8 @@ func TestPhp7(t *testing.T) {
 							Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}},
 						},
 					},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -1867,8 +1867,8 @@ func TestPhp7(t *testing.T) {
 					ReturnType: &name.Name{
 						Parts: []node.Node{&name.NamePart{Value: "void"}},
 					},
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -2147,8 +2147,8 @@ func TestPhp7(t *testing.T) {
 								},
 							},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -2704,14 +2704,14 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "class"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -2739,8 +2739,8 @@ func TestPhp7(t *testing.T) {
 					&node.Identifier{Value: "abstract"},
 					&node.Identifier{Value: "final"},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "bar"},
@@ -2756,8 +2756,8 @@ func TestPhp7(t *testing.T) {
 									&node.Identifier{Value: "final"},
 									&node.Identifier{Value: "private"},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -3052,40 +3052,40 @@ func TestAltIfStmts(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 			},
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				ElseIf: []node.Node{
 					&stmt.AltElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 					},
 				},
 			},
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				Else: &stmt.AltElse{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 			&stmt.AltIf{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				ElseIf: []node.Node{
 					&stmt.AltElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 					},
 					&stmt.AltElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+						Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 					},
 				},
 				Else: &stmt.AltElse{
-					Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+					Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -3110,57 +3110,57 @@ func TestIfStmts(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 			},
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 				},
 			},
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				Else: &stmt.Else{
-					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				},
 			},
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 				},
 				Else: &stmt.Else{
-					Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+					Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				},
 			},
 			&stmt.If{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 				ElseIf: []node.Node{
 					&stmt.ElseIf{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 					},
 				},
 				Else: &stmt.Else{
 					Stmt: &stmt.If{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+						Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 						Else: &stmt.Else{
-							Stmt: &stmt.InnerStmtList{Stmts: &stmt.StmtList{Stmts: []node.Node{}}},
+							Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 						},
 					},
 				},
@@ -3182,8 +3182,8 @@ func TestDoStmts(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Do{
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3213,8 +3213,8 @@ func TestWhileStmts(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Break{},
 						},
@@ -3223,8 +3223,8 @@ func TestWhileStmts(t *testing.T) {
 			},
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Break{
 								Expr: &scalar.Lnumber{Value: "2"},
@@ -3235,7 +3235,7 @@ func TestWhileStmts(t *testing.T) {
 			},
 			&stmt.AltWhile{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.StmtList{
+				Stmt: &stmt.InnerStmtList{
 					Stmts: []node.Node{
 						&stmt.Break{
 							Expr: &scalar.Lnumber{Value: "3"},
@@ -3245,8 +3245,8 @@ func TestWhileStmts(t *testing.T) {
 			},
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Continue{Expr: nil},
 						},
@@ -3255,8 +3255,8 @@ func TestWhileStmts(t *testing.T) {
 			},
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Continue{
 								Expr: &scalar.Lnumber{Value: "2"},
@@ -3267,8 +3267,8 @@ func TestWhileStmts(t *testing.T) {
 			},
 			&stmt.While{
 				Cond: &scalar.Lnumber{Value: "1"},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Continue{
 								Expr: &scalar.Lnumber{Value: "3"},
@@ -3315,8 +3315,8 @@ func TestForStmts(t *testing.T) {
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3336,7 +3336,7 @@ func TestForStmts(t *testing.T) {
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
 					},
 				},
-				Stmt: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
 			},
 		},
 	}
@@ -3362,21 +3362,21 @@ func TestForeachStmts(t *testing.T) {
 			&stmt.Foreach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 			&stmt.AltForeach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt:     &stmt.InnerStmtList{Stmts: []node.Node{}},
 			},
 			&stmt.Foreach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 			&stmt.Foreach{
@@ -3384,8 +3384,8 @@ func TestForeachStmts(t *testing.T) {
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 			&stmt.Foreach{
@@ -3400,8 +3400,8 @@ func TestForeachStmts(t *testing.T) {
 						},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 			&stmt.Foreach{
@@ -3416,8 +3416,8 @@ func TestForeachStmts(t *testing.T) {
 						},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 		},
@@ -3456,8 +3456,8 @@ func TestDeclareStmts(t *testing.T) {
 						Expr:          &scalar.Lnumber{Value: "1"},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3470,7 +3470,7 @@ func TestDeclareStmts(t *testing.T) {
 						Expr:          &scalar.Lnumber{Value: "1"},
 					},
 				},
-				Stmt: &stmt.StmtList{
+				Stmt: &stmt.InnerStmtList{
 					Stmts: []node.Node{},
 				},
 			},
@@ -3495,16 +3495,16 @@ func TestTryStmts(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
 				Catches: []node.Node{},
 			},
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3520,8 +3520,8 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -3529,8 +3529,8 @@ func TestTryStmts(t *testing.T) {
 				},
 			},
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3551,8 +3551,8 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -3560,8 +3560,8 @@ func TestTryStmts(t *testing.T) {
 				},
 			},
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3577,8 +3577,8 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -3594,8 +3594,8 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
@@ -3603,8 +3603,8 @@ func TestTryStmts(t *testing.T) {
 				},
 			},
 			&stmt.Try{
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3620,16 +3620,16 @@ func TestTryStmts(t *testing.T) {
 						Variable: &expr.Variable{
 							VarName: &node.Identifier{Value: "e"},
 						},
-						InnerStmtList: &stmt.InnerStmtList{
-							Stmts: &stmt.StmtList{
+						StmtList: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
 								Stmts: []node.Node{},
 							},
 						},
 					},
 				},
 				Finally: &stmt.Finally{
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: &stmt.StmtList{
+					StmtList: &stmt.StmtList{
+						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
 						},
 					},
@@ -3688,8 +3688,8 @@ func TestFunctionStmts(t *testing.T) {
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
 				Params:        expectedParams,
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3698,8 +3698,8 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3708,8 +3708,8 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Return{},
 						},
@@ -3720,8 +3720,8 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.Return{
 								Expr: &scalar.Lnumber{Value: "1"},
@@ -3739,8 +3739,8 @@ func TestFunctionStmts(t *testing.T) {
 						&name.NamePart{Value: "void"},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3759,38 +3759,38 @@ func TestFunctionStmts(t *testing.T) {
 						Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.HaltCompiler{},
 							&stmt.Function{
 								FunctionName: &node.Identifier{Value: "bar"},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
 							},
 							&stmt.Class{
 								ClassName: &node.Identifier{Value: "Baz"},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
 							},
 							&stmt.Trait{
 								TraitName: &node.Identifier{Value: "Quux"},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
 							},
 							&stmt.Interface{
 								InterfaceName: &node.Identifier{Value: "Quuux"},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -3821,8 +3821,8 @@ func TestFunctionStmts(t *testing.T) {
 						DefaultValue: &scalar.Lnumber{Value: "1"},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -3843,8 +3843,8 @@ func TestFunctionStmts(t *testing.T) {
 						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
 					},
 				},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},

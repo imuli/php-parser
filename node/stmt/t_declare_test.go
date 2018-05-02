@@ -61,8 +61,8 @@ func TestDeclareStmts(t *testing.T) {
 						Expr:          &scalar.Lnumber{Value: "1"},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},
@@ -95,7 +95,7 @@ func TestAltDeclare(t *testing.T) {
 						Expr:          &scalar.Lnumber{Value: "1"},
 					},
 				},
-				Stmt: &stmt.StmtList{
+				Stmt: &stmt.InnerStmtList{
 					Stmts: []node.Node{},
 				},
 			},

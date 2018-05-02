@@ -19,8 +19,8 @@ func TestTrait(t *testing.T) {
 			&stmt.Trait{
 				PhpDocComment: "",
 				TraitName:     &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},

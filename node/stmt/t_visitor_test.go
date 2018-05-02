@@ -59,11 +59,11 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Catch{
-			Types:         []node.Node{&stmt.Expression{}},
-			Variable:      &expr.Variable{},
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			Types:    []node.Node{&stmt.Expression{}},
+			Variable: &expr.Variable{},
+			StmtList: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"Types", "Variable", "InnerStmtList"},
+		[]string{"Types", "Variable", "StmtList"},
 		map[string]interface{}{},
 	},
 	{
@@ -82,9 +82,9 @@ var nodesToTest = []struct {
 			Modifiers:     []node.Node{&stmt.Expression{}},
 			Params:        []node.Node{&stmt.Expression{}},
 			ReturnType:    &node.Identifier{},
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"MethodName", "Modifiers", "Params", "ReturnType", "InnerStmtList"},
+		[]string{"MethodName", "Modifiers", "Params", "ReturnType", "StmtList"},
 		map[string]interface{}{"ReturnsRef": true, "PhpDocComment": "/** */"},
 	},
 	{
@@ -95,11 +95,11 @@ var nodesToTest = []struct {
 			InnerArgumentList: &node.InnerArgumentList{
 				ArgumentList: &node.ArgumentList{},
 			},
-			Extends:       &node.Identifier{},
-			Implements:    []node.Node{&stmt.Expression{}},
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			Extends:    &node.Identifier{},
+			Implements: []node.Node{&stmt.Expression{}},
+			StmtList:   &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"ClassName", "Modifiers", "InnerArgumentList", "Extends", "Implements", "InnerStmtList"},
+		[]string{"ClassName", "Modifiers", "InnerArgumentList", "Extends", "Implements", "StmtList"},
 		map[string]interface{}{"PhpDocComment": "/** */"},
 	},
 	{
@@ -197,9 +197,9 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Finally{
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			StmtList: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"InnerStmtList"},
+		[]string{"StmtList"},
 		map[string]interface{}{},
 	},
 	{
@@ -251,9 +251,9 @@ var nodesToTest = []struct {
 			FunctionName:  &node.Identifier{},
 			Params:        []node.Node{&stmt.Expression{}},
 			ReturnType:    &node.Identifier{},
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"FunctionName", "Params", "ReturnType", "InnerStmtList"},
+		[]string{"FunctionName", "Params", "ReturnType", "StmtList"},
 		map[string]interface{}{"ReturnsRef": true, "PhpDocComment": "/** */"},
 	},
 	{
@@ -296,9 +296,9 @@ var nodesToTest = []struct {
 			PhpDocComment: "/** */",
 			InterfaceName: &node.Identifier{},
 			Extends:       []node.Node{&stmt.Expression{}},
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"InterfaceName", "Extends", "InnerStmtList"},
+		[]string{"InterfaceName", "Extends", "StmtList"},
 		map[string]interface{}{"PhpDocComment": "/** */"},
 	},
 	{
@@ -311,8 +311,8 @@ var nodesToTest = []struct {
 	{
 		&stmt.Namespace{
 			NamespaceName: &node.Identifier{},
-			Stmt: &stmt.InnerStmtList{
-				Stmts: &stmt.StmtList{
+			Stmt: &stmt.StmtList{
+				InnerStmtList: &stmt.InnerStmtList{
 					Stmts: []node.Node{&stmt.Expression{}},
 				},
 			},
@@ -426,18 +426,18 @@ var nodesToTest = []struct {
 		&stmt.Trait{
 			PhpDocComment: "/** */",
 			TraitName:     &node.Identifier{},
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
+			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"TraitName", "InnerStmtList"},
+		[]string{"TraitName", "StmtList"},
 		map[string]interface{}{"PhpDocComment": "/** */"},
 	},
 	{
 		&stmt.Try{
-			InnerStmtList: &stmt.InnerStmtList{Stmts: &stmt.StmtList{}},
-			Catches:       []node.Node{&stmt.Expression{}},
-			Finally:       &stmt.Finally{},
+			StmtList: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
+			Catches:  []node.Node{&stmt.Expression{}},
+			Finally:  &stmt.Finally{},
 		},
-		[]string{"InnerStmtList", "Catches", "Finally"},
+		[]string{"StmtList", "Catches", "Finally"},
 		map[string]interface{}{},
 	},
 	{
@@ -482,9 +482,9 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.StmtList{
-			Stmts: []node.Node{&stmt.Expression{}},
+			InnerStmtList: &stmt.InnerStmtList{},
 		},
-		[]string{"Stmts"},
+		[]string{"InnerStmtList"},
 		map[string]interface{}{},
 	},
 	{
@@ -510,7 +510,7 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.InnerStmtList{
-			Stmts: &stmt.StmtList{},
+			Stmts: []node.Node{&stmt.Expression{}},
 		},
 		[]string{"Stmts"},
 		map[string]interface{}{},

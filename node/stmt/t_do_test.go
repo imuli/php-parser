@@ -19,8 +19,8 @@ func TestDo(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.Do{
-				Stmt: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
 					},
 				},

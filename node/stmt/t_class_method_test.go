@@ -20,14 +20,14 @@ func TestSimpleClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
 								MethodName:    &node.Identifier{Value: "bar"},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -58,8 +58,8 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -69,8 +69,8 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 									&node.Identifier{Value: "final"},
 									&node.Identifier{Value: "private"},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -82,8 +82,8 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "protected"},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -114,8 +114,8 @@ func TestPhp5ClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -125,8 +125,8 @@ func TestPhp5ClassMethod(t *testing.T) {
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -152,8 +152,8 @@ func TestPhp7ClassMethod(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Class{
 				ClassName: &node.Identifier{Value: "foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -168,8 +168,8 @@ func TestPhp7ClassMethod(t *testing.T) {
 										&name.NamePart{Value: "void"},
 									},
 								},
-								InnerStmtList: &stmt.InnerStmtList{
-									Stmts: &stmt.StmtList{
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
 									},
 								},
@@ -196,8 +196,8 @@ func TestAbstractClassMethod(t *testing.T) {
 			&stmt.Class{
 				Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
 				ClassName: &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",
@@ -235,8 +235,8 @@ func TestPhp7AbstractClassMethod(t *testing.T) {
 			&stmt.Class{
 				Modifiers: []node.Node{&node.Identifier{Value: "abstract"}},
 				ClassName: &node.Identifier{Value: "Foo"},
-				InnerStmtList: &stmt.InnerStmtList{
-					Stmts: &stmt.StmtList{
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
 							&stmt.ClassMethod{
 								PhpDocComment: "",

@@ -1,16 +1,17 @@
 package stmt
 
 import (
+	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/walker"
 )
 
 // InnerStmtList node
 type InnerStmtList struct {
-	Stmts *StmtList
+	Stmts []node.Node
 }
 
 // NewInnerStmtList node constructor
-func NewInnerStmtList(Stmts *StmtList) *InnerStmtList {
+func NewInnerStmtList(Stmts []node.Node) *InnerStmtList {
 	return &InnerStmtList{
 		Stmts,
 	}
@@ -30,7 +31,11 @@ func (n *InnerStmtList) Walk(v walker.Visitor) {
 
 	if n.Stmts != nil {
 		vv := v.GetChildrenVisitor("Stmts")
-		n.Stmts.Walk(vv)
+		for _, nn := range n.Stmts {
+			if nn != nil {
+				nn.Walk(vv)
+			}
+		}
 	}
 
 	v.LeaveNode(n)

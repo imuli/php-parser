@@ -7,17 +7,17 @@ import (
 
 // Catch node
 type Catch struct {
-	Types         []node.Node
-	Variable      node.Node
-	InnerStmtList *InnerStmtList
+	Types    []node.Node
+	Variable node.Node
+	StmtList *StmtList
 }
 
 // NewCatch node constructor
-func NewCatch(Types []node.Node, Variable node.Node, InnerStmtList *InnerStmtList) *Catch {
+func NewCatch(Types []node.Node, Variable node.Node, StmtList *StmtList) *Catch {
 	return &Catch{
 		Types,
 		Variable,
-		InnerStmtList,
+		StmtList,
 	}
 }
 
@@ -47,9 +47,9 @@ func (n *Catch) Walk(v walker.Visitor) {
 		n.Variable.Walk(vv)
 	}
 
-	if n.InnerStmtList != nil {
-		vv := v.GetChildrenVisitor("InnerStmtList")
-		n.InnerStmtList.Walk(vv)
+	if n.StmtList != nil {
+		vv := v.GetChildrenVisitor("StmtList")
+		n.StmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

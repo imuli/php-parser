@@ -12,18 +12,18 @@ type Function struct {
 	FunctionName  node.Node
 	Params        []node.Node
 	ReturnType    node.Node
-	InnerStmtList *InnerStmtList
+	StmtList      *StmtList
 }
 
 // NewFunction node constructor
-func NewFunction(FunctionName node.Node, ReturnsRef bool, Params []node.Node, ReturnType node.Node, InnerStmtList *InnerStmtList, PhpDocComment string) *Function {
+func NewFunction(FunctionName node.Node, ReturnsRef bool, Params []node.Node, ReturnType node.Node, StmtList *StmtList, PhpDocComment string) *Function {
 	return &Function{
 		ReturnsRef,
 		PhpDocComment,
 		FunctionName,
 		Params,
 		ReturnType,
-		InnerStmtList,
+		StmtList,
 	}
 }
 
@@ -62,9 +62,9 @@ func (n *Function) Walk(v walker.Visitor) {
 		n.ReturnType.Walk(vv)
 	}
 
-	if n.InnerStmtList != nil {
-		vv := v.GetChildrenVisitor("InnerStmtList")
-		n.InnerStmtList.Walk(vv)
+	if n.StmtList != nil {
+		vv := v.GetChildrenVisitor("StmtList")
+		n.StmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

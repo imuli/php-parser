@@ -9,15 +9,15 @@ import (
 type Trait struct {
 	PhpDocComment string
 	TraitName     node.Node
-	InnerStmtList *InnerStmtList
+	StmtList      *StmtList
 }
 
 // NewTrait node constructor
-func NewTrait(TraitName node.Node, InnerStmtList *InnerStmtList, PhpDocComment string) *Trait {
+func NewTrait(TraitName node.Node, StmtList *StmtList, PhpDocComment string) *Trait {
 	return &Trait{
 		PhpDocComment,
 		TraitName,
-		InnerStmtList,
+		StmtList,
 	}
 }
 
@@ -40,9 +40,9 @@ func (n *Trait) Walk(v walker.Visitor) {
 		n.TraitName.Walk(vv)
 	}
 
-	if n.InnerStmtList != nil {
-		vv := v.GetChildrenVisitor("InnerStmtList")
-		n.InnerStmtList.Walk(vv)
+	if n.StmtList != nil {
+		vv := v.GetChildrenVisitor("StmtList")
+		n.StmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)
