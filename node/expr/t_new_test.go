@@ -54,8 +54,8 @@ func TestNewRelative(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -85,8 +85,8 @@ func TestNewFullyQualified(t *testing.T) {
 							&name.NamePart{Value: "Foo"},
 						},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -113,8 +113,8 @@ func TestNewAnonymous(t *testing.T) {
 				Expr: &expr.New{
 					Class: &stmt.Class{
 						PhpDocComment: "",
-						InnerArgumentList: &node.InnerArgumentList{
-							ArgumentList: &node.ArgumentList{
+						ArgumentList: &node.ArgumentList{
+							InnerArgumentList: &node.InnerArgumentList{
 								Arguments: []node.Node{
 									&node.Argument{Variadic: false, Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
 									&node.Argument{Variadic: true, Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},

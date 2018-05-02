@@ -92,14 +92,14 @@ var nodesToTest = []struct {
 			PhpDocComment: "/** */",
 			ClassName:     &node.Identifier{},
 			Modifiers:     []node.Node{&stmt.Expression{}},
-			InnerArgumentList: &node.InnerArgumentList{
-				ArgumentList: &node.ArgumentList{},
+			ArgumentList: &node.ArgumentList{
+				InnerArgumentList: &node.InnerArgumentList{},
 			},
 			Extends:    &node.Identifier{},
 			Implements: []node.Node{&stmt.Expression{}},
 			StmtList:   &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"ClassName", "Modifiers", "InnerArgumentList", "Extends", "Implements", "StmtList"},
+		[]string{"ClassName", "Modifiers", "ArgumentList", "Extends", "Implements", "StmtList"},
 		map[string]interface{}{"PhpDocComment": "/** */"},
 	},
 	{

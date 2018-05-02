@@ -99,8 +99,8 @@ func TestReferenceArgs(t *testing.T) {
 								&name.NamePart{Value: "Foo"},
 							},
 						},
-						InnerArgumentList: &node.InnerArgumentList{
-							ArgumentList: &node.ArgumentList{
+						ArgumentList: &node.ArgumentList{
+							InnerArgumentList: &node.InnerArgumentList{
 								Arguments: []node.Node{
 									&node.Argument{
 										Variadic:    false,

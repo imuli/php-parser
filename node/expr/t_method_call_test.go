@@ -21,8 +21,8 @@ func TestMethodCall(t *testing.T) {
 				Expr: &expr.MethodCall{
 					Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 					Method:   &node.Identifier{Value: "foo"},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},

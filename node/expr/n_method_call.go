@@ -7,17 +7,17 @@ import (
 
 // MethodCall node
 type MethodCall struct {
-	Variable          node.Node
-	Method            node.Node
-	InnerArgumentList *node.InnerArgumentList
+	Variable     node.Node
+	Method       node.Node
+	ArgumentList *node.ArgumentList
 }
 
 // NewMethodCall node constructor
-func NewMethodCall(Variable node.Node, Method node.Node, InnerArgumentList *node.InnerArgumentList) *MethodCall {
+func NewMethodCall(Variable node.Node, Method node.Node, ArgumentList *node.ArgumentList) *MethodCall {
 	return &MethodCall{
 		Variable,
 		Method,
-		InnerArgumentList,
+		ArgumentList,
 	}
 }
 
@@ -43,9 +43,9 @@ func (n *MethodCall) Walk(v walker.Visitor) {
 		n.Method.Walk(vv)
 	}
 
-	if n.InnerArgumentList != nil {
-		vv := v.GetChildrenVisitor("InnerArgumentList")
-		n.InnerArgumentList.Walk(vv)
+	if n.ArgumentList != nil {
+		vv := v.GetChildrenVisitor("ArgumentList")
+		n.ArgumentList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

@@ -198,8 +198,8 @@ func TestAnonimousClass(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.New{
 					Class: &stmt.Class{
-						InnerArgumentList: &node.InnerArgumentList{
-							ArgumentList: &node.ArgumentList{},
+						ArgumentList: &node.ArgumentList{
+							InnerArgumentList: &node.InnerArgumentList{},
 						},
 						Extends: &name.Name{
 							Parts: []node.Node{

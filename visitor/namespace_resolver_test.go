@@ -47,8 +47,8 @@ func TestResolveStaticCall(t *testing.T) {
 			&expr.StaticCall{
 				Class: nameBC,
 				Call:  &node.Identifier{Value: "foo"},
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 		},
@@ -145,8 +145,8 @@ func TestResolveNew(t *testing.T) {
 			},
 			&expr.New{
 				Class: nameBC,
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 		},
@@ -269,8 +269,8 @@ func TestResolveFunctionCall(t *testing.T) {
 			},
 			&expr.FunctionCall{
 				Function: nameB,
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 		},
@@ -362,14 +362,14 @@ func TestResolveGroupUse(t *testing.T) {
 			},
 			&expr.FunctionCall{
 				Function: nameF,
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 			&expr.FunctionCall{
 				Function: nameE,
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 		},
@@ -724,8 +724,8 @@ func TestResolveNamespaces(t *testing.T) {
 			&expr.StaticCall{
 				Class: nameFG,
 				Call:  &node.Identifier{Value: "foo"},
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 			&stmt.Namespace{
@@ -752,15 +752,15 @@ func TestResolveNamespaces(t *testing.T) {
 							&expr.StaticCall{
 								Class: relativeNameCE,
 								Call:  &node.Identifier{Value: "foo"},
-								InnerArgumentList: &node.InnerArgumentList{
-									ArgumentList: &node.ArgumentList{},
+								ArgumentList: &node.ArgumentList{
+									InnerArgumentList: &node.InnerArgumentList{},
 								},
 							},
 							&expr.StaticCall{
 								Class: nameCF,
 								Call:  &node.Identifier{Value: "foo"},
-								InnerArgumentList: &node.InnerArgumentList{
-									ArgumentList: &node.ArgumentList{},
+								ArgumentList: &node.ArgumentList{
+									InnerArgumentList: &node.InnerArgumentList{},
 								},
 							},
 						},
@@ -790,8 +790,8 @@ func TestResolveStaticCallDinamicClassName(t *testing.T) {
 			&expr.StaticCall{
 				Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
 				Call:  &node.Identifier{Value: "foo"},
-				InnerArgumentList: &node.InnerArgumentList{
-					ArgumentList: &node.ArgumentList{},
+				ArgumentList: &node.ArgumentList{
+					InnerArgumentList: &node.InnerArgumentList{},
 				},
 			},
 		},

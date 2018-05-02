@@ -7,15 +7,15 @@ import (
 
 // FunctionCall node
 type FunctionCall struct {
-	Function          node.Node
-	InnerArgumentList *node.InnerArgumentList
+	Function     node.Node
+	ArgumentList *node.ArgumentList
 }
 
 // NewFunctionCall node constructor
-func NewFunctionCall(Function node.Node, InnerArgumentList *node.InnerArgumentList) *FunctionCall {
+func NewFunctionCall(Function node.Node, ArgumentList *node.ArgumentList) *FunctionCall {
 	return &FunctionCall{
 		Function,
-		InnerArgumentList,
+		ArgumentList,
 	}
 }
 
@@ -36,9 +36,9 @@ func (n *FunctionCall) Walk(v walker.Visitor) {
 		n.Function.Walk(vv)
 	}
 
-	if n.InnerArgumentList != nil {
-		vv := v.GetChildrenVisitor("InnerArgumentList")
-		n.InnerArgumentList.Walk(vv)
+	if n.ArgumentList != nil {
+		vv := v.GetChildrenVisitor("ArgumentList")
+		n.ArgumentList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

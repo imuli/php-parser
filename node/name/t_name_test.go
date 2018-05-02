@@ -38,8 +38,8 @@ func TestName(t *testing.T) {
 					Function: &name.Name{
 						Parts: []node.Node{&name.NamePart{Value: "foo"}},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -67,8 +67,8 @@ func TestFullyQualified(t *testing.T) {
 					Function: &name.FullyQualified{
 						Parts: []node.Node{&name.NamePart{Value: "foo"}},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -96,8 +96,8 @@ func TestRelative(t *testing.T) {
 					Function: &name.Relative{
 						Parts: []node.Node{&name.NamePart{Value: "foo"}},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},

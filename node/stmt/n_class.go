@@ -7,22 +7,22 @@ import (
 
 // Class node
 type Class struct {
-	PhpDocComment     string
-	ClassName         node.Node
-	Modifiers         []node.Node
-	InnerArgumentList *node.InnerArgumentList
-	Extends           node.Node
-	Implements        []node.Node
-	StmtList          *StmtList
+	PhpDocComment string
+	ClassName     node.Node
+	Modifiers     []node.Node
+	ArgumentList  *node.ArgumentList
+	Extends       node.Node
+	Implements    []node.Node
+	StmtList      *StmtList
 }
 
 // NewClass node constructor
-func NewClass(ClassName node.Node, Modifiers []node.Node, InnerArgumentList *node.InnerArgumentList, Extends node.Node, Implements []node.Node, StmtList *StmtList, PhpDocComment string) *Class {
+func NewClass(ClassName node.Node, Modifiers []node.Node, ArgumentList *node.ArgumentList, Extends node.Node, Implements []node.Node, StmtList *StmtList, PhpDocComment string) *Class {
 	return &Class{
 		PhpDocComment,
 		ClassName,
 		Modifiers,
-		InnerArgumentList,
+		ArgumentList,
 		Extends,
 		Implements,
 		StmtList,
@@ -57,9 +57,9 @@ func (n *Class) Walk(v walker.Visitor) {
 		}
 	}
 
-	if n.InnerArgumentList != nil {
-		vv := v.GetChildrenVisitor("InnerArgumentList")
-		n.InnerArgumentList.Walk(vv)
+	if n.ArgumentList != nil {
+		vv := v.GetChildrenVisitor("ArgumentList")
+		n.ArgumentList.Walk(vv)
 	}
 
 	if n.Extends != nil {

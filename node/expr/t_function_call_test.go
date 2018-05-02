@@ -29,8 +29,8 @@ func TestFunctionCall(t *testing.T) {
 							&name.NamePart{Value: "foo"},
 						},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -60,8 +60,8 @@ func TestFunctionCallRelative(t *testing.T) {
 							&name.NamePart{Value: "foo"},
 						},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -91,8 +91,8 @@ func TestFunctionFullyQualified(t *testing.T) {
 							&name.NamePart{Value: "foo"},
 						},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{
 							Arguments: []node.Node{
 								&node.Argument{
 									Variadic:    false,
@@ -128,8 +128,8 @@ func TestFunctionCallVar(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.FunctionCall{
 					Function: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{
 							Arguments: []node.Node{
 								&node.Argument{
 									Variadic:    false,
@@ -169,8 +169,8 @@ func TestFunctionCallExprArg(t *testing.T) {
 							&name.NamePart{Value: "ceil"},
 						},
 					},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{
 							Arguments: []node.Node{
 								&node.Argument{
 									Variadic:    false,

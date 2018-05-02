@@ -27,8 +27,8 @@ func TestStaticCall(t *testing.T) {
 						},
 					},
 					Call: &node.Identifier{Value: "bar"},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -59,8 +59,8 @@ func TestStaticCallRelative(t *testing.T) {
 						},
 					},
 					Call: &node.Identifier{Value: "bar"},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -91,8 +91,8 @@ func TestStaticCallFullyQualified(t *testing.T) {
 						},
 					},
 					Call: &node.Identifier{Value: "bar"},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -123,8 +123,8 @@ func TestStaticCallVar(t *testing.T) {
 						},
 					},
 					Call: &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},
@@ -151,8 +151,8 @@ func TestStaticCallVarVar(t *testing.T) {
 				Expr: &expr.StaticCall{
 					Class: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
 					Call:  &expr.Variable{VarName: &node.Identifier{Value: "bar"}},
-					InnerArgumentList: &node.InnerArgumentList{
-						ArgumentList: &node.ArgumentList{},
+					ArgumentList: &node.ArgumentList{
+						InnerArgumentList: &node.InnerArgumentList{},
 					},
 				},
 			},

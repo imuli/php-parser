@@ -1479,30 +1479,30 @@ optional_class_type:
 function_call_parameter_list:
         '(' ')'
             {
-                argumentList := node.NewArgumentList(nil)
-                $$ = node.NewInnerArgumentList(argumentList)
+                innerArgumentList := node.NewInnerArgumentList(nil)
+                $$ = node.NewArgumentList(innerArgumentList)
 
                 // save position
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
             }
     |   '(' non_empty_function_call_parameter_list ')'
             {
-                argumentList := node.NewArgumentList($2)
-                $$ = node.NewInnerArgumentList(argumentList)
+                innerArgumentList := node.NewInnerArgumentList($2)
+                $$ = node.NewArgumentList(innerArgumentList)
 
                 // save position
-                yylex.(*Parser).positions.AddPosition(argumentList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(innerArgumentList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
             }
     |   '(' yield_expr ')'
             {
                 arg := node.NewArgument($2, false, false)
-                argumentList := node.NewArgumentList([]node.Node{arg})
-                $$ = node.NewInnerArgumentList(argumentList)
+                innerArgumentList := node.NewInnerArgumentList([]node.Node{arg})
+                $$ = node.NewArgumentList(innerArgumentList)
 
                 // save position
                 yylex.(*Parser).positions.AddPosition(arg, yylex.(*Parser).positionBuilder.NewNodePosition($2))
-                yylex.(*Parser).positions.AddPosition(argumentList, yylex.(*Parser).positionBuilder.NewNodePosition($2))
+                yylex.(*Parser).positions.AddPosition(innerArgumentList, yylex.(*Parser).positionBuilder.NewNodePosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
             }
 ;
@@ -2076,7 +2076,7 @@ new_expr:
             {
 
                 if $3 != nil {
-                    $$ = expr.NewNew($2, $3.(*node.InnerArgumentList))
+                    $$ = expr.NewNew($2, $3.(*node.ArgumentList))
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $3))
                 } else {
                     $$ = expr.NewNew($2, nil)
@@ -2115,7 +2115,7 @@ expr_without_variable:
                 var _new *expr.New
 
                 if $6 != nil {
-                    _new = expr.NewNew($5, $6.(*node.InnerArgumentList))
+                    _new = expr.NewNew($5, $6.(*node.ArgumentList))
                     yylex.(*Parser).positions.AddPosition(_new, yylex.(*Parser).positionBuilder.NewTokenNodePosition($4, $6))
                 } else {
                     _new = expr.NewNew($5, nil)
@@ -2720,7 +2720,7 @@ function_call:
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
                 yylex.(*Parser).comments.AddComments(name, yylex.(*Parser).listGetFirstNodeComments($1))
 
-                $$ = expr.NewFunctionCall(name, $2.(*node.InnerArgumentList))
+                $$ = expr.NewFunctionCall(name, $2.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition(name, $2))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[name])
             }
@@ -2730,7 +2730,7 @@ function_call:
                 yylex.(*Parser).positions.AddPosition(funcName, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $3))
                 yylex.(*Parser).comments.AddComments(funcName, $1.Comments())
 
-                $$ = expr.NewFunctionCall(funcName, $4.(*node.InnerArgumentList))
+                $$ = expr.NewFunctionCall(funcName, $4.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition(funcName, $4))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[funcName])
             }
@@ -2740,37 +2740,37 @@ function_call:
                 yylex.(*Parser).positions.AddPosition(funcName, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $2))
                 yylex.(*Parser).comments.AddComments(funcName, $1.Comments())
 
-                $$ = expr.NewFunctionCall(funcName, $3.(*node.InnerArgumentList))
+                $$ = expr.NewFunctionCall(funcName, $3.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition(funcName, $3))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[funcName])
             }
     |   class_name T_PAAMAYIM_NEKUDOTAYIM variable_name function_call_parameter_list
             {
-                $$ = expr.NewStaticCall($1, $3, $4.(*node.InnerArgumentList))
+                $$ = expr.NewStaticCall($1, $3, $4.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
             }
     |   class_name T_PAAMAYIM_NEKUDOTAYIM variable_without_objects function_call_parameter_list
             {
-                $$ = expr.NewStaticCall($1, $3, $4.(*node.InnerArgumentList))
+                $$ = expr.NewStaticCall($1, $3, $4.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
             }
     |   variable_class_name T_PAAMAYIM_NEKUDOTAYIM variable_name function_call_parameter_list
             {
-                $$ = expr.NewStaticCall($1, $3, $4.(*node.InnerArgumentList))
+                $$ = expr.NewStaticCall($1, $3, $4.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
             }
     |   variable_class_name T_PAAMAYIM_NEKUDOTAYIM variable_without_objects function_call_parameter_list
             {
-                $$ = expr.NewStaticCall($1, $3, $4.(*node.InnerArgumentList))
+                $$ = expr.NewStaticCall($1, $3, $4.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
             }
     |   variable_without_objects function_call_parameter_list
             {
-                $$ = expr.NewFunctionCall($1, $2.(*node.InnerArgumentList))
+                $$ = expr.NewFunctionCall($1, $2.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $2))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
             }
@@ -3512,7 +3512,7 @@ array_method_dereference:
 method:
         function_call_parameter_list
             {
-                $$ = expr.NewMethodCall(nil, nil, $1.(*node.InnerArgumentList))
+                $$ = expr.NewMethodCall(nil, nil, $1.(*node.ArgumentList))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition($1))
             }
 ;

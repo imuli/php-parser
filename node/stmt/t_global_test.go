@@ -55,8 +55,8 @@ func TestGlobalVars(t *testing.T) {
 									&name.NamePart{Value: "foo"},
 								},
 							},
-							InnerArgumentList: &node.InnerArgumentList{
-								ArgumentList: &node.ArgumentList{},
+							ArgumentList: &node.ArgumentList{
+								InnerArgumentList: &node.InnerArgumentList{},
 							},
 						},
 					},

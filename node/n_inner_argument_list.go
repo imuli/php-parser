@@ -6,13 +6,13 @@ import (
 
 // InnerArgumentList node
 type InnerArgumentList struct {
-	ArgumentList *ArgumentList
+	Arguments []Node
 }
 
 // NewInnerArgumentList node constructor
-func NewInnerArgumentList(ArgumentList *ArgumentList) *InnerArgumentList {
+func NewInnerArgumentList(Arguments []Node) *InnerArgumentList {
 	return &InnerArgumentList{
-		ArgumentList,
+		Arguments,
 	}
 }
 
@@ -28,9 +28,13 @@ func (n *InnerArgumentList) Walk(v walker.Visitor) {
 		return
 	}
 
-	if n.ArgumentList != nil {
-		vv := v.GetChildrenVisitor("ArgumentList")
-		n.ArgumentList.Walk(vv)
+	if n.Arguments != nil {
+		vv := v.GetChildrenVisitor("Arguments")
+		for _, nn := range n.Arguments {
+			if nn != nil {
+				nn.Walk(vv)
+			}
+		}
 	}
 
 	v.LeaveNode(n)

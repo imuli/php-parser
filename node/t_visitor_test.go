@@ -47,7 +47,7 @@ var nodesToTest = []struct {
 		map[string]interface{}{"ByRef": false, "Variadic": true},
 	},
 	{
-		&node.ArgumentList{
+		&node.InnerArgumentList{
 			Arguments: []node.Node{
 				&node.Argument{},
 			},
@@ -56,10 +56,10 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
-		&node.InnerArgumentList{
-			ArgumentList: &node.ArgumentList{},
+		&node.ArgumentList{
+			InnerArgumentList: &node.InnerArgumentList{},
 		},
-		[]string{"ArgumentList"},
+		[]string{"InnerArgumentList"},
 		map[string]interface{}{},
 	},
 	{
