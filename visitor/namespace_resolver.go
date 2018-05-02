@@ -150,7 +150,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 			nsr.ResolveName(t, "")
 		}
 
-		for _, a := range n.InnerTraitAdaptationList.TraitAdaptationList.Adaptations {
+		for _, a := range n.TraitAdaptationList.InnerTraitAdaptationList.Adaptations {
 			switch aa := a.(type) {
 			case *stmt.TraitUsePrecedence:
 				refTrait := aa.Ref.(*stmt.TraitMethodRef).Trait

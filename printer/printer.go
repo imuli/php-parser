@@ -2072,8 +2072,8 @@ func (p *Printer) printStmtTraitUse(n node.Node) {
 	io.WriteString(p.w, "use ")
 	p.joinPrint(", ", nn.Traits)
 
-	if nn.InnerTraitAdaptationList != nil {
-		adaptations := nn.InnerTraitAdaptationList.TraitAdaptationList.Adaptations
+	if nn.TraitAdaptationList != nil {
+		adaptations := nn.TraitAdaptationList.InnerTraitAdaptationList.Adaptations
 		io.WriteString(p.w, " {\n")
 		p.printNodes(adaptations)
 		io.WriteString(p.w, "\n")

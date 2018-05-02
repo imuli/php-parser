@@ -4200,9 +4200,9 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php7/php7.y:1607
 		{
-			var adaptationList *stmt.InnerTraitAdaptationList
+			var adaptationList *stmt.TraitAdaptationList
 			switch n := yyDollar[3].node.(type) {
-			case *stmt.InnerTraitAdaptationList:
+			case *stmt.TraitAdaptationList:
 				adaptationList = n
 			default:
 				adaptationList = nil
@@ -4262,8 +4262,8 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 		//line php7/php7.y:1659
 		{
-			adaptationList := stmt.NewTraitAdaptationList(nil)
-			yyVAL.node = stmt.NewInnerTraitAdaptationList(adaptationList)
+			innerAdaptationList := stmt.NewInnerTraitAdaptationList(nil)
+			yyVAL.node = stmt.NewTraitAdaptationList(innerAdaptationList)
 
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[2].token))
 		}
@@ -4271,10 +4271,10 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php7/php7.y:1666
 		{
-			adaptationList := stmt.NewTraitAdaptationList(yyDollar[2].list)
-			yyVAL.node = stmt.NewInnerTraitAdaptationList(adaptationList)
+			innerAdaptationList := stmt.NewInnerTraitAdaptationList(yyDollar[2].list)
+			yyVAL.node = stmt.NewTraitAdaptationList(innerAdaptationList)
 
-			yylex.(*Parser).positions.AddPosition(adaptationList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerAdaptationList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 		}
 	case 251:

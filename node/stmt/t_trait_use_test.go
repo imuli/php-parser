@@ -120,8 +120,8 @@ func TestTraitsUseEmptyAdaptations(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{},
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{},
 								},
 							},
 						},
@@ -167,8 +167,8 @@ func TestTraitsUseModifier(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUseAlias{
 												Ref: &stmt.TraitMethodRef{
@@ -222,8 +222,8 @@ func TestTraitsUseAliasModifier(t *testing.T) {
 											&name.NamePart{Value: "Baz"},
 										},
 									},
-								}, InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								}, TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUseAlias{
 												Ref: &stmt.TraitMethodRef{
@@ -279,8 +279,8 @@ func TestTraitsUseAdaptions(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUsePrecedence{
 												Ref: &stmt.TraitMethodRef{

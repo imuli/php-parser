@@ -415,11 +415,11 @@ var nodesToTest = []struct {
 	{
 		&stmt.TraitUse{
 			Traits: []node.Node{&stmt.Expression{}},
-			InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-				TraitAdaptationList: &stmt.TraitAdaptationList{},
+			TraitAdaptationList: &stmt.TraitAdaptationList{
+				InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{},
 			},
 		},
-		[]string{"Traits", "InnerTraitAdaptationList"},
+		[]string{"Traits", "TraitAdaptationList"},
 		map[string]interface{}{},
 	},
 	{
@@ -502,7 +502,7 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
-		&stmt.TraitAdaptationList{
+		&stmt.InnerTraitAdaptationList{
 			Adaptations: []node.Node{&stmt.TraitUsePrecedence{}},
 		},
 		[]string{"Adaptations"},
@@ -523,10 +523,10 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
-		&stmt.InnerTraitAdaptationList{
-			TraitAdaptationList: &stmt.TraitAdaptationList{},
+		&stmt.TraitAdaptationList{
+			InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{},
 		},
-		[]string{"TraitAdaptationList"},
+		[]string{"InnerTraitAdaptationList"},
 		map[string]interface{}{},
 	},
 	{

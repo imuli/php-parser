@@ -1235,8 +1235,8 @@ func TestPhp7(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{},
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{},
 								},
 							},
 						},
@@ -1262,8 +1262,8 @@ func TestPhp7(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUseAlias{
 												Ref: &stmt.TraitMethodRef{
@@ -1298,8 +1298,8 @@ func TestPhp7(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUseAlias{
 												Ref: &stmt.TraitMethodRef{
@@ -1334,8 +1334,8 @@ func TestPhp7(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUseAlias{
 												Ref: &stmt.TraitMethodRef{
@@ -1371,8 +1371,8 @@ func TestPhp7(t *testing.T) {
 										},
 									},
 								},
-								InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-									TraitAdaptationList: &stmt.TraitAdaptationList{
+								TraitAdaptationList: &stmt.TraitAdaptationList{
+									InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 										Adaptations: []node.Node{
 											&stmt.TraitUsePrecedence{
 												Ref: &stmt.TraitMethodRef{

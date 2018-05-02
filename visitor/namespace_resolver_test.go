@@ -6,15 +6,12 @@ import (
 	"testing"
 
 	"github.com/kylelemons/godebug/pretty"
-	"github.com/z7zmey/php-parser/node/scalar"
-
-	"github.com/z7zmey/php-parser/node/expr"
-	"github.com/z7zmey/php-parser/visitor"
-
-	"github.com/z7zmey/php-parser/node/stmt"
-
 	"github.com/z7zmey/php-parser/node"
+	"github.com/z7zmey/php-parser/node/expr"
 	"github.com/z7zmey/php-parser/node/name"
+	"github.com/z7zmey/php-parser/node/scalar"
+	"github.com/z7zmey/php-parser/node/stmt"
+	"github.com/z7zmey/php-parser/visitor"
 )
 
 func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
@@ -412,8 +409,8 @@ func TestResolveTraitUse(t *testing.T) {
 					nameB,
 					relativeNameB,
 				},
-				InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-					TraitAdaptationList: &stmt.TraitAdaptationList{
+				TraitAdaptationList: &stmt.TraitAdaptationList{
+					InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 						Adaptations: []node.Node{
 							&stmt.TraitUsePrecedence{
 								Ref: &stmt.TraitMethodRef{

@@ -3937,8 +3937,8 @@ func TestPrintStmtTraitAdaptations(t *testing.T) {
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
 							&name.Name{Parts: []node.Node{&name.NamePart{Value: "Bar"}}},
 						},
-						InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
-							TraitAdaptationList: &stmt.TraitAdaptationList{
+						TraitAdaptationList: &stmt.TraitAdaptationList{
+							InnerTraitAdaptationList: &stmt.InnerTraitAdaptationList{
 								Adaptations: []node.Node{
 									&stmt.TraitUseAlias{
 										Ref: &stmt.TraitMethodRef{

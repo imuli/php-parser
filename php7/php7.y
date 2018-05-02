@@ -1605,9 +1605,9 @@ class_statement:
         }
     |   T_USE name_list trait_adaptations
         {
-            var adaptationList *stmt.InnerTraitAdaptationList
+            var adaptationList *stmt.TraitAdaptationList
             switch n := $3.(type) {
-            case *stmt.InnerTraitAdaptationList:
+            case *stmt.TraitAdaptationList:
                 adaptationList = n
             default:
                 adaptationList = nil
@@ -1657,17 +1657,17 @@ trait_adaptations:
         }
     |   '{' '}'
         {
-            adaptationList := stmt.NewTraitAdaptationList(nil)
-            $$ = stmt.NewInnerTraitAdaptationList(adaptationList)
+            innerAdaptationList := stmt.NewInnerTraitAdaptationList(nil)
+            $$ = stmt.NewTraitAdaptationList(innerAdaptationList)
 
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
         }
     |   '{' trait_adaptation_list '}'
         {
-            adaptationList := stmt.NewTraitAdaptationList($2)
-            $$ = stmt.NewInnerTraitAdaptationList(adaptationList)
+            innerAdaptationList := stmt.NewInnerTraitAdaptationList($2)
+            $$ = stmt.NewTraitAdaptationList(innerAdaptationList)
 
-            yylex.(*Parser).positions.AddPosition(adaptationList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+            yylex.(*Parser).positions.AddPosition(innerAdaptationList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
         }
 ;
