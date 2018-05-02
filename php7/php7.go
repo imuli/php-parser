@@ -3751,34 +3751,34 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 		//line php7/php7.y:1248
 		{
-			caseList := stmt.NewCaseList(yyDollar[2].list)
-			InnerCaseList := stmt.NewInnerCaseList(caseList)
-			yyVAL.node = stmt.NewSwitch(nil, InnerCaseList)
+			innerCaseList := stmt.NewInnerCaseList(yyDollar[2].list)
+			caseList := stmt.NewCaseList(innerCaseList)
+			yyVAL.node = stmt.NewSwitch(nil, caseList)
 
-			yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
-			yylex.(*Parser).positions.AddPosition(InnerCaseList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
+			yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[3].token))
 		}
 	case 194:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1258
 		{
-			caseList := stmt.NewCaseList(yyDollar[3].list)
-			InnerCaseList := stmt.NewInnerCaseList(caseList)
-			yyVAL.node = stmt.NewSwitch(nil, InnerCaseList)
+			innerCaseList := stmt.NewInnerCaseList(yyDollar[3].list)
+			caseList := stmt.NewCaseList(innerCaseList)
+			yyVAL.node = stmt.NewSwitch(nil, caseList)
 
-			yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
-			yylex.(*Parser).positions.AddPosition(InnerCaseList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
+			yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 		}
 	case 195:
 		yyDollar = yyS[yypt-4 : yypt+1]
 		//line php7/php7.y:1268
 		{
-			caseList := stmt.NewCaseList(yyDollar[2].list)
-			yyVAL.node = stmt.NewAltSwitch(nil, caseList)
+			innerCaseList := stmt.NewInnerCaseList(yyDollar[2].list)
+			yyVAL.node = stmt.NewAltSwitch(nil, innerCaseList)
 
-			yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
+			yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[2].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[4].token))
 		}
 	case 196:
@@ -3786,10 +3786,10 @@ yydefault:
 		//line php7/php7.y:1276
 		{
 
-			caseList := stmt.NewCaseList(yyDollar[3].list)
-			yyVAL.node = stmt.NewAltSwitch(nil, caseList)
+			innerCaseList := stmt.NewInnerCaseList(yyDollar[3].list)
+			yyVAL.node = stmt.NewAltSwitch(nil, innerCaseList)
 
-			yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
+			yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition(yyDollar[3].list))
 			yylex.(*Parser).positions.AddPosition(yyVAL.node, yylex.(*Parser).positionBuilder.NewTokensPosition(yyDollar[1].token, yyDollar[5].token))
 		}
 	case 197:

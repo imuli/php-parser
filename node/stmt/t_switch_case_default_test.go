@@ -26,7 +26,7 @@ func TestAltSwitch(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltSwitch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				CaseList: &stmt.CaseList{
+				InnerCaseList: &stmt.InnerCaseList{
 					Cases: []node.Node{
 						&stmt.Case{
 							Cond:  &scalar.Lnumber{Value: "1"},
@@ -69,7 +69,7 @@ func TestAltSwitchSemicolon(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.AltSwitch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				CaseList: &stmt.CaseList{
+				InnerCaseList: &stmt.InnerCaseList{
 					Cases: []node.Node{
 						&stmt.Case{
 							Cond:  &scalar.Lnumber{Value: "1"},
@@ -109,8 +109,8 @@ func TestSwitch(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Switch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				InnerCaseList: &stmt.InnerCaseList{
-					CaseList: &stmt.CaseList{
+				CaseList: &stmt.CaseList{
+					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "1"},
@@ -155,8 +155,8 @@ func TestSwitchSemicolon(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Switch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				InnerCaseList: &stmt.InnerCaseList{
-					CaseList: &stmt.CaseList{
+				CaseList: &stmt.CaseList{
+					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "1"},

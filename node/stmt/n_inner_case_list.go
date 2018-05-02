@@ -1,18 +1,19 @@
 package stmt
 
 import (
+	"github.com/z7zmey/php-parser/node"
 	"github.com/z7zmey/php-parser/walker"
 )
 
 // InnerCaseList node
 type InnerCaseList struct {
-	CaseList *CaseList
+	Cases []node.Node
 }
 
 // NewInnerCaseList node constructor
-func NewInnerCaseList(CaseList *CaseList) *InnerCaseList {
+func NewInnerCaseList(Cases []node.Node) *InnerCaseList {
 	return &InnerCaseList{
-		CaseList,
+		Cases,
 	}
 }
 
@@ -28,9 +29,13 @@ func (n *InnerCaseList) Walk(v walker.Visitor) {
 		return
 	}
 
-	if n.CaseList != nil {
-		vv := v.GetChildrenVisitor("CaseList")
-		n.CaseList.Walk(vv)
+	if n.Cases != nil {
+		vv := v.GetChildrenVisitor("Cases")
+		for _, nn := range n.Cases {
+			if nn != nil {
+				nn.Walk(vv)
+			}
+		}
 	}
 
 	v.LeaveNode(n)

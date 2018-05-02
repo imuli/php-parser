@@ -7,15 +7,15 @@ import (
 
 // Switch node
 type Switch struct {
-	Cond          node.Node
-	InnerCaseList *InnerCaseList
+	Cond     node.Node
+	CaseList *CaseList
 }
 
 // NewSwitch node constructor
-func NewSwitch(Cond node.Node, InnerCaseList *InnerCaseList) *Switch {
+func NewSwitch(Cond node.Node, CaseList *CaseList) *Switch {
 	return &Switch{
 		Cond,
-		InnerCaseList,
+		CaseList,
 	}
 }
 
@@ -36,9 +36,9 @@ func (n *Switch) Walk(v walker.Visitor) {
 		n.Cond.Walk(vv)
 	}
 
-	if n.InnerCaseList != nil {
-		vv := v.GetChildrenVisitor("InnerCaseList")
-		n.InnerCaseList.Walk(vv)
+	if n.CaseList != nil {
+		vv := v.GetChildrenVisitor("CaseList")
+		n.CaseList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

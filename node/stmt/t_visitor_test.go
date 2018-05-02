@@ -366,18 +366,18 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Switch{
-			Cond:          &expr.Variable{},
-			InnerCaseList: &stmt.InnerCaseList{CaseList: &stmt.CaseList{}},
+			Cond:     &expr.Variable{},
+			CaseList: &stmt.CaseList{InnerCaseList: &stmt.InnerCaseList{}},
 		},
-		[]string{"Cond", "InnerCaseList"},
+		[]string{"Cond", "CaseList"},
 		map[string]interface{}{},
 	},
 	{
 		&stmt.AltSwitch{
-			Cond:     &expr.Variable{},
-			CaseList: &stmt.CaseList{Cases: []node.Node{}},
+			Cond:          &expr.Variable{},
+			InnerCaseList: &stmt.InnerCaseList{Cases: []node.Node{}},
 		},
-		[]string{"Cond", "CaseList"},
+		[]string{"Cond", "InnerCaseList"},
 		map[string]interface{}{},
 	},
 	{
@@ -495,7 +495,7 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
-		&stmt.CaseList{
+		&stmt.InnerCaseList{
 			Cases: []node.Node{&stmt.Expression{}},
 		},
 		[]string{"Cases"},
@@ -530,10 +530,10 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
-		&stmt.InnerCaseList{
-			CaseList: &stmt.CaseList{},
+		&stmt.CaseList{
+			InnerCaseList: &stmt.InnerCaseList{},
 		},
-		[]string{"CaseList"},
+		[]string{"InnerCaseList"},
 		map[string]interface{}{},
 	},
 }

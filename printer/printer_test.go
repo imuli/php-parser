@@ -2319,7 +2319,7 @@ func TestPrintStmtAltSwitch(t *testing.T) {
 				Stmts: []node.Node{
 					&stmt.AltSwitch{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
-						CaseList: &stmt.CaseList{
+						InnerCaseList: &stmt.InnerCaseList{
 							Cases: []node.Node{
 								&stmt.Case{
 									Cond: &scalar.String{Value: "'a'"},
@@ -3791,8 +3791,8 @@ func TestPrintStmtSwitch(t *testing.T) {
 		Stmts: []node.Node{
 			&stmt.Switch{
 				Cond: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
-				InnerCaseList: &stmt.InnerCaseList{
-					CaseList: &stmt.CaseList{
+				CaseList: &stmt.CaseList{
+					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.String{Value: "'a'"},

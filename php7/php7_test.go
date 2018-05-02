@@ -1112,7 +1112,7 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.AltSwitch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				CaseList: &stmt.CaseList{
+				InnerCaseList: &stmt.InnerCaseList{
 					Cases: []node.Node{
 						&stmt.Case{
 							Cond:  &scalar.Lnumber{Value: "1"},
@@ -1130,7 +1130,7 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.AltSwitch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				CaseList: &stmt.CaseList{
+				InnerCaseList: &stmt.InnerCaseList{
 					Cases: []node.Node{
 						&stmt.Case{
 							Cond:  &scalar.Lnumber{Value: "1"},
@@ -1145,8 +1145,8 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Switch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				InnerCaseList: &stmt.InnerCaseList{
-					CaseList: &stmt.CaseList{
+				CaseList: &stmt.CaseList{
+					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "1"},
@@ -1166,8 +1166,8 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Switch{
 				Cond: &scalar.Lnumber{Value: "1"},
-				InnerCaseList: &stmt.InnerCaseList{
-					CaseList: &stmt.CaseList{
+				CaseList: &stmt.CaseList{
+					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "1"},
