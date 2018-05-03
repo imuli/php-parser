@@ -3295,24 +3295,30 @@ func TestForStmts(t *testing.T) {
 	expected := &node.Root{
 		Stmts: []node.Node{
 			&stmt.For{
-				Init: []node.Node{
-					&assign.Assign{
-						Variable:   &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-						Expression: &scalar.Lnumber{Value: "0"},
+				Init: &stmt.ForExprList{
+					Expressions: []node.Node{
+						&assign.Assign{
+							Variable:   &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+							Expression: &scalar.Lnumber{Value: "0"},
+						},
 					},
 				},
-				Cond: []node.Node{
-					&binary.Smaller{
-						Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-						Right: &scalar.Lnumber{Value: "10"},
+				Cond: &stmt.ForExprList{
+					Expressions: []node.Node{
+						&binary.Smaller{
+							Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+							Right: &scalar.Lnumber{Value: "10"},
+						},
 					},
 				},
-				Loop: []node.Node{
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-					},
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+				Loop: &stmt.ForExprList{
+					Expressions: []node.Node{
+						&expr.PostInc{
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						},
+						&expr.PostInc{
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						},
 					},
 				},
 				Stmt: &stmt.StmtList{
@@ -3322,18 +3328,25 @@ func TestForStmts(t *testing.T) {
 				},
 			},
 			&stmt.AltFor{
-				Cond: []node.Node{
-					&binary.Smaller{
-						Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-						Right: &scalar.Lnumber{Value: "10"},
+				Init: &stmt.ForExprList{
+					Expressions: nil,
+				},
+				Cond: &stmt.ForExprList{
+					Expressions: []node.Node{
+						&binary.Smaller{
+							Left:  &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+							Right: &scalar.Lnumber{Value: "10"},
+						},
 					},
 				},
-				Loop: []node.Node{
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
-					},
-					&expr.PostInc{
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+				Loop: &stmt.ForExprList{
+					Expressions: []node.Node{
+						&expr.PostInc{
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						},
+						&expr.PostInc{
+							Variable: &expr.Variable{VarName: &node.Identifier{Value: "i"}},
+						},
 					},
 				},
 				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},

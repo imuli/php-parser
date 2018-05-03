@@ -7,14 +7,14 @@ import (
 
 // AltFor node
 type AltFor struct {
-	Init []node.Node
-	Cond []node.Node
-	Loop []node.Node
+	Init *ForExprList
+	Cond *ForExprList
+	Loop *ForExprList
 	Stmt node.Node
 }
 
 // NewAltFor node constructor
-func NewAltFor(Init []node.Node, Cond []node.Node, Loop []node.Node, Stmt node.Node) *AltFor {
+func NewAltFor(Init *ForExprList, Cond *ForExprList, Loop *ForExprList, Stmt node.Node) *AltFor {
 	return &AltFor{
 		Init,
 		Cond,
@@ -37,29 +37,17 @@ func (n *AltFor) Walk(v walker.Visitor) {
 
 	if n.Init != nil {
 		vv := v.GetChildrenVisitor("Init")
-		for _, nn := range n.Init {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+		n.Init.Walk(vv)
 	}
 
 	if n.Cond != nil {
 		vv := v.GetChildrenVisitor("Cond")
-		for _, nn := range n.Cond {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+		n.Cond.Walk(vv)
 	}
 
 	if n.Loop != nil {
 		vv := v.GetChildrenVisitor("Loop")
-		for _, nn := range n.Loop {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+		n.Loop.Walk(vv)
 	}
 
 	if n.Stmt != nil {

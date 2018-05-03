@@ -2182,14 +2182,20 @@ func TestPrintAltFor(t *testing.T) {
 			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{
 					&stmt.AltFor{
-						Init: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+						Init: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
 						},
-						Cond: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Cond: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							},
 						},
-						Loop: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+						Loop: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+							},
 						},
 						Stmt: &stmt.InnerStmtList{
 							Stmts: []node.Node{
@@ -3065,17 +3071,23 @@ func TestPrintStmtForStmts(t *testing.T) {
 			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{
 					&stmt.For{
-						Init: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "a"}},
-							&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Init: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							},
 						},
-						Cond: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "c"}},
-							&expr.Variable{VarName: &node.Identifier{Value: "d"}},
+						Cond: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+								&expr.Variable{VarName: &node.Identifier{Value: "d"}},
+							},
 						},
-						Loop: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "e"}},
-							&expr.Variable{VarName: &node.Identifier{Value: "f"}},
+						Loop: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "e"}},
+								&expr.Variable{VarName: &node.Identifier{Value: "f"}},
+							},
 						},
 						Stmt: &stmt.InnerStmtList{
 							Stmts: []node.Node{
@@ -3109,14 +3121,20 @@ func TestPrintStmtForExpr(t *testing.T) {
 			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{
 					&stmt.For{
-						Init: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+						Init: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
 						},
-						Cond: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+						Cond: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							},
 						},
-						Loop: []node.Node{
-							&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+						Loop: &stmt.ForExprList{
+							Expressions: []node.Node{
+								&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+							},
 						},
 						Stmt: &stmt.Expression{Expr: &scalar.String{Value: "'bar'"}},
 					},
@@ -3141,14 +3159,20 @@ func TestPrintStmtForNop(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.For{
-		Init: []node.Node{
-			&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+		Init: &stmt.ForExprList{
+			Expressions: []node.Node{
+				&expr.Variable{VarName: &node.Identifier{Value: "a"}},
+			},
 		},
-		Cond: []node.Node{
-			&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+		Cond: &stmt.ForExprList{
+			Expressions: []node.Node{
+				&expr.Variable{VarName: &node.Identifier{Value: "b"}},
+			},
 		},
-		Loop: []node.Node{
-			&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+		Loop: &stmt.ForExprList{
+			Expressions: []node.Node{
+				&expr.Variable{VarName: &node.Identifier{Value: "c"}},
+			},
 		},
 		Stmt: &stmt.Nop{},
 	})

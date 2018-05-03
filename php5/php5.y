@@ -212,11 +212,12 @@ import (
 %type <node> switch_case_list
 %type <node> method_body
 %type <node> foreach_statement for_statement while_statement
+%type <node> for_expr
 
 %type <list> top_statement_list namespace_name use_declarations use_function_declarations use_const_declarations
 %type <list> inner_statement_list global_var_list static_var_list encaps_list isset_variables non_empty_array_pair_list
 %type <list> array_pair_list assignment_list lexical_var_list lexical_vars elseif_list new_elseif_list non_empty_for_expr
-%type <list> for_expr case_list echo_expr_list unset_variables declare_list catch_statement additional_catches
+%type <list> case_list echo_expr_list unset_variables declare_list catch_statement additional_catches
 %type <list> non_empty_additional_catches parameter_list non_empty_parameter_list class_statement_list implements_list
 %type <list> class_statement_list variable_modifiers method_modifiers class_variable_declaration interface_extends_list
 %type <list> interface_list non_empty_function_call_parameter_list trait_list trait_adaptation_list non_empty_trait_adaptation_list
@@ -671,13 +672,13 @@ unticked_statement:
             {
                 switch n := $9.(type) {
                 case *stmt.For :
-                    n.Init = $3
-                    n.Cond = $5
-                    n.Loop = $7
+                    n.Init = $3.(*stmt.ForExprList)
+                    n.Cond = $5.(*stmt.ForExprList)
+                    n.Loop = $7.(*stmt.ForExprList)
                 case *stmt.AltFor :
-                    n.Init = $3
-                    n.Cond = $5
-                    n.Loop = $7
+                    n.Init = $3.(*stmt.ForExprList)
+                    n.Cond = $5.(*stmt.ForExprList)
+                    n.Loop = $7.(*stmt.ForExprList)
                 }
 
                 $$ = $9
@@ -2019,9 +2020,15 @@ echo_expr_list:
 
 for_expr:
         /* empty */
-            { $$ = nil }
+            {
+                $$ = stmt.NewForExprList(nil);
+            }
     |   non_empty_for_expr
-            { $$ = $1 }
+            {
+                $$ = stmt.NewForExprList($1);
+                
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
+            }
 ;
 
 non_empty_for_expr:

@@ -233,13 +233,14 @@ import (
 %type <node> switch_case_list
 %type <node> method_body
 %type <node> foreach_statement for_statement while_statement
+%type <node> for_exprs
 
 %type <node> member_modifier
 %type <node> use_type
 %type <foreachVariable> foreach_variable
 
 %type <list> encaps_list backticks_expr namespace_name catch_name_list catch_list class_const_list
-%type <list> const_list echo_expr_list for_exprs non_empty_for_exprs global_var_list
+%type <list> const_list echo_expr_list non_empty_for_exprs global_var_list
 %type <list> unprefixed_use_declarations inline_use_declarations property_list static_var_list
 %type <list> case_list trait_adaptation_list unset_variables
 %type <list> use_declarations lexical_var_list lexical_vars isset_variables non_empty_array_pair_list
@@ -832,13 +833,13 @@ statement:
         {
             switch n := $9.(type) {
             case *stmt.For :
-                n.Init = $3
-                n.Cond = $5
-                n.Loop = $7
+                n.Init = $3.(*stmt.ForExprList)
+                n.Cond = $5.(*stmt.ForExprList)
+                n.Loop = $7.(*stmt.ForExprList)
             case *stmt.AltFor :
-                n.Init = $3
-                n.Cond = $5
-                n.Loop = $7
+                n.Init = $3.(*stmt.ForExprList)
+                n.Cond = $5.(*stmt.ForExprList)
+                n.Loop = $7.(*stmt.ForExprList)
             }
 
             $$ = $9
@@ -1926,8 +1927,16 @@ echo_expr:
 ;
 
 for_exprs:
-        /* empty */                                     { $$ = nil; }
-    |   non_empty_for_exprs                             { $$ = $1; }
+        /* empty */
+        {
+            $$ = stmt.NewForExprList(nil);
+        }
+    |   non_empty_for_exprs
+        {
+            $$ = stmt.NewForExprList($1);
+            
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeListPosition($1))
+        }
 ;
 non_empty_for_exprs:
         non_empty_for_exprs ',' expr                    { $$ = append($1, $3) }

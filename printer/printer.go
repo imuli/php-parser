@@ -1355,11 +1355,11 @@ func (p *Printer) printStmtAltFor(n node.Node) {
 	nn := n.(*stmt.AltFor)
 
 	io.WriteString(p.w, "for (")
-	p.joinPrint(", ", nn.Init)
+	p.joinPrint(", ", nn.Init.Expressions)
 	io.WriteString(p.w, "; ")
-	p.joinPrint(", ", nn.Cond)
+	p.joinPrint(", ", nn.Cond.Expressions)
 	io.WriteString(p.w, "; ")
-	p.joinPrint(", ", nn.Loop)
+	p.joinPrint(", ", nn.Loop.Expressions)
 	io.WriteString(p.w, ") :\n")
 
 	s := nn.Stmt.(*stmt.InnerStmtList)
@@ -1729,11 +1729,11 @@ func (p *Printer) printStmtFor(n node.Node) {
 	nn := n.(*stmt.For)
 
 	io.WriteString(p.w, "for (")
-	p.joinPrint(", ", nn.Init)
+	p.joinPrint(", ", nn.Init.Expressions)
 	io.WriteString(p.w, "; ")
-	p.joinPrint(", ", nn.Cond)
+	p.joinPrint(", ", nn.Cond.Expressions)
 	io.WriteString(p.w, "; ")
-	p.joinPrint(", ", nn.Loop)
+	p.joinPrint(", ", nn.Loop.Expressions)
 	io.WriteString(p.w, ")")
 
 	switch s := nn.Stmt.(type) {

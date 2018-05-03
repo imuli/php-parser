@@ -204,9 +204,9 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.For{
-			Init: []node.Node{&stmt.Expression{}},
-			Cond: []node.Node{&stmt.Expression{}},
-			Loop: []node.Node{&stmt.Expression{}},
+			Init: &stmt.ForExprList{Expressions: []node.Node{}},
+			Cond: &stmt.ForExprList{Expressions: []node.Node{}},
+			Loop: &stmt.ForExprList{Expressions: []node.Node{}},
 			Stmt: &stmt.StmtList{},
 		},
 		[]string{"Init", "Cond", "Loop", "Stmt"},
@@ -214,12 +214,19 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.AltFor{
-			Init: []node.Node{&stmt.Expression{}},
-			Cond: []node.Node{&stmt.Expression{}},
-			Loop: []node.Node{&stmt.Expression{}},
+			Init: &stmt.ForExprList{Expressions: []node.Node{}},
+			Cond: &stmt.ForExprList{Expressions: []node.Node{}},
+			Loop: &stmt.ForExprList{Expressions: []node.Node{}},
 			Stmt: &stmt.StmtList{},
 		},
 		[]string{"Init", "Cond", "Loop", "Stmt"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.ForExprList{
+			Expressions: []node.Node{&stmt.Expression{}},
+		},
+		[]string{"Expressions"},
 		map[string]interface{}{},
 	},
 	{
