@@ -118,7 +118,8 @@ func (l *Parser) addNodeAllCommentsFromNextToken(n node.Node, t *scanner.Token) 
 	for _, c := range t.Comments() {
 		c.SetSide(comment.After)
 
-		if c.Position().StartLine == l.positions[n].EndLine {
+		p, ok := l.positions[n]
+		if ok && c.Position().StartLine == p.EndLine {
 			c.SetKind(comment.Inline)
 		}
 	}

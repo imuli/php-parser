@@ -844,8 +844,15 @@ statement:
 
             $$ = $9
 
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $9))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($3, $4)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($5, $6)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($7, $8)
         }
     |   T_SWITCH '(' expr ')' switch_case_list
         {
