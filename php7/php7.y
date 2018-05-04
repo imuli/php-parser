@@ -1005,8 +1005,14 @@ statement:
 
             $$ = $7
 
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $7))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($3, $4)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($5.node, $6)
         }
     |   T_FOREACH '(' expr T_AS variable T_DOUBLE_ARROW foreach_variable ')' foreach_statement
         {
@@ -1025,20 +1031,37 @@ statement:
 
             $$ = $9
 
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $9))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($3, $4)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($5, $6)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($7.node, $8)
         }
     |   T_DECLARE '(' const_list ')' declare_statement
         {
             $$ = stmt.NewDeclare($3, $5)
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $5))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($3), $4)
         }
     |   ';'
         {
             $$ = stmt.NewNop()
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
         }
     |   T_TRY '{' inner_statement_list '}' catch_list finally_statement
             {
@@ -1046,6 +1069,7 @@ statement:
                 stmtList := stmt.NewStmtList(innerStmtList)
                 $$ = stmt.NewTry(stmtList, $5, $6)
 
+                // save position
                 if $6 == nil {
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $5))
                 } else {
@@ -1055,33 +1079,50 @@ statement:
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
                 yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
 
-                yylex.(*Parser).comments.AddComments($$, $1.Comments())
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+
+                yylex.(*Parser).addNodeCommentsFromToken(stmtList, $1)
+                if len($3) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)}
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $4)
             }
     |   T_THROW expr ';'
         {
             $$ = stmt.NewThrow($2)
+
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken($2, $3)
         }
     |   T_GOTO T_STRING ';'
         {
             label := node.NewIdentifier($2.Value)
-            yylex.(*Parser).positions.AddPosition(label, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
             $$ = stmt.NewGoto(label)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition(label, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
 
-            yylex.(*Parser).comments.AddComments(label, $2.Comments())
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken(label, $2)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(label, $3)
         }
     |   T_STRING ':'
         {
             label := node.NewIdentifier($1.Value)
-            yylex.(*Parser).positions.AddPosition(label, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
             $$ = stmt.NewLabel(label)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition(label, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
 
-            yylex.(*Parser).comments.AddComments(label, $1.Comments())
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(label, $2)
         }
 
 catch_list:
