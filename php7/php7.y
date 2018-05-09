@@ -161,6 +161,7 @@ import (
 %token <token> '@'
 %token <token> '$'
 %token <token> ','
+%token <token> '|'
 
 %left T_INCLUDE T_INCLUDE_ONCE T_EVAL T_REQUIRE T_REQUIRE_ONCE
 %left ','
@@ -1082,7 +1083,7 @@ statement:
                 // save comments
                 yylex.(*Parser).addNodeCommentsFromToken($$, $1)
 
-                yylex.(*Parser).addNodeCommentsFromToken(stmtList, $1)
+                yylex.(*Parser).addNodeCommentsFromToken(stmtList, $2)
                 if len($3) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)}
                 yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $4)
             }
@@ -1136,20 +1137,37 @@ catch_list:
             catch := stmt.NewCatch($4, variable, stmtList)
             $$ = append($1, catch)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($5))
             yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($5))
             yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($8))
             yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($7, $9))
             yylex.(*Parser).positions.AddPosition(catch, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $9))
 
-            yylex.(*Parser).comments.AddComments(identifier, $5.Comments())
-            yylex.(*Parser).comments.AddComments(variable, $5.Comments())
-            yylex.(*Parser).comments.AddComments(catch, $2.Comments())
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken(catch, $2)
+            yylex.(*Parser).addNodeCommentsFromToken(catch, $3)
+
+            yylex.(*Parser).addNodeCommentsFromToken(variable, $5)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(variable, $6)
+
+            yylex.(*Parser).addNodeCommentsFromToken(stmtList, $7)
+            if len($8) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($8), $9)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $9)
         }
 ;
 catch_name_list:
-        name                                            { $$ = []node.Node{$1} }
-    |   catch_name_list '|' name                        { $$ = append($1, $3) }
+        name
+        {
+            $$ = []node.Node{$1}
+        }
+    |   catch_name_list '|' name
+        {
+            $$ = append($1, $3)
+
+            // save comments
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($1), $2)
+        }
 ;
 
 finally_statement:
@@ -1160,17 +1178,32 @@ finally_statement:
             stmtList := stmt.NewStmtList(innerStmtList)
             $$ = stmt.NewFinally(stmtList)
 
+            // save position
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
             yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($2, $4))
             
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+
+            yylex.(*Parser).addNodeCommentsFromToken(stmtList, $2)
+            if len($3) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $4)
         }
 ;
 
 unset_variables:
-        unset_variable                                  { $$ = []node.Node{$1} }
-    |   unset_variables ',' unset_variable              { $$ = append($1, $3) }
+        unset_variable
+        {
+            $$ = []node.Node{$1}
+        }
+    |   unset_variables ',' unset_variable
+        {
+            $$ = append($1, $3)
+
+            // save comments
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(lastNode($1), $2)
+        }
 ;
 
 unset_variable:
