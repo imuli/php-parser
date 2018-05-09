@@ -1220,6 +1220,7 @@ function_declaration_statement:
             parameterList := node.NewParameterList(innerParameterList)
             $$ = stmt.NewFunction(name, $2.value, parameterList, $8, stmtList, $4)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
             yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($10))
             yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($9, $11))
@@ -1227,8 +1228,18 @@ function_declaration_statement:
             yylex.(*Parser).positions.AddPosition(parameterList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $11))
 
-            yylex.(*Parser).comments.AddComments(name, $3.Comments())
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            if $2.token != nil {yylex.(*Parser).addNodeCommentsFromToken(name, $2.token)}
+            yylex.(*Parser).addNodeCommentsFromToken(name, $3)
+
+            yylex.(*Parser).addNodeCommentsFromToken(stmtList, $9)
+            if len($10) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($10), $11)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $11)
+
+            yylex.(*Parser).addNodeCommentsFromToken(parameterList, $5)
+            if len($6) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($6), $7)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerParameterList, $7)
         }
 ;
 
