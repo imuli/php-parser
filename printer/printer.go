@@ -1030,7 +1030,7 @@ func (p *Printer) printExprClosure(n node.Node) {
 	}
 
 	io.WriteString(p.w, "(")
-	p.joinPrint(", ", nn.Params)
+	p.joinPrint(", ", nn.ParameterList.InnerParameterList.Parameters)
 	io.WriteString(p.w, ")")
 
 	if nn.Uses != nil {
@@ -1509,7 +1509,7 @@ func (p *Printer) printStmtClassMethod(n node.Node) {
 
 	p.Print(nn.MethodName)
 	io.WriteString(p.w, "(")
-	p.joinPrint(", ", nn.Params)
+	p.joinPrint(", ", nn.ParameterList.InnerParameterList.Parameters)
 	io.WriteString(p.w, ")")
 
 	if nn.ReturnType != nil {
@@ -1798,7 +1798,7 @@ func (p *Printer) printStmtFunction(n node.Node) {
 	p.Print(nn.FunctionName)
 
 	io.WriteString(p.w, "(")
-	p.joinPrint(", ", nn.Params)
+	p.joinPrint(", ", nn.ParameterList.InnerParameterList.Parameters)
 	io.WriteString(p.w, ")")
 
 	if nn.ReturnType != nil {

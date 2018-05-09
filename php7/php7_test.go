@@ -500,7 +500,11 @@ func TestPhp7(t *testing.T) {
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-								Params:     expectedParams,
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{
+										Parameters: expectedParams,
+									},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
@@ -513,8 +517,12 @@ func TestPhp7(t *testing.T) {
 			},
 			&stmt.Expression{
 				Expr: &expr.Closure{
-					Params: expectedParams,
-					Uses:   []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: expectedParams,
+						},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -525,8 +533,12 @@ func TestPhp7(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.Closure{
 					Static: true,
-					Params: expectedParams,
-					Uses:   []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: expectedParams,
+						},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -777,28 +789,8 @@ func TestPhp7(t *testing.T) {
 							&stmt.ClassMethod{
 								PhpDocComment: "",
 								MethodName:    &node.Identifier{Value: "bar"},
-								StmtList: &stmt.StmtList{
-									InnerStmtList: &stmt.InnerStmtList{
-										Stmts: []node.Node{},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			&stmt.Class{
-				ClassName: &node.Identifier{Value: "foo"},
-				StmtList: &stmt.StmtList{
-					InnerStmtList: &stmt.InnerStmtList{
-						Stmts: []node.Node{
-							&stmt.ClassMethod{
-								PhpDocComment: "",
-								ReturnsRef:    true,
-								MethodName:    &node.Identifier{Value: "bar"},
-								Modifiers: []node.Node{
-									&node.Identifier{Value: "public"},
-									&node.Identifier{Value: "static"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
 								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
@@ -822,6 +814,35 @@ func TestPhp7(t *testing.T) {
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
+								},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
+								StmtList: &stmt.StmtList{
+									InnerStmtList: &stmt.InnerStmtList{
+										Stmts: []node.Node{},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			&stmt.Class{
+				ClassName: &node.Identifier{Value: "foo"},
+				StmtList: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: []node.Node{
+							&stmt.ClassMethod{
+								PhpDocComment: "",
+								ReturnsRef:    true,
+								MethodName:    &node.Identifier{Value: "bar"},
+								Modifiers: []node.Node{
+									&node.Identifier{Value: "public"},
+									&node.Identifier{Value: "static"},
+								},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
 								},
 								ReturnType: &name.Name{
 									Parts: []node.Node{
@@ -1816,7 +1837,10 @@ func TestPhp7(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Uses:          []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -1829,16 +1853,20 @@ func TestPhp7(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Params: []node.Node{
-						&node.Parameter{
-							ByRef:    false,
-							Variadic: false,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-						},
-						&node.Parameter{
-							ByRef:    false,
-							Variadic: false,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: []node.Node{
+								&node.Parameter{
+									ByRef:    false,
+									Variadic: false,
+									Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								},
+								&node.Parameter{
+									ByRef:    false,
+									Variadic: false,
+									Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+								},
+							},
 						},
 					},
 					Uses: []node.Node{
@@ -1863,7 +1891,10 @@ func TestPhp7(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Uses:          []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{},
+					},
+					Uses: []node.Node{},
 					ReturnType: &name.Name{
 						Parts: []node.Node{&name.NamePart{Value: "void"}},
 					},
@@ -2710,6 +2741,9 @@ func TestPhp7(t *testing.T) {
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "class"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
@@ -2748,6 +2782,8 @@ func TestPhp7(t *testing.T) {
 									&node.Identifier{Value: "abstract"},
 									&node.Identifier{Value: "protected"},
 									&node.Identifier{Value: "static"},
+								}, ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
 								},
 							},
 							&stmt.ClassMethod{
@@ -2755,6 +2791,9 @@ func TestPhp7(t *testing.T) {
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "final"},
 									&node.Identifier{Value: "private"},
+								},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
 								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
@@ -3700,7 +3739,11 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Params:        expectedParams,
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: expectedParams,
+					},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
@@ -3711,6 +3754,9 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
@@ -3721,6 +3767,9 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
@@ -3733,6 +3782,9 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
@@ -3747,6 +3799,9 @@ func TestFunctionStmts(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				ReturnType: &name.Name{
 					Parts: []node.Node{
 						&name.NamePart{Value: "void"},
@@ -3760,16 +3815,20 @@ func TestFunctionStmts(t *testing.T) {
 			},
 			&stmt.Function{
 				FunctionName: &node.Identifier{Value: "foo"},
-				Params: []node.Node{
-					&node.Parameter{
-						ByRef:    true,
-						Variadic: false,
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-					},
-					&node.Parameter{
-						ByRef:    false,
-						Variadic: true,
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: []node.Node{
+							&node.Parameter{
+								ByRef:    true,
+								Variadic: false,
+								Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
+							&node.Parameter{
+								ByRef:    false,
+								Variadic: true,
+								Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							},
+						},
 					},
 				},
 				StmtList: &stmt.StmtList{
@@ -3778,6 +3837,9 @@ func TestFunctionStmts(t *testing.T) {
 							&stmt.HaltCompiler{},
 							&stmt.Function{
 								FunctionName: &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
@@ -3814,24 +3876,28 @@ func TestFunctionStmts(t *testing.T) {
 			},
 			&stmt.Function{
 				FunctionName: &node.Identifier{Value: "foo"},
-				Params: []node.Node{
-					&node.Parameter{
-						ByRef:        true,
-						Variadic:     false,
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-						DefaultValue: &scalar.Lnumber{Value: "1"},
-					},
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     true,
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
-						DefaultValue: &scalar.Lnumber{Value: "1"},
-					},
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "c"}},
-						DefaultValue: &scalar.Lnumber{Value: "1"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: []node.Node{
+							&node.Parameter{
+								ByRef:        true,
+								Variadic:     false,
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								DefaultValue: &scalar.Lnumber{Value: "1"},
+							},
+							&node.Parameter{
+								ByRef:        false,
+								Variadic:     true,
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+								DefaultValue: &scalar.Lnumber{Value: "1"},
+							},
+							&node.Parameter{
+								ByRef:        false,
+								Variadic:     false,
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "c"}},
+								DefaultValue: &scalar.Lnumber{Value: "1"},
+							},
+						},
 					},
 				},
 				StmtList: &stmt.StmtList{
@@ -3842,18 +3908,22 @@ func TestFunctionStmts(t *testing.T) {
 			},
 			&stmt.Function{
 				FunctionName: &node.Identifier{Value: "foo"},
-				Params: []node.Node{
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						VariableType: &node.Identifier{Value: "array"},
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-					},
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						VariableType: &node.Identifier{Value: "callable"},
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: []node.Node{
+							&node.Parameter{
+								ByRef:        false,
+								Variadic:     false,
+								VariableType: &node.Identifier{Value: "array"},
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
+							&node.Parameter{
+								ByRef:        false,
+								Variadic:     false,
+								VariableType: &node.Identifier{Value: "callable"},
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							},
+						},
 					},
 				},
 				StmtList: &stmt.StmtList{

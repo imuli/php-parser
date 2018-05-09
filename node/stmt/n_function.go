@@ -10,13 +10,13 @@ type Function struct {
 	ReturnsRef    bool
 	PhpDocComment string
 	FunctionName  node.Node
-	Params        []node.Node
+	ParameterList *node.ParameterList
 	ReturnType    node.Node
 	StmtList      *StmtList
 }
 
 // NewFunction node constructor
-func NewFunction(FunctionName node.Node, ReturnsRef bool, Params []node.Node, ReturnType node.Node, StmtList *StmtList, PhpDocComment string) *Function {
+func NewFunction(FunctionName node.Node, ReturnsRef bool, Params *node.ParameterList, ReturnType node.Node, StmtList *StmtList, PhpDocComment string) *Function {
 	return &Function{
 		ReturnsRef,
 		PhpDocComment,
@@ -48,13 +48,9 @@ func (n *Function) Walk(v walker.Visitor) {
 		n.FunctionName.Walk(vv)
 	}
 
-	if n.Params != nil {
-		vv := v.GetChildrenVisitor("Params")
-		for _, nn := range n.Params {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.ParameterList != nil {
+		vv := v.GetChildrenVisitor("ParameterList")
+		n.ParameterList.Walk(vv)
 	}
 
 	if n.ReturnType != nil {

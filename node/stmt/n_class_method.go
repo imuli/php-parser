@@ -11,19 +11,19 @@ type ClassMethod struct {
 	PhpDocComment string
 	MethodName    node.Node
 	Modifiers     []node.Node
-	Params        []node.Node
+	ParameterList *node.ParameterList
 	ReturnType    node.Node
 	StmtList      *StmtList
 }
 
 // NewClassMethod node constructor
-func NewClassMethod(MethodName node.Node, Modifiers []node.Node, ReturnsRef bool, Params []node.Node, ReturnType node.Node, StmtList *StmtList, PhpDocComment string) *ClassMethod {
+func NewClassMethod(MethodName node.Node, Modifiers []node.Node, ReturnsRef bool, ParameterList *node.ParameterList, ReturnType node.Node, StmtList *StmtList, PhpDocComment string) *ClassMethod {
 	return &ClassMethod{
 		ReturnsRef,
 		PhpDocComment,
 		MethodName,
 		Modifiers,
-		Params,
+		ParameterList,
 		ReturnType,
 		StmtList,
 	}
@@ -58,13 +58,9 @@ func (n *ClassMethod) Walk(v walker.Visitor) {
 		}
 	}
 
-	if n.Params != nil {
-		vv := v.GetChildrenVisitor("Params")
-		for _, nn := range n.Params {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.ParameterList != nil {
+		vv := v.GetChildrenVisitor("ParameterList")
+		n.ParameterList.Walk(vv)
 	}
 
 	if n.ReturnType != nil {

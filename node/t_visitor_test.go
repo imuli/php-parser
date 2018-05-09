@@ -63,6 +63,22 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
+		&node.InnerParameterList{
+			Parameters: []node.Node{
+				&node.Argument{},
+			},
+		},
+		[]string{"Parameters"},
+		map[string]interface{}{},
+	},
+	{
+		&node.ParameterList{
+			InnerParameterList: &node.InnerParameterList{},
+		},
+		[]string{"InnerParameterList"},
+		map[string]interface{}{},
+	},
+	{
 		&node.Root{
 			Stmts: []node.Node{&stmt.Expression{}},
 		},

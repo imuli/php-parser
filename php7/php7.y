@@ -1216,11 +1216,15 @@ function_declaration_statement:
             name := node.NewIdentifier($3.Value)
             innerStmtList := stmt.NewInnerStmtList($10)
             stmtList := stmt.NewStmtList(innerStmtList)
-            $$ = stmt.NewFunction(name, $2.value, $6, $8, stmtList, $4)
+            innerParameterList := node.NewInnerParameterList($6)
+            parameterList := node.NewParameterList(innerParameterList)
+            $$ = stmt.NewFunction(name, $2.value, parameterList, $8, stmtList, $4)
 
             yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
             yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($10))
             yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($9, $11))
+            yylex.(*Parser).positions.AddPosition(innerParameterList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+            yylex.(*Parser).positions.AddPosition(parameterList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $11))
 
             yylex.(*Parser).comments.AddComments(name, $3.Comments())
@@ -1788,9 +1792,13 @@ class_statement:
                 }
 
                 name := node.NewIdentifier($4.Value)
-                $$ = stmt.NewClassMethod(name, $1, $3.value, $7, $9, stmtList, $5)
+                innerParameterList := node.NewInnerParameterList($7)
+                parameterList := node.NewParameterList(innerParameterList)
+                $$ = stmt.NewClassMethod(name, $1, $3.value, parameterList, $9, stmtList, $5)
 
                 yylex.(*Parser).positions.AddPosition(name, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
+                yylex.(*Parser).positions.AddPosition(innerParameterList, yylex.(*Parser).positionBuilder.NewNodeListPosition($7))
+                yylex.(*Parser).positions.AddPosition(parameterList, yylex.(*Parser).positionBuilder.NewTokensPosition($6, $8))
                 
                 if $1 == nil {
                     yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($2, $10))
@@ -2571,10 +2579,14 @@ expr_without_variable:
             {
                 innerStmtList := stmt.NewInnerStmtList($10)
                 stmtList := stmt.NewStmtList(innerStmtList)
-                $$ = expr.NewClosure($5, $7, $8, stmtList, false, $2.value, $3)
+                innerParameterList := node.NewInnerParameterList($5)
+                parameterList := node.NewParameterList(innerParameterList)
+                $$ = expr.NewClosure(parameterList, $7, $8, stmtList, false, $2.value, $3)
 
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($10))
                 yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($9, $11))
+                yylex.(*Parser).positions.AddPosition(innerParameterList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(parameterList, yylex.(*Parser).positionBuilder.NewTokensPosition($4, $6))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $11))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())
@@ -2583,10 +2595,14 @@ expr_without_variable:
             {
                 innerStmtList := stmt.NewInnerStmtList($11)
                 stmtList := stmt.NewStmtList(innerStmtList)
-                $$ = expr.NewClosure($6, $8, $9, stmtList, true, $3.value, $4)
+                innerParameterList := node.NewInnerParameterList($6)
+                parameterList := node.NewParameterList(innerParameterList)
+                $$ = expr.NewClosure(parameterList, $8, $9, stmtList, true, $3.value, $4)
 
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($11))
                 yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($10, $12))
+                yylex.(*Parser).positions.AddPosition(innerParameterList, yylex.(*Parser).positionBuilder.NewNodeListPosition($6))
+                yylex.(*Parser).positions.AddPosition(parameterList, yylex.(*Parser).positionBuilder.NewTokensPosition($5, $7))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $12))
                 
                 yylex.(*Parser).comments.AddComments($$, $1.Comments())

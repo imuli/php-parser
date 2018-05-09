@@ -105,6 +105,9 @@ nodes := &stmt.StmtList{
 						&stmt.ClassMethod{
 							Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 							MethodName: &node.Identifier{Value: "greet"},
+							ParameterList: &node.ParameterList{
+								InnerParameterList: &node.InnerParameterList{},
+							},
 							StmtList: &stmt.StmtList{
 								InnerStmtList: &stmt.InnerStmtList{
 									Stmts: []node.Node{

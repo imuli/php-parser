@@ -88,7 +88,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 	case *stmt.Function:
 		nsr.AddNamespacedName(n, n.FunctionName.(*node.Identifier).Value)
 
-		for _, parameter := range n.Params {
+		for _, parameter := range n.ParameterList.InnerParameterList.Parameters {
 			nsr.ResolveType(parameter.(*node.Parameter).VariableType)
 		}
 
@@ -97,7 +97,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 		}
 
 	case *stmt.ClassMethod:
-		for _, parameter := range n.Params {
+		for _, parameter := range n.ParameterList.InnerParameterList.Parameters {
 			nsr.ResolveType(parameter.(*node.Parameter).VariableType)
 		}
 
@@ -106,7 +106,7 @@ func (nsr *NamespaceResolver) EnterNode(w walker.Walkable) bool {
 		}
 
 	case *expr.Closure:
-		for _, parameter := range n.Params {
+		for _, parameter := range n.ParameterList.InnerParameterList.Parameters {
 			nsr.ResolveType(parameter.(*node.Parameter).VariableType)
 		}
 

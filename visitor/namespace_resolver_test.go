@@ -544,12 +544,16 @@ func TestResolveFunctionName(t *testing.T) {
 		ReturnsRef:    false,
 		PhpDocComment: "",
 		FunctionName:  &node.Identifier{Value: "A"},
-		Params: []node.Node{
-			&node.Parameter{
-				ByRef:        false,
-				Variadic:     false,
-				VariableType: nameAB,
-				Variable:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+		ParameterList: &node.ParameterList{
+			InnerParameterList: &node.InnerParameterList{
+				Parameters: []node.Node{
+					&node.Parameter{
+						ByRef:        false,
+						Variadic:     false,
+						VariableType: nameAB,
+						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					},
+				},
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},
@@ -586,12 +590,16 @@ func TestResolveMethodName(t *testing.T) {
 		ReturnsRef:    false,
 		PhpDocComment: "",
 		MethodName:    &node.Identifier{Value: "A"},
-		Params: []node.Node{
-			&node.Parameter{
-				ByRef:        false,
-				Variadic:     false,
-				VariableType: nameAB,
-				Variable:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+		ParameterList: &node.ParameterList{
+			InnerParameterList: &node.InnerParameterList{
+				Parameters: []node.Node{
+					&node.Parameter{
+						ByRef:        false,
+						Variadic:     false,
+						VariableType: nameAB,
+						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					},
+				},
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},
@@ -621,12 +629,16 @@ func TestResolveClosureName(t *testing.T) {
 		ReturnsRef:    false,
 		Static:        false,
 		PhpDocComment: "",
-		Params: []node.Node{
-			&node.Parameter{
-				ByRef:        false,
-				Variadic:     false,
-				VariableType: nameAB,
-				Variable:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+		ParameterList: &node.ParameterList{
+			InnerParameterList: &node.InnerParameterList{
+				Parameters: []node.Node{
+					&node.Parameter{
+						ByRef:        false,
+						Variadic:     false,
+						VariableType: nameAB,
+						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+					},
+				},
 			},
 		},
 		ReturnType: &node.Nullable{Expr: nameBC},

@@ -24,7 +24,10 @@ func TestClosure(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Uses:          []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -56,16 +59,20 @@ func TestClosureUse(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Params: []node.Node{
-						&node.Parameter{
-							ByRef:    false,
-							Variadic: false,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-						},
-						&node.Parameter{
-							ByRef:    false,
-							Variadic: false,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: []node.Node{
+								&node.Parameter{
+									ByRef:    false,
+									Variadic: false,
+									Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								},
+								&node.Parameter{
+									ByRef:    false,
+									Variadic: false,
+									Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+								},
+							},
 						},
 					},
 					Uses: []node.Node{
@@ -109,16 +116,20 @@ func TestClosureUse2(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Params: []node.Node{
-						&node.Parameter{
-							ByRef:    false,
-							Variadic: false,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-						},
-						&node.Parameter{
-							ByRef:    false,
-							Variadic: false,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: []node.Node{
+								&node.Parameter{
+									ByRef:    false,
+									Variadic: false,
+									Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								},
+								&node.Parameter{
+									ByRef:    false,
+									Variadic: false,
+									Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+								},
+							},
 						},
 					},
 					Uses: []node.Node{
@@ -162,7 +173,10 @@ func TestClosureReturnType(t *testing.T) {
 					ReturnsRef:    false,
 					Static:        false,
 					PhpDocComment: "",
-					Uses:          []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{},
+					},
+					Uses: []node.Node{},
 					ReturnType: &name.Name{
 						Parts: []node.Node{&name.NamePart{Value: "void"}},
 					},

@@ -309,7 +309,11 @@ func TestPhp7ParameterNode(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Params:        expectedParams,
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: expectedParams,
+					},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
@@ -324,7 +328,11 @@ func TestPhp7ParameterNode(t *testing.T) {
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-								Params:     expectedParams,
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{
+										Parameters: expectedParams,
+									},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
@@ -337,8 +345,12 @@ func TestPhp7ParameterNode(t *testing.T) {
 			},
 			&stmt.Expression{
 				Expr: &expr.Closure{
-					Params: expectedParams,
-					Uses:   []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: expectedParams,
+						},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -349,8 +361,12 @@ func TestPhp7ParameterNode(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.Closure{
 					Static: true,
-					Params: expectedParams,
-					Uses:   []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: expectedParams,
+						},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -397,7 +413,11 @@ func TestPhp5ParameterNode(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Params:        expectedParams,
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: expectedParams,
+					},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
@@ -412,7 +432,11 @@ func TestPhp5ParameterNode(t *testing.T) {
 							&stmt.ClassMethod{
 								MethodName: &node.Identifier{Value: "foo"},
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
-								Params:     expectedParams,
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{
+										Parameters: expectedParams,
+									},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
@@ -425,8 +449,12 @@ func TestPhp5ParameterNode(t *testing.T) {
 			},
 			&stmt.Expression{
 				Expr: &expr.Closure{
-					Params: expectedParams,
-					Uses:   []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: expectedParams,
+						},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},
@@ -437,8 +465,12 @@ func TestPhp5ParameterNode(t *testing.T) {
 			&stmt.Expression{
 				Expr: &expr.Closure{
 					Static: true,
-					Params: expectedParams,
-					Uses:   []node.Node{},
+					ParameterList: &node.ParameterList{
+						InnerParameterList: &node.InnerParameterList{
+							Parameters: expectedParams,
+						},
+					},
+					Uses: []node.Node{},
 					StmtList: &stmt.StmtList{
 						InnerStmtList: &stmt.InnerStmtList{
 							Stmts: []node.Node{},

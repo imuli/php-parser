@@ -80,11 +80,15 @@ var nodesToTest = []struct {
 			PhpDocComment: "/** */",
 			MethodName:    &node.Identifier{},
 			Modifiers:     []node.Node{&stmt.Expression{}},
-			Params:        []node.Node{&stmt.Expression{}},
-			ReturnType:    &node.Identifier{},
-			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
+			ParameterList: &node.ParameterList{
+				InnerParameterList: &node.InnerParameterList{
+					Parameters: []node.Node{&stmt.Expression{}},
+				},
+			},
+			ReturnType: &node.Identifier{},
+			StmtList:   &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"MethodName", "Modifiers", "Params", "ReturnType", "StmtList"},
+		[]string{"MethodName", "Modifiers", "ParameterList", "ReturnType", "StmtList"},
 		map[string]interface{}{"ReturnsRef": true, "PhpDocComment": "/** */"},
 	},
 	{
@@ -256,11 +260,15 @@ var nodesToTest = []struct {
 			ReturnsRef:    true,
 			PhpDocComment: "/** */",
 			FunctionName:  &node.Identifier{},
-			Params:        []node.Node{&stmt.Expression{}},
-			ReturnType:    &node.Identifier{},
-			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
+			ParameterList: &node.ParameterList{
+				InnerParameterList: &node.InnerParameterList{
+					Parameters: []node.Node{&stmt.Expression{}},
+				},
+			},
+			ReturnType: &node.Identifier{},
+			StmtList:   &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"FunctionName", "Params", "ReturnType", "StmtList"},
+		[]string{"FunctionName", "ParameterList", "ReturnType", "StmtList"},
 		map[string]interface{}{"ReturnsRef": true, "PhpDocComment": "/** */"},
 	},
 	{

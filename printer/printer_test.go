@@ -46,6 +46,9 @@ func TestPrintFile(t *testing.T) {
 							&stmt.ClassMethod{
 								Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 								MethodName: &node.Identifier{Value: "greet"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{
@@ -1403,11 +1406,15 @@ func TestPrintExprClosure(t *testing.T) {
 					&expr.Closure{
 						Static:     true,
 						ReturnsRef: true,
-						Params: []node.Node{
-							&node.Parameter{
-								ByRef:    true,
-								Variadic: false,
-								Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+						ParameterList: &node.ParameterList{
+							InnerParameterList: &node.InnerParameterList{
+								Parameters: []node.Node{
+									&node.Parameter{
+										ByRef:    true,
+										Variadic: false,
+										Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+									},
+								},
 							},
 						},
 						Uses: []node.Node{
@@ -2496,16 +2503,20 @@ func TestPrintStmtClassMethod(t *testing.T) {
 		Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 		ReturnsRef: true,
 		MethodName: &node.Identifier{Value: "foo"},
-		Params: []node.Node{
-			&node.Parameter{
-				ByRef:        true,
-				VariableType: &node.Nullable{Expr: &name.Name{Parts: []node.Node{&name.NamePart{Value: "int"}}}},
-				Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				DefaultValue: &expr.ConstFetch{Constant: &name.Name{Parts: []node.Node{&name.NamePart{Value: "null"}}}},
-			},
-			&node.Parameter{
-				Variadic: true,
-				Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+		ParameterList: &node.ParameterList{
+			InnerParameterList: &node.InnerParameterList{
+				Parameters: []node.Node{
+					&node.Parameter{
+						ByRef:        true,
+						VariableType: &node.Nullable{Expr: &name.Name{Parts: []node.Node{&name.NamePart{Value: "int"}}}},
+						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+						DefaultValue: &expr.ConstFetch{Constant: &name.Name{Parts: []node.Node{&name.NamePart{Value: "null"}}}},
+					},
+					&node.Parameter{
+						Variadic: true,
+						Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+					},
+				},
 			},
 		},
 		ReturnType: &name.Name{Parts: []node.Node{&name.NamePart{Value: "void"}}},
@@ -3280,11 +3291,15 @@ func TestPrintStmtFunction(t *testing.T) {
 					&stmt.Function{
 						ReturnsRef:   true,
 						FunctionName: &node.Identifier{Value: "foo"},
-						Params: []node.Node{
-							&node.Parameter{
-								ByRef:    true,
-								Variadic: false,
-								Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+						ParameterList: &node.ParameterList{
+							InnerParameterList: &node.InnerParameterList{
+								Parameters: []node.Node{
+									&node.Parameter{
+										ByRef:    true,
+										Variadic: false,
+										Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+									},
+								},
 							},
 						},
 						ReturnType: &name.FullyQualified{Parts: []node.Node{&name.NamePart{Value: "Foo"}}},
@@ -3537,7 +3552,9 @@ func TestPrintInterface(t *testing.T) {
 									&stmt.ClassMethod{
 										Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 										MethodName: &node.Identifier{Value: "foo"},
-										Params:     []node.Node{},
+										ParameterList: &node.ParameterList{
+											InnerParameterList: &node.InnerParameterList{},
+										},
 										StmtList: &stmt.StmtList{
 											InnerStmtList: &stmt.InnerStmtList{
 												Stmts: []node.Node{
@@ -4008,7 +4025,9 @@ func TestPrintTrait(t *testing.T) {
 									&stmt.ClassMethod{
 										Modifiers:  []node.Node{&node.Identifier{Value: "public"}},
 										MethodName: &node.Identifier{Value: "foo"},
-										Params:     []node.Node{},
+										ParameterList: &node.ParameterList{
+											InnerParameterList: &node.InnerParameterList{},
+										},
 										StmtList: &stmt.StmtList{
 											InnerStmtList: &stmt.InnerStmtList{
 												Stmts: []node.Node{

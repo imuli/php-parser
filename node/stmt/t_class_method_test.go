@@ -26,6 +26,9 @@ func TestSimpleClassMethod(t *testing.T) {
 							&stmt.ClassMethod{
 								PhpDocComment: "",
 								MethodName:    &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								StmtList: &stmt.StmtList{
 									InnerStmtList: &stmt.InnerStmtList{
 										Stmts: []node.Node{},
@@ -65,6 +68,9 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 								PhpDocComment: "",
 								ReturnsRef:    false,
 								MethodName:    &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "final"},
 									&node.Identifier{Value: "private"},
@@ -79,6 +85,9 @@ func TestPrivateProtectedClassMethod(t *testing.T) {
 								PhpDocComment: "",
 								ReturnsRef:    false,
 								MethodName:    &node.Identifier{Value: "baz"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "protected"},
 								},
@@ -121,6 +130,9 @@ func TestPhp5ClassMethod(t *testing.T) {
 								PhpDocComment: "",
 								ReturnsRef:    true,
 								MethodName:    &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
@@ -159,6 +171,9 @@ func TestPhp7ClassMethod(t *testing.T) {
 								PhpDocComment: "",
 								ReturnsRef:    true,
 								MethodName:    &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "public"},
 									&node.Identifier{Value: "static"},
@@ -203,6 +218,9 @@ func TestAbstractClassMethod(t *testing.T) {
 								PhpDocComment: "",
 								ReturnsRef:    false,
 								MethodName:    &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "abstract"},
 									&node.Identifier{Value: "public"},
@@ -242,6 +260,9 @@ func TestPhp7AbstractClassMethod(t *testing.T) {
 								PhpDocComment: "",
 								ReturnsRef:    false,
 								MethodName:    &node.Identifier{Value: "bar"},
+								ParameterList: &node.ParameterList{
+									InnerParameterList: &node.InnerParameterList{},
+								},
 								Modifiers: []node.Node{
 									&node.Identifier{Value: "public"},
 								},

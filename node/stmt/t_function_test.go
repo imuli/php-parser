@@ -24,6 +24,9 @@ func TestSimpleFunction(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{},
@@ -54,6 +57,9 @@ func TestFunctionReturn(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
@@ -86,18 +92,22 @@ func TestFunctionReturnVar(t *testing.T) {
 				ReturnsRef:    false,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
-				Params: []node.Node{
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						VariableType: &node.Identifier{Value: "array"},
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-					},
-					&node.Parameter{
-						ByRef:        false,
-						Variadic:     false,
-						VariableType: &node.Identifier{Value: "callable"},
-						Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{
+						Parameters: []node.Node{
+							&node.Parameter{
+								ByRef:        false,
+								Variadic:     false,
+								VariableType: &node.Identifier{Value: "array"},
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+							},
+							&node.Parameter{
+								ByRef:        false,
+								Variadic:     false,
+								VariableType: &node.Identifier{Value: "callable"},
+								Variable:     &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							},
+						},
 					},
 				},
 				StmtList: &stmt.StmtList{
@@ -134,6 +144,9 @@ func TestRefFunction(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				StmtList: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{
 						Stmts: []node.Node{
@@ -168,6 +181,9 @@ func TestReturnTypeFunction(t *testing.T) {
 				ReturnsRef:    true,
 				PhpDocComment: "",
 				FunctionName:  &node.Identifier{Value: "foo"},
+				ParameterList: &node.ParameterList{
+					InnerParameterList: &node.InnerParameterList{},
+				},
 				ReturnType: &name.Name{
 					Parts: []node.Node{
 						&name.NamePart{Value: "void"},

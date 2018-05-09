@@ -94,12 +94,16 @@ var nodesToTest = []struct {
 			ReturnsRef:    true,
 			Static:        false,
 			PhpDocComment: "",
-			Params:        []node.Node{&node.Parameter{}},
-			Uses:          []node.Node{&expr.ClosureUse{}},
-			ReturnType:    &name.Name{},
-			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
+			ParameterList: &node.ParameterList{
+				InnerParameterList: &node.InnerParameterList{
+					Parameters: []node.Node{&node.Parameter{}},
+				},
+			},
+			Uses:       []node.Node{&expr.ClosureUse{}},
+			ReturnType: &name.Name{},
+			StmtList:   &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
-		[]string{"Params", "Uses", "ReturnType", "StmtList"},
+		[]string{"ParameterList", "Uses", "ReturnType", "StmtList"},
 		map[string]interface{}{"ReturnsRef": true, "Static": false, "PhpDocComment": ""},
 	},
 	{

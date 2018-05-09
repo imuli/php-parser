@@ -85,37 +85,43 @@ func ExampleDumper() {
 	//|                                 [*node.Identifier]
 	//|                                   "Position": Pos{Line: 5-5 Pos: 45-50};
 	//|                                   "Value": public;
-	//|                               "Params":
-	//|                                 [*node.Parameter]
-	//|                                   "Position": Pos{Line: 5-5 Pos: 74-89};
-	//|                                   "ByRef": false;
-	//|                                   "Variadic": false;
-	//|                                   "VariableType":
-	//|                                     [*name.Name]
-	//|                                       "Position": Pos{Line: 5-5 Pos: 74-77};
-	//|                                       "NamespacedName": Foo\Type;
-	//|                                       "Parts":
-	//|                                         [*name.NamePart]
-	//|                                           "Position": Pos{Line: 5-5 Pos: 74-77};
-	//|                                           "Value": Type;
-	//|                                   "Variable":
-	//|                                     [*expr.Variable]
-	//|                                       "Position": Pos{Line: 5-5 Pos: 79-82};
-	//|                                       "VarName":
-	//|                                         [*node.Identifier]
-	//|                                           "Position": Pos{Line: 5-5 Pos: 79-82};
-	//|                                           "Value": var;
-	//|                                   "DefaultValue":
-	//|                                     [*expr.ConstFetch]
-	//|                                       "Position": Pos{Line: 5-5 Pos: 86-89};
-	//|                                       "Constant":
-	//|                                         [*name.Name]
-	//|                                           "Position": Pos{Line: 5-5 Pos: 86-89};
-	//|                                           "NamespacedName": Foo\null;
-	//|                                           "Parts":
-	//|                                             [*name.NamePart]
+	//|                               "ParameterList":
+	//|                                 [*node.ParameterList]
+	//|                                   "Position": Pos{Line: 5-5 Pos: 73-90};
+	//|                                   "InnerParameterList":
+	//|                                     [*node.InnerParameterList]
+	//|                                       "Position": Pos{Line: 5-5 Pos: 74-89};
+	//|                                       "Parameters":
+	//|                                         [*node.Parameter]
+	//|                                           "Position": Pos{Line: 5-5 Pos: 74-89};
+	//|                                           "ByRef": false;
+	//|                                           "Variadic": false;
+	//|                                           "VariableType":
+	//|                                             [*name.Name]
+	//|                                               "Position": Pos{Line: 5-5 Pos: 74-77};
+	//|                                               "NamespacedName": Foo\Type;
+	//|                                               "Parts":
+	//|                                                 [*name.NamePart]
+	//|                                                   "Position": Pos{Line: 5-5 Pos: 74-77};
+	//|                                                   "Value": Type;
+	//|                                           "Variable":
+	//|                                             [*expr.Variable]
+	//|                                               "Position": Pos{Line: 5-5 Pos: 79-82};
+	//|                                               "VarName":
+	//|                                                 [*node.Identifier]
+	//|                                                   "Position": Pos{Line: 5-5 Pos: 79-82};
+	//|                                                   "Value": var;
+	//|                                           "DefaultValue":
+	//|                                             [*expr.ConstFetch]
 	//|                                               "Position": Pos{Line: 5-5 Pos: 86-89};
-	//|                                               "Value": null;
+	//|                                               "Constant":
+	//|                                                 [*name.Name]
+	//|                                                   "Position": Pos{Line: 5-5 Pos: 86-89};
+	//|                                                   "NamespacedName": Foo\null;
+	//|                                                   "Parts":
+	//|                                                     [*name.NamePart]
+	//|                                                       "Position": Pos{Line: 5-5 Pos: 86-89};
+	//|                                                       "Value": null;
 	//|                               "StmtList":
 	//|                                 [*stmt.StmtList]
 	//|                                   "Position": Pos{Line: 6-9 Pos: 96-134};
