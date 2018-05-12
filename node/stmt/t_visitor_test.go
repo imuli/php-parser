@@ -99,8 +99,8 @@ var nodesToTest = []struct {
 			ArgumentList: &node.ArgumentList{
 				InnerArgumentList: &node.InnerArgumentList{},
 			},
-			Extends:    &node.Identifier{},
-			Implements: []node.Node{&stmt.Expression{}},
+			Extends:    &stmt.ClassExtends{},
+			Implements: &stmt.ClassImplements{},
 			StmtList:   &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
 		[]string{"ClassName", "Modifiers", "ArgumentList", "Extends", "Implements", "StmtList"},
@@ -310,7 +310,7 @@ var nodesToTest = []struct {
 		&stmt.Interface{
 			PhpDocComment: "/** */",
 			InterfaceName: &node.Identifier{},
-			Extends:       []node.Node{&stmt.Expression{}},
+			Extends:       &stmt.InterfaceExtends{},
 			StmtList:      &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{}},
 		},
 		[]string{"InterfaceName", "Extends", "StmtList"},

@@ -9,12 +9,12 @@ import (
 type Interface struct {
 	PhpDocComment string
 	InterfaceName node.Node
-	Extends       []node.Node
+	Extends       *InterfaceExtends
 	StmtList      *StmtList
 }
 
 // NewInterface node constructor
-func NewInterface(InterfaceName node.Node, Extends []node.Node, StmtList *StmtList, PhpDocComment string) *Interface {
+func NewInterface(InterfaceName node.Node, Extends *InterfaceExtends, StmtList *StmtList, PhpDocComment string) *Interface {
 	return &Interface{
 		PhpDocComment,
 		InterfaceName,
@@ -44,11 +44,7 @@ func (n *Interface) Walk(v walker.Visitor) {
 
 	if n.Extends != nil {
 		vv := v.GetChildrenVisitor("Extends")
-		for _, nn := range n.Extends {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+		n.Extends.Walk(vv)
 	}
 
 	if n.StmtList != nil {

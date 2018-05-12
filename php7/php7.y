@@ -20,11 +20,15 @@ import (
 %}
 
 %union{
-    node node.Node
-    token *scanner.Token
-    list []node.Node
-    foreachVariable foreachVariable
-    str string
+    node             node.Node
+    token            *scanner.Token
+    list             []node.Node
+    foreachVariable  foreachVariable
+    str              string
+    
+    ClassExtends     *stmt.ClassExtends
+    ClassImplements  *stmt.ClassImplements
+    InterfaceExtends *stmt.InterfaceExtends
 }
 
 %type <token> $unk
@@ -211,7 +215,7 @@ import (
 %type <node> const_decl inner_statement
 %type <node> expr optional_expr
 %type <node> declare_statement finally_statement unset_variable variable
-%type <node> extends_from parameter optional_type argument expr_without_variable global_var
+%type <node> parameter optional_type argument expr_without_variable global_var
 %type <node> static_var class_statement trait_adaptation trait_precedence trait_alias
 %type <node> absolute_trait_method_reference trait_method_reference property echo_expr
 %type <node> new_expr anonymous_class class_name class_name_reference simple_variable
@@ -234,6 +238,9 @@ import (
 %type <node> method_body
 %type <node> foreach_statement for_statement while_statement
 %type <node> for_exprs
+%type <ClassExtends> extends_from
+%type <ClassImplements> implements_list
+%type <InterfaceExtends> interface_extends_list
 
 %type <node> member_modifier
 %type <node> use_type
@@ -246,7 +253,7 @@ import (
 %type <list> use_declarations lexical_var_list lexical_vars isset_variables non_empty_array_pair_list
 %type <list> array_pair_list non_empty_argument_list top_statement_list
 %type <list> inner_statement_list parameter_list non_empty_parameter_list class_statement_list
-%type <list> interface_extends_list implements_list method_modifiers variable_modifiers
+%type <list> method_modifiers variable_modifiers
 %type <list> non_empty_member_modifiers name_list class_modifiers
 
 %type <str> backup_doc_comment
@@ -1378,8 +1385,13 @@ extends_from:
             { $$ = nil }
     |   T_EXTENDS name
             {
-                $$ = $2;
-                yylex.(*Parser).addNodeCommentsFromToken($2, $1)
+                $$ = stmt.NewClassExtends($2);
+
+                // save position
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
+
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
             }
 ;
 
@@ -1388,8 +1400,13 @@ interface_extends_list:
             { $$ = nil }
     |   T_EXTENDS name_list
             {
-                $$ = $2;
-                yylex.(*Parser).addNodeCommentsFromToken($2[0], $1)
+                $$ = stmt.NewInterfaceExtends($2);
+
+                // save position
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $2))
+
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
             }
 ;
 
@@ -1398,8 +1415,13 @@ implements_list:
             { $$ = nil }
     |   T_IMPLEMENTS name_list
             {
-                $$ = $2;
-                yylex.(*Parser).addNodeCommentsFromToken($2[0], $1)
+                $$ = stmt.NewClassImplements($2);
+
+                // save position
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $2))
+
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
             }
 ;
 

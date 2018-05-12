@@ -19,11 +19,15 @@ import (
 %}
 
 %union{
-    node node.Node
-    token *scanner.Token
-    list []node.Node
-    foreachVariable foreachVariable
+    node                    node.Node
+    token                   *scanner.Token
+    list                    []node.Node
+    foreachVariable         foreachVariable
     simpleIndirectReference simpleIndirectReference
+
+    ClassExtends            *stmt.ClassExtends
+    ClassImplements         *stmt.ClassImplements
+    InterfaceExtends        *stmt.InterfaceExtends
 }
 
 %type <token> $unk
@@ -202,7 +206,7 @@ import (
 %type <node> exit_expr yield_expr function_declaration_statement class_declaration_statement constant_declaration
 %type <node> else_single new_else_single unset_variable declare_statement
 %type <node> finally_statement additional_catch unticked_function_declaration_statement unticked_class_declaration_statement
-%type <node> optional_class_type parameter class_entry_type extends_from class_statement class_constant_declaration
+%type <node> optional_class_type parameter class_entry_type class_statement class_constant_declaration
 %type <node> trait_use_statement function_call_parameter trait_adaptation_statement trait_precedence trait_alias
 %type <node> trait_method_reference_fully_qualified trait_method_reference trait_modifiers member_modifier method
 %type <node> static_scalar_value static_operation
@@ -212,13 +216,16 @@ import (
 %type <node> method_body
 %type <node> foreach_statement for_statement while_statement
 %type <node> for_expr
+%type <ClassExtends> extends_from
+%type <ClassImplements> implements_list
+%type <InterfaceExtends> interface_extends_list
 
 %type <list> top_statement_list namespace_name use_declarations use_function_declarations use_const_declarations
 %type <list> inner_statement_list global_var_list static_var_list encaps_list isset_variables non_empty_array_pair_list
 %type <list> array_pair_list assignment_list lexical_var_list lexical_vars elseif_list new_elseif_list non_empty_for_expr
 %type <list> case_list echo_expr_list unset_variables declare_list catch_statement additional_catches
-%type <list> non_empty_additional_catches parameter_list non_empty_parameter_list class_statement_list implements_list
-%type <list> class_statement_list variable_modifiers method_modifiers class_variable_declaration interface_extends_list
+%type <list> non_empty_additional_catches parameter_list non_empty_parameter_list class_statement_list
+%type <list> class_statement_list variable_modifiers method_modifiers class_variable_declaration
 %type <list> interface_list non_empty_function_call_parameter_list trait_list trait_adaptation_list non_empty_trait_adaptation_list
 %type <list> trait_reference_list non_empty_member_modifiers backticks_expr static_array_pair_list non_empty_static_array_pair_list
 
@@ -1123,7 +1130,12 @@ extends_from:
         /* empty */
             { $$ = nil }
     |   T_EXTENDS fully_qualified_class_name
-            { $$ = $2 }
+            {
+                $$ = stmt.NewClassExtends($2);
+
+                // save position
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
+            }
 ;
 
 interface_entry:
@@ -1135,14 +1147,24 @@ interface_extends_list:
         /* empty */
             { $$ = nil }
     |   T_EXTENDS interface_list
-            { $$ = $2 }
+            {
+                $$ = stmt.NewInterfaceExtends($2);
+
+                // save position
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $2))
+            }
 ;
 
 implements_list:
         /* empty */
             { $$ = nil }
     |   T_IMPLEMENTS interface_list
-            { $$ = $2 }
+            {
+                $$ = stmt.NewClassImplements($2);
+
+                // save position
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($1, $2))
+            }
 ;
 
 interface_list:

@@ -50,10 +50,12 @@ func TestInterfaceExtend(t *testing.T) {
 			&stmt.Interface{
 				PhpDocComment: "",
 				InterfaceName: &node.Identifier{Value: "Foo"},
-				Extends: []node.Node{
-					&name.Name{
-						Parts: []node.Node{
-							&name.NamePart{Value: "Bar"},
+				Extends: &stmt.InterfaceExtends{
+					InterfaceNames: []node.Node{
+						&name.Name{
+							Parts: []node.Node{
+								&name.NamePart{Value: "Bar"},
+							},
 						},
 					},
 				},
@@ -86,15 +88,17 @@ func TestInterfaceExtends(t *testing.T) {
 			&stmt.Interface{
 				PhpDocComment: "",
 				InterfaceName: &node.Identifier{Value: "Foo"},
-				Extends: []node.Node{
-					&name.Name{
-						Parts: []node.Node{
-							&name.NamePart{Value: "Bar"},
+				Extends: &stmt.InterfaceExtends{
+					InterfaceNames: []node.Node{
+						&name.Name{
+							Parts: []node.Node{
+								&name.NamePart{Value: "Bar"},
+							},
 						},
-					},
-					&name.Name{
-						Parts: []node.Node{
-							&name.NamePart{Value: "Baz"},
+						&name.Name{
+							Parts: []node.Node{
+								&name.NamePart{Value: "Baz"},
+							},
 						},
 					},
 				},
