@@ -4,6 +4,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/z7zmey/php-parser/node/name"
+
 	"github.com/z7zmey/php-parser/node/expr"
 	"github.com/z7zmey/php-parser/node/stmt"
 
@@ -549,6 +551,31 @@ var nodesToTest = []struct {
 			InnerCaseList: &stmt.InnerCaseList{},
 		},
 		[]string{"InnerCaseList"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.ClassExtends{
+			ClassName: &name.Name{},
+		},
+		[]string{"ClassName"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.ClassImplements{
+			InterfaceNames: []node.Node{
+				&name.Name{},
+			},
+		},
+		[]string{"InterfaceNames"},
+		map[string]interface{}{},
+	},
+	{
+		&stmt.InterfaceExtends{
+			InterfaceNames: []node.Node{
+				&name.Name{},
+			},
+		},
+		[]string{"InterfaceNames"},
 		map[string]interface{}{},
 	},
 }
