@@ -1557,8 +1557,7 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.Array{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &scalar.Lnumber{Value: "1"},
+							Val: &scalar.Lnumber{Value: "1"},
 						},
 					},
 				},
@@ -1567,13 +1566,11 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.Array{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: false,
-							Key:   &scalar.Lnumber{Value: "1"},
-							Val:   &scalar.Lnumber{Value: "1"},
+							Key: &scalar.Lnumber{Value: "1"},
+							Val: &scalar.Lnumber{Value: "1"},
 						},
 						&expr.ArrayItem{
-							ByRef: true,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
 						},
 					},
 				},
@@ -1582,9 +1579,8 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.Array{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: true,
-							Key:   &scalar.Lnumber{Value: "3"},
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							Key: &scalar.Lnumber{Value: "3"},
+							Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
 						},
 					},
 				},
@@ -1593,22 +1589,18 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.Array{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: true,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
 						},
 						&expr.ArrayItem{
-							ByRef: false,
-							Key:   &scalar.Lnumber{Value: "1"},
-							Val:   &scalar.Lnumber{Value: "1"},
+							Key: &scalar.Lnumber{Value: "1"},
+							Val: &scalar.Lnumber{Value: "1"},
 						},
 						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &scalar.Lnumber{Value: "1"},
+							Val: &scalar.Lnumber{Value: "1"},
 						},
 						&expr.ArrayItem{
-							ByRef: true,
-							Key:   &scalar.Lnumber{Value: "3"},
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							Key: &scalar.Lnumber{Value: "3"},
+							Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
 						},
 					},
 				},
@@ -1972,12 +1964,10 @@ func TestPhp5(t *testing.T) {
 					Variable: &expr.List{
 						Items: []node.Node{
 							&expr.ArrayItem{
-								ByRef: false,
-								Val:   &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								Val: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 							},
 							&expr.ArrayItem{
-								ByRef: false,
-								Val:   &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+								Val: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
 							},
 						},
 					},
@@ -1989,7 +1979,6 @@ func TestPhp5(t *testing.T) {
 					Variable: &expr.List{
 						Items: []node.Node{
 							&expr.ArrayItem{
-								ByRef: false,
 								Val: &expr.ArrayDimFetch{
 									Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 								},
@@ -2004,12 +1993,10 @@ func TestPhp5(t *testing.T) {
 					Variable: &expr.List{
 						Items: []node.Node{
 							&expr.ArrayItem{
-								ByRef: false,
 								Val: &expr.List{
 									Items: []node.Node{
 										&expr.ArrayItem{
-											ByRef: false,
-											Val:   &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+											Val: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 										},
 									},
 								},
@@ -2146,8 +2133,7 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.ShortArray{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &scalar.Lnumber{Value: "1"},
+							Val: &scalar.Lnumber{Value: "1"},
 						},
 					},
 				},
@@ -2156,13 +2142,11 @@ func TestPhp5(t *testing.T) {
 				Expr: &expr.ShortArray{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: false,
-							Key:   &scalar.Lnumber{Value: "1"},
-							Val:   &scalar.Lnumber{Value: "1"},
+							Key: &scalar.Lnumber{Value: "1"},
+							Val: &scalar.Lnumber{Value: "1"},
 						},
 						&expr.ArrayItem{
-							ByRef: true,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "b"}},
+							Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
 						},
 					},
 				},
@@ -2745,12 +2729,10 @@ func TestPhp5(t *testing.T) {
 						Variable: &expr.Array{
 							Items: []node.Node{
 								&expr.ArrayItem{
-									ByRef: false,
 									Val: &expr.ShortArray{
 										Items: []node.Node{
 											&expr.ArrayItem{
-												ByRef: false,
-												Val:   &scalar.Lnumber{Value: "0"},
+												Val: &scalar.Lnumber{Value: "0"},
 											},
 										},
 									},
@@ -2847,8 +2829,7 @@ func TestPhp5(t *testing.T) {
 							Variable: &expr.ShortArray{
 								Items: []node.Node{
 									&expr.ArrayItem{
-										ByRef: false,
-										Val:   &scalar.Lnumber{Value: "1"},
+										Val: &scalar.Lnumber{Value: "1"},
 									},
 								},
 							},
@@ -3298,13 +3279,11 @@ func TestPhp5(t *testing.T) {
 						Expr: &expr.Array{
 							Items: []node.Node{
 								&expr.ArrayItem{
-									ByRef: false,
-									Key:   &scalar.Lnumber{Value: "1"},
-									Val:   &scalar.Lnumber{Value: "1"},
+									Key: &scalar.Lnumber{Value: "1"},
+									Val: &scalar.Lnumber{Value: "1"},
 								},
 								&expr.ArrayItem{
-									ByRef: false,
-									Val:   &scalar.Lnumber{Value: "2"},
+									Val: &scalar.Lnumber{Value: "2"},
 								},
 							},
 						},
@@ -3319,13 +3298,11 @@ func TestPhp5(t *testing.T) {
 							Variable: &expr.ShortArray{
 								Items: []node.Node{
 									&expr.ArrayItem{
-										ByRef: false,
-										Val:   &scalar.Lnumber{Value: "1"},
+										Val: &scalar.Lnumber{Value: "1"},
 									},
 									&expr.ArrayItem{
-										ByRef: false,
-										Key:   &scalar.Lnumber{Value: "2"},
-										Val:   &scalar.Lnumber{Value: "2"},
+										Key: &scalar.Lnumber{Value: "2"},
+										Val: &scalar.Lnumber{Value: "2"},
 									},
 								},
 							},
@@ -3904,8 +3881,7 @@ func TestForeachStmts(t *testing.T) {
 				Variable: &expr.List{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+							Val: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
 						},
 					},
 				},

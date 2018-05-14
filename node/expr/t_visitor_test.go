@@ -32,20 +32,18 @@ var nodesToTest = []struct {
 	},
 	{
 		&expr.ArrayItem{
-			ByRef: false,
-			Key:   &scalar.String{Value: "key"},
-			Val:   &scalar.Lnumber{Value: "1"},
+			Key: &scalar.String{Value: "key"},
+			Val: &scalar.Lnumber{Value: "1"},
 		},
 		[]string{"Key", "Val"},
-		map[string]interface{}{"ByRef": false},
+		map[string]interface{}{},
 	},
 	{
 		&expr.Array{
 			Items: []node.Node{
 				&expr.ArrayItem{
-					ByRef: false,
-					Key:   &scalar.String{Value: "key"},
-					Val:   &scalar.Lnumber{Value: "1"},
+					Key: &scalar.String{Value: "key"},
+					Val: &scalar.Lnumber{Value: "1"},
 				},
 			},
 		},

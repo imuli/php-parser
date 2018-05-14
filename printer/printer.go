@@ -966,10 +966,6 @@ func (p *Printer) printExprArrayItem(n node.Node) {
 		io.WriteString(p.w, " => ")
 	}
 
-	if nn.ByRef {
-		io.WriteString(p.w, "&")
-	}
-
 	p.Print(nn.Val)
 }
 

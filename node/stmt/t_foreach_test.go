@@ -187,8 +187,7 @@ func TestForeachWithList(t *testing.T) {
 				Variable: &expr.List{
 					Items: []node.Node{
 						&expr.ArrayItem{
-							ByRef: false,
-							Val:   &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+							Val: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
 						},
 					},
 				},

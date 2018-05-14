@@ -1254,9 +1254,8 @@ func TestPrintExprArrayItemWithKey(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.ArrayItem{
-		ByRef: false,
-		Key:   &scalar.String{Value: "'Hello'"},
-		Val:   &expr.Variable{VarName: &node.Identifier{Value: "world"}},
+		Key: &scalar.String{Value: "'Hello'"},
+		Val: &expr.Variable{VarName: &node.Identifier{Value: "world"}},
 	})
 
 	expected := `'Hello' => $world`
@@ -1272,8 +1271,7 @@ func TestPrintExprArrayItem(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.ArrayItem{
-		ByRef: true,
-		Val:   &expr.Variable{VarName: &node.Identifier{Value: "world"}},
+		Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "world"}}},
 	})
 
 	expected := `&$world`
@@ -1291,18 +1289,15 @@ func TestPrintExprArray(t *testing.T) {
 	p.Print(&expr.Array{
 		Items: []node.Node{
 			&expr.ArrayItem{
-				ByRef: false,
-				Key:   &scalar.String{Value: "'Hello'"},
-				Val:   &expr.Variable{VarName: &node.Identifier{Value: "world"}},
+				Key: &scalar.String{Value: "'Hello'"},
+				Val: &expr.Variable{VarName: &node.Identifier{Value: "world"}},
 			},
 			&expr.ArrayItem{
-				ByRef: true,
-				Key:   &scalar.Lnumber{Value: "2"},
-				Val:   &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+				Key: &scalar.Lnumber{Value: "2"},
+				Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}}},
 			},
 			&expr.ArrayItem{
-				ByRef: false,
-				Val:   &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+				Val: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
 			},
 		},
 	})
@@ -1892,9 +1887,8 @@ func TestPrintExprShortArray(t *testing.T) {
 				Val: &expr.Variable{VarName: &node.Identifier{Value: "world"}},
 			},
 			&expr.ArrayItem{
-				ByRef: true,
-				Key:   &scalar.Lnumber{Value: "2"},
-				Val:   &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+				Key: &scalar.Lnumber{Value: "2"},
+				Val: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}}},
 			},
 			&expr.ArrayItem{
 				Val: &expr.Variable{VarName: &node.Identifier{Value: "var"}},

@@ -3130,25 +3130,27 @@ non_empty_array_pair_list:
 array_pair:
     expr T_DOUBLE_ARROW expr
         {
-            $$ = expr.NewArrayItem($1, $3, false)
+            $$ = expr.NewArrayItem($1, $3)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $3))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   expr
         {
-            $$ = expr.NewArrayItem(nil, $1, false)
+            $$ = expr.NewArrayItem(nil, $1)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition($1))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   expr T_DOUBLE_ARROW '&' variable
         {
-            $$ = expr.NewArrayItem($1, $4, true)
+            reference := expr.NewReference($4)
+            $$ = expr.NewArrayItem($1, reference)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
     |   '&' variable
         {
-            $$ = expr.NewArrayItem(nil, $2, true)
+            reference := expr.NewReference($2)
+            $$ = expr.NewArrayItem(nil, reference)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
             yylex.(*Parser).comments.AddComments($$, $1.Comments())
         }
@@ -3157,7 +3159,7 @@ array_pair:
                 // TODO: Cannot use list() as standalone expression
                 list := expr.NewList($5)
                 yylex.(*Parser).positions.AddPosition(list, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $6))
-                $$ = expr.NewArrayItem($1, list, false)
+                $$ = expr.NewArrayItem($1, list)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodeTokenPosition($1, $6))
 
                 yylex.(*Parser).comments.AddComments(list, $3.Comments())
@@ -3168,7 +3170,7 @@ array_pair:
                 // TODO: Cannot use list() as standalone expression
                 list := expr.NewList($3)
                 yylex.(*Parser).positions.AddPosition(list, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-                $$ = expr.NewArrayItem(nil, list, false)
+                $$ = expr.NewArrayItem(nil, list)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 
                 yylex.(*Parser).comments.AddComments(list, $1.Comments())

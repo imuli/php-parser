@@ -3391,7 +3391,7 @@ possible_comma:
 non_empty_static_array_pair_list:
         non_empty_static_array_pair_list ',' static_scalar_value T_DOUBLE_ARROW static_scalar_value
             {
-                arrayItem := expr.NewArrayItem($3, $5, false)
+                arrayItem := expr.NewArrayItem($3, $5)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($3, $5))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$3])
 
@@ -3399,7 +3399,7 @@ non_empty_static_array_pair_list:
             }
     |   non_empty_static_array_pair_list ',' static_scalar_value
             {
-                arrayItem := expr.NewArrayItem(nil, $3, false)
+                arrayItem := expr.NewArrayItem(nil, $3)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodePosition($3))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$3])
 
@@ -3407,7 +3407,7 @@ non_empty_static_array_pair_list:
             }
     |   static_scalar_value T_DOUBLE_ARROW static_scalar_value
             {
-                arrayItem := expr.NewArrayItem($1, $3, false)
+                arrayItem := expr.NewArrayItem($1, $3)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $3))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$1])
 
@@ -3415,7 +3415,7 @@ non_empty_static_array_pair_list:
             }
     |   static_scalar_value
             {
-                arrayItem := expr.NewArrayItem(nil, $1, false)
+                arrayItem := expr.NewArrayItem(nil, $1)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodePosition($1))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$1])
 
@@ -3773,7 +3773,7 @@ assignment_list:
 assignment_list_element:
         variable
             {
-                $$ = expr.NewArrayItem(nil, $1, false)
+                $$ = expr.NewArrayItem(nil, $1)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition($1))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
             }
@@ -3783,7 +3783,7 @@ assignment_list_element:
                 yylex.(*Parser).positions.AddPosition(item, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).comments.AddComments(item, $1.Comments())
 
-                $$ = expr.NewArrayItem(nil, item, false)
+                $$ = expr.NewArrayItem(nil, item)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition(item))
                 yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[item])
             }
@@ -3802,7 +3802,7 @@ array_pair_list:
 non_empty_array_pair_list:
         non_empty_array_pair_list ',' expr T_DOUBLE_ARROW expr
             {
-                arrayItem := expr.NewArrayItem($3, $5, false)
+                arrayItem := expr.NewArrayItem($3, $5)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($3, $5))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$3])
 
@@ -3810,7 +3810,7 @@ non_empty_array_pair_list:
             }
     |   non_empty_array_pair_list ',' expr
             {
-                arrayItem := expr.NewArrayItem(nil, $3, false)
+                arrayItem := expr.NewArrayItem(nil, $3)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodePosition($3))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$3])
 
@@ -3818,7 +3818,7 @@ non_empty_array_pair_list:
             }
     |   expr T_DOUBLE_ARROW expr
             {
-                arrayItem := expr.NewArrayItem($1, $3, false)
+                arrayItem := expr.NewArrayItem($1, $3)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $3))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$1])
 
@@ -3826,7 +3826,7 @@ non_empty_array_pair_list:
             }
     |   expr
             {
-                arrayItem := expr.NewArrayItem(nil, $1, false)
+                arrayItem := expr.NewArrayItem(nil, $1)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodePosition($1))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$1])
 
@@ -3834,7 +3834,8 @@ non_empty_array_pair_list:
             }
     |   non_empty_array_pair_list ',' expr T_DOUBLE_ARROW '&' w_variable
             {
-                arrayItem := expr.NewArrayItem($3, $6, true)
+                reference := expr.NewReference($6)
+                arrayItem := expr.NewArrayItem($3, reference)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($3, $6))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$3])
 
@@ -3842,7 +3843,8 @@ non_empty_array_pair_list:
             }
     |   non_empty_array_pair_list ',' '&' w_variable
             {
-                arrayItem := expr.NewArrayItem(nil, $4, true)
+                reference := expr.NewReference($4)
+                arrayItem := expr.NewArrayItem(nil, reference)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewTokenNodePosition($3, $4))
                 yylex.(*Parser).comments.AddComments(arrayItem, $3.Comments())
 
@@ -3850,7 +3852,8 @@ non_empty_array_pair_list:
             }
     |   expr T_DOUBLE_ARROW '&' w_variable
             {
-                arrayItem := expr.NewArrayItem($1, $4, true)
+                reference := expr.NewReference($4)
+                arrayItem := expr.NewArrayItem($1, reference)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$1])
 
@@ -3858,7 +3861,8 @@ non_empty_array_pair_list:
             }
     |   '&' w_variable
             {
-                arrayItem := expr.NewArrayItem(nil, $2, true)
+                reference := expr.NewReference($2)
+                arrayItem := expr.NewArrayItem(nil, reference)
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
                 yylex.(*Parser).comments.AddComments(arrayItem, $1.Comments())
 
