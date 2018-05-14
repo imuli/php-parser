@@ -1429,21 +1429,36 @@ foreach_variable:
             {
                 $$ = expr.NewReference($2)
 
+                // save position
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
+
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
             }
     |   T_LIST '(' array_pair_list ')'
         {
-            list := expr.NewList($3)
-            yylex.(*Parser).positions.AddPosition(list, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-            $$ = list
-            yylex.(*Parser).comments.AddComments(list, $1.Comments())
+            $$ = expr.NewList($3)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            yylex.(*Parser).addNodeCommentsFromToken($$, $2)
+            if len($3) > 0 { yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4) }
+            yylex.(*Parser).addNodeCommentsFromToken($$, $4)
         }
     |   '[' array_pair_list ']'
         {
-            list := expr.NewShortList($2)
-            yylex.(*Parser).positions.AddPosition(list, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
-            $$ = list
-            yylex.(*Parser).comments.AddComments(list, $1.Comments())
+            $$ = expr.NewShortList($2)
+
+            // save position
+            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+            
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+            if len($2) > 0 { yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($2), $3)}
+            yylex.(*Parser).addNodeCommentsFromToken($$, $3)
         }
 ;
 
