@@ -1428,6 +1428,8 @@ foreach_variable:
     |   '&' variable
             {
                 $$ = expr.NewReference($2)
+
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
             }
     |   T_LIST '(' array_pair_list ')'
         {
@@ -2729,6 +2731,7 @@ lexical_var:
             variable := expr.NewVariable(identifier)
             yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
             reference := expr.NewReference(variable)
+            yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
             $$ = expr.NewClosureUse(reference)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
 
@@ -3144,6 +3147,7 @@ array_pair:
         {
             reference := expr.NewReference($4)
             $$ = expr.NewArrayItem($1, reference)
+            yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokenNodePosition($3, $4))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodesPosition($1, $4))
             yylex.(*Parser).comments.AddComments($$, yylex.(*Parser).comments[$1])
         }
@@ -3151,6 +3155,7 @@ array_pair:
         {
             reference := expr.NewReference($2)
             $$ = expr.NewArrayItem(nil, reference)
+            yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
             yylex.(*Parser).comments.AddComments($$, $1.Comments())
         }

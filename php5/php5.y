@@ -1177,7 +1177,11 @@ foreach_variable:
         variable
             { $$ = $1 }
     |   '&' variable
-            { $$ = expr.NewReference($2) }
+            {
+                $$ = expr.NewReference($2)
+
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
+            }
     |   T_LIST '(' assignment_list ')'
             {
                 list := expr.NewList($3)
@@ -2710,6 +2714,7 @@ lexical_var_list:
                 yylex.(*Parser).comments.AddComments(variable, $3.Comments())
 
                 reference := expr.NewReference(variable)
+                yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $4))
 
                 use := expr.NewClosureUse(reference)
                 yylex.(*Parser).positions.AddPosition(use, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $4))
@@ -2744,6 +2749,7 @@ lexical_var_list:
                 yylex.(*Parser).comments.AddComments(variable, $1.Comments())
 
                 reference := expr.NewReference(variable)
+                yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
 
                 use := expr.NewClosureUse(reference)
                 yylex.(*Parser).positions.AddPosition(use, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
@@ -3836,6 +3842,7 @@ non_empty_array_pair_list:
             {
                 reference := expr.NewReference($6)
                 arrayItem := expr.NewArrayItem($3, reference)
+                yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokenNodePosition($5, $6))
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewNodesPosition($3, $6))
                 yylex.(*Parser).comments.AddComments(arrayItem, yylex.(*Parser).comments[$3])
 
@@ -3845,6 +3852,7 @@ non_empty_array_pair_list:
             {
                 reference := expr.NewReference($4)
                 arrayItem := expr.NewArrayItem(nil, reference)
+                yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokenNodePosition($3, $4))
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewTokenNodePosition($3, $4))
                 yylex.(*Parser).comments.AddComments(arrayItem, $3.Comments())
 
@@ -3863,6 +3871,7 @@ non_empty_array_pair_list:
             {
                 reference := expr.NewReference($2)
                 arrayItem := expr.NewArrayItem(nil, reference)
+                yylex.(*Parser).positions.AddPosition(reference, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
                 yylex.(*Parser).positions.AddPosition(arrayItem, yylex.(*Parser).positionBuilder.NewTokenNodePosition($1, $2))
                 yylex.(*Parser).comments.AddComments(arrayItem, $1.Comments())
 
