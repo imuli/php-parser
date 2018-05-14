@@ -1885,12 +1885,10 @@ func TestPhp7(t *testing.T) {
 					},
 					Uses: []node.Node{
 						&expr.ClosureUse{
-							ByRef:    false,
 							Variable: &expr.Variable{VarName: &node.Identifier{Value: "c"}},
 						},
 						&expr.ClosureUse{
-							ByRef:    true,
-							Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}},
+							Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "d"}}},
 						},
 					},
 					StmtList: &stmt.StmtList{

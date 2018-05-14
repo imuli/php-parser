@@ -7,23 +7,19 @@ import (
 
 // ClosureUse node
 type ClosureUse struct {
-	ByRef    bool
 	Variable node.Node
 }
 
 // NewClosureUse node constructor
-func NewClosureUse(Variable node.Node, ByRef bool) *ClosureUse {
+func NewClosureUse(Variable node.Node) *ClosureUse {
 	return &ClosureUse{
-		ByRef,
 		Variable,
 	}
 }
 
 // Attributes returns node attributes as map
 func (n *ClosureUse) Attributes() map[string]interface{} {
-	return map[string]interface{}{
-		"ByRef": n.ByRef,
-	}
+	return nil
 }
 
 // Walk traverses nodes

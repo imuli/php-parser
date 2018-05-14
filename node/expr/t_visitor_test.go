@@ -83,11 +83,10 @@ var nodesToTest = []struct {
 	},
 	{
 		&expr.ClosureUse{
-			ByRef:    false,
 			Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 		},
 		[]string{"Variable"},
-		map[string]interface{}{"ByRef": false},
+		map[string]interface{}{},
 	},
 	{
 		&expr.Closure{

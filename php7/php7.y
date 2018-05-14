@@ -2715,7 +2715,7 @@ lexical_var:
             yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
             variable := expr.NewVariable(identifier)
             yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
-            $$ = expr.NewClosureUse(variable, false)
+            $$ = expr.NewClosureUse(variable)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
 
             yylex.(*Parser).comments.AddComments(identifier, $1.Comments())
@@ -2728,7 +2728,8 @@ lexical_var:
             yylex.(*Parser).positions.AddPosition(identifier, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
             variable := expr.NewVariable(identifier)
             yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
-            $$ = expr.NewClosureUse(variable, true)
+            reference := expr.NewReference(variable)
+            $$ = expr.NewClosureUse(reference)
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
 
             yylex.(*Parser).comments.AddComments(identifier, $2.Comments())

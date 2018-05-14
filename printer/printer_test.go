@@ -1385,8 +1385,7 @@ func TestPrintExprClosureUse(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&expr.ClosureUse{
-		ByRef:    true,
-		Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
+		Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "var"}}},
 	})
 
 	expected := `&$var`
@@ -1421,11 +1420,9 @@ func TestPrintExprClosure(t *testing.T) {
 						},
 						Uses: []node.Node{
 							&expr.ClosureUse{
-								ByRef:    true,
-								Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+								Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
 							},
 							&expr.ClosureUse{
-								ByRef:    false,
 								Variable: &expr.Variable{VarName: &node.Identifier{Value: "b"}},
 							},
 						},

@@ -2693,7 +2693,7 @@ lexical_var_list:
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
                 yylex.(*Parser).comments.AddComments(variable, $3.Comments())
                 
-                use := expr.NewClosureUse(variable, false)
+                use := expr.NewClosureUse(variable)
                 yylex.(*Parser).positions.AddPosition(use, yylex.(*Parser).positionBuilder.NewTokenPosition($3))
                 yylex.(*Parser).comments.AddComments(use, $3.Comments())
                 
@@ -2709,7 +2709,9 @@ lexical_var_list:
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($4))
                 yylex.(*Parser).comments.AddComments(variable, $3.Comments())
 
-                use := expr.NewClosureUse(variable, true)
+                reference := expr.NewReference(variable)
+
+                use := expr.NewClosureUse(reference)
                 yylex.(*Parser).positions.AddPosition(use, yylex.(*Parser).positionBuilder.NewTokensPosition($3, $4))
                 yylex.(*Parser).comments.AddComments(use, $3.Comments())
 
@@ -2725,7 +2727,7 @@ lexical_var_list:
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
                 yylex.(*Parser).comments.AddComments(variable, $1.Comments())
                 
-                use := expr.NewClosureUse(variable, false)
+                use := expr.NewClosureUse(variable)
                 yylex.(*Parser).positions.AddPosition(use, yylex.(*Parser).positionBuilder.NewTokenPosition($1))
                 yylex.(*Parser).comments.AddComments(use, $1.Comments())
                 
@@ -2741,7 +2743,9 @@ lexical_var_list:
                 yylex.(*Parser).positions.AddPosition(variable, yylex.(*Parser).positionBuilder.NewTokenPosition($2))
                 yylex.(*Parser).comments.AddComments(variable, $1.Comments())
 
-                use := expr.NewClosureUse(variable, true)
+                reference := expr.NewReference(variable)
+
+                use := expr.NewClosureUse(reference)
                 yylex.(*Parser).positions.AddPosition(use, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $2))
                 yylex.(*Parser).comments.AddComments(use, $1.Comments())
 

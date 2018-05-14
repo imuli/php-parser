@@ -1010,11 +1010,6 @@ func (p *Printer) printExprClone(n node.Node) {
 
 func (p *Printer) printExprClosureUse(n node.Node) {
 	nn := n.(*expr.ClosureUse)
-
-	if nn.ByRef {
-		io.WriteString(p.w, "&")
-	}
-
 	p.Print(nn.Variable)
 }
 
