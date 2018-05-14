@@ -3895,18 +3895,16 @@ func TestForeachStmts(t *testing.T) {
 				},
 			},
 			&stmt.Foreach{
-				ByRef:    true,
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
-				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+				Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}}},
 				Stmt: &stmt.StmtList{
 					InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}},
 				},
 			},
 			&stmt.Foreach{
-				ByRef: false,
-				Expr:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-				Key:   &expr.Variable{VarName: &node.Identifier{Value: "k"}},
+				Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+				Key:  &expr.Variable{VarName: &node.Identifier{Value: "k"}},
 				Variable: &expr.List{
 					Items: []node.Node{
 						&expr.ArrayItem{

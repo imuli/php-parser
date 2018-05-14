@@ -1820,6 +1820,22 @@ func TestPrintPropertyFetch(t *testing.T) {
 	}
 }
 
+func TestPrintExprReference(t *testing.T) {
+	o := bytes.NewBufferString("")
+
+	p := printer.NewPrinter(o, "    ")
+	p.Print(&expr.Reference{
+		Variable: &expr.Variable{VarName: &node.Identifier{Value: "foo"}},
+	})
+
+	expected := `&$foo`
+	actual := o.String()
+
+	if expected != actual {
+		t.Errorf("\nexpected: %s\ngot: %s\n", expected, actual)
+	}
+}
+
 func TestPrintRequire(t *testing.T) {
 	o := bytes.NewBufferString("")
 
@@ -2238,10 +2254,9 @@ func TestPrintAltForeach(t *testing.T) {
 			InnerStmtList: &stmt.InnerStmtList{
 				Stmts: []node.Node{
 					&stmt.AltForeach{
-						ByRef:    true,
 						Expr:     &expr.Variable{VarName: &node.Identifier{Value: "var"}},
 						Key:      &expr.Variable{VarName: &node.Identifier{Value: "key"}},
-						Variable: &expr.Variable{VarName: &node.Identifier{Value: "val"}},
+						Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "val"}}},
 						Stmt: &stmt.InnerStmtList{
 							Stmts: []node.Node{
 								&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "d"}}},
@@ -3275,10 +3290,9 @@ func TestPrintStmtForeachNop(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.Foreach{
-		ByRef:    true,
 		Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 		Key:      &expr.Variable{VarName: &node.Identifier{Value: "k"}},
-		Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
+		Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}}},
 		Stmt:     &stmt.Nop{},
 	})
 

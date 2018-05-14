@@ -22,7 +22,6 @@ import (
     node                    node.Node
     token                   *scanner.Token
     list                    []node.Node
-    foreachVariable         foreachVariable
     simpleIndirectReference simpleIndirectReference
 
     ClassExtends            *stmt.ClassExtends
@@ -216,6 +215,8 @@ import (
 %type <node> method_body
 %type <node> foreach_statement for_statement while_statement
 %type <node> for_expr
+%type <node> foreach_variable foreach_optional_arg
+
 %type <ClassExtends> extends_from
 %type <ClassImplements> implements_list
 %type <InterfaceExtends> interface_extends_list
@@ -234,7 +235,6 @@ import (
 %type <list> dynamic_class_name_variable_properties variable_properties
 
 %type <simpleIndirectReference> simple_indirect_reference
-%type <foreachVariable> foreach_variable foreach_optional_arg
 %type <token> is_reference is_variadic
 
 %%
@@ -794,29 +794,25 @@ unticked_statement:
             }
     |   T_FOREACH '(' variable T_AS foreach_variable foreach_optional_arg ')' foreach_statement
             {
-                if $6.node == nil {
+                if $6 == nil {
                     switch n := $8.(type) {
                     case *stmt.Foreach :
                         n.Expr = $3
-                        n.ByRef = $5.byRef
-                        n.Variable = $5.node
+                        n.Variable = $5
                     case *stmt.AltForeach :
                         n.Expr = $3
-                        n.ByRef = $5.byRef
-                        n.Variable = $5.node
+                        n.Variable = $5
                     }
                 } else {
                     switch n := $8.(type) {
                     case *stmt.Foreach :
                         n.Expr = $3
-                        n.Key = $5.node
-                        n.ByRef = $6.byRef
-                        n.Variable = $6.node
+                        n.Key = $5
+                        n.Variable = $6
                     case *stmt.AltForeach :
                         n.Expr = $3
-                        n.Key = $5.node
-                        n.ByRef = $6.byRef
-                        n.Variable = $6.node
+                        n.Key = $5
+                        n.Variable = $6
                     }
                 }
                 
@@ -827,29 +823,25 @@ unticked_statement:
             }
     |   T_FOREACH '(' expr_without_variable T_AS foreach_variable foreach_optional_arg ')' foreach_statement
             {
-                if $6.node == nil {
+                if $6 == nil {
                     switch n := $8.(type) {
                     case *stmt.Foreach :
                         n.Expr = $3
-                        n.ByRef = $5.byRef
-                        n.Variable = $5.node
+                        n.Variable = $5
                     case *stmt.AltForeach :
                         n.Expr = $3
-                        n.ByRef = $5.byRef
-                        n.Variable = $5.node
+                        n.Variable = $5
                     }
                 } else {
                     switch n := $8.(type) {
                     case *stmt.Foreach :
                         n.Expr = $3
-                        n.Key = $5.node
-                        n.ByRef = $6.byRef
-                        n.Variable = $6.node
+                        n.Key = $5
+                        n.Variable = $6
                     case *stmt.AltForeach :
                         n.Expr = $3
-                        n.Key = $5.node
-                        n.ByRef = $6.byRef
-                        n.Variable = $6.node
+                        n.Key = $5
+                        n.Variable = $6
                     }
                 }
                 
@@ -1176,21 +1168,21 @@ interface_list:
 
 foreach_optional_arg:
         /* empty */
-            { $$ = foreachVariable{nil, false} }
+            { $$ = nil }
     |   T_DOUBLE_ARROW foreach_variable
             { $$ = $2 }
 ;
 
 foreach_variable:
         variable
-            { $$ = foreachVariable{$1, false} }
+            { $$ = $1 }
     |   '&' variable
-            { $$ = foreachVariable{$2, true} }
+            { $$ = expr.NewReference($2) }
     |   T_LIST '(' assignment_list ')'
             {
                 list := expr.NewList($3)
                 yylex.(*Parser).positions.AddPosition(list, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-                $$ = foreachVariable{list, false}
+                $$ = list
                 yylex.(*Parser).comments.AddComments(list, $1.Comments())
             }
 ;
@@ -1215,13 +1207,13 @@ for_statement:
 foreach_statement:
         statement
             {
-                $$ = stmt.NewForeach(nil, nil, nil, $1, false)
+                $$ = stmt.NewForeach(nil, nil, nil, $1)
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition($1))
             }
     |   ':' inner_statement_list T_ENDFOREACH ';'
             {
                 innerStmtList := stmt.NewInnerStmtList($2)
-                $$ = stmt.NewAltForeach(nil, nil, nil, innerStmtList, false)
+                $$ = stmt.NewAltForeach(nil, nil, nil, innerStmtList)
 
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
@@ -4101,11 +4093,6 @@ class_name_scalar:
 ;
 
 %%
-
-type foreachVariable struct {
-	node  node.Node
-	byRef bool
-}
 
 type simpleIndirectReference struct {
 	all  []*expr.Variable

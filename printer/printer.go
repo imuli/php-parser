@@ -272,6 +272,8 @@ func (p *Printer) printNode(n node.Node) {
 		p.printExprPrint(n)
 	case *expr.PropertyFetch:
 		p.printExprPropertyFetch(n)
+	case *expr.Reference:
+		p.printExprReference(n)
 	case *expr.Require:
 		p.printExprRequire(n)
 	case *expr.RequireOnce:
@@ -1211,6 +1213,13 @@ func (p *Printer) printExprPropertyFetch(n node.Node) {
 	p.Print(nn.Property)
 }
 
+func (p *Printer) printExprReference(n node.Node) {
+	nn := n.(*expr.Reference)
+
+	io.WriteString(p.w, "&")
+	p.Print(nn.Variable)
+}
+
 func (p *Printer) printExprRequire(n node.Node) {
 	nn := n.(*expr.Require)
 
@@ -1380,10 +1389,6 @@ func (p *Printer) printStmtAltForeach(n node.Node) {
 	if nn.Key != nil {
 		p.Print(nn.Key)
 		io.WriteString(p.w, " => ")
-	}
-
-	if nn.ByRef {
-		io.WriteString(p.w, "&")
 	}
 
 	p.Print(nn.Variable)
@@ -1764,9 +1769,6 @@ func (p *Printer) printStmtForeach(n node.Node) {
 		io.WriteString(p.w, " => ")
 	}
 
-	if nn.ByRef {
-		io.WriteString(p.w, "&")
-	}
 	p.Print(nn.Variable)
 	io.WriteString(p.w, ")")
 

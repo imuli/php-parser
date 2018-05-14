@@ -263,6 +263,13 @@ var nodesToTest = []struct {
 		map[string]interface{}{},
 	},
 	{
+		&expr.Reference{
+			Variable: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+		},
+		[]string{"Variable"},
+		map[string]interface{}{},
+	},
+	{
 		&expr.RequireOnce{
 			Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 		},
