@@ -1200,9 +1200,11 @@ for_statement:
     |   ':' inner_statement_list T_ENDFOR ';'
             {
                 innerStmtList := stmt.NewInnerStmtList($2)
-                $$ = stmt.NewAltFor(nil, nil, nil, innerStmtList)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewAltFor(nil, nil, nil, stmtList)
 
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             }
 ;
@@ -1217,9 +1219,11 @@ foreach_statement:
     |   ':' inner_statement_list T_ENDFOREACH ';'
             {
                 innerStmtList := stmt.NewInnerStmtList($2)
-                $$ = stmt.NewAltForeach(nil, nil, nil, innerStmtList)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewAltForeach(nil, nil, nil, stmtList)
 
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             }
 ;
@@ -1230,9 +1234,11 @@ declare_statement:
             { $$ = $1; }
     |   ':' inner_statement_list T_ENDDECLARE ';'
             {
-                $$ = stmt.NewInnerStmtList($2)
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewStmtList(innerStmtList)
+                
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-                yylex.(*Parser).comments.AddComments($$, $1.Comments())
             }
 ;
 

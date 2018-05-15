@@ -1362,7 +1362,7 @@ func (p *Printer) printStmtAltFor(n node.Node) {
 	p.joinPrint(", ", nn.Loop.Expressions)
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.Stmt.(*stmt.InnerStmtList)
+	s := nn.Stmt.(*stmt.StmtList).InnerStmtList
 	p.printNodes(s.Stmts)
 	io.WriteString(p.w, "\n")
 	p.printIndent()
@@ -1386,7 +1386,7 @@ func (p *Printer) printStmtAltForeach(n node.Node) {
 
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.Stmt.(*stmt.InnerStmtList)
+	s := nn.Stmt.(*stmt.StmtList).InnerStmtList
 	p.printNodes(s.Stmts)
 
 	io.WriteString(p.w, "\n")
@@ -1606,9 +1606,9 @@ func (p *Printer) printStmtDeclare(n node.Node) {
 	case *stmt.Nop:
 		p.Print(s)
 		break
-	case *stmt.InnerStmtList:
+	case *stmt.StmtList:
 		io.WriteString(p.w, " ")
-		p.Print(s)
+		p.Print(s.InnerStmtList)
 	default:
 		io.WriteString(p.w, "\n")
 		p.indentDepth++

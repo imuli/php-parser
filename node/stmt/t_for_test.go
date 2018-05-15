@@ -93,7 +93,7 @@ func TestAltFor(t *testing.T) {
 						},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 			},
 		},
 	}

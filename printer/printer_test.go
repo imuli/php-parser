@@ -2213,9 +2213,11 @@ func TestPrintAltFor(t *testing.T) {
 								&expr.Variable{VarName: &node.Identifier{Value: "c"}},
 							},
 						},
-						Stmt: &stmt.InnerStmtList{
-							Stmts: []node.Node{
-								&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "d"}}},
+						Stmt: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
+								Stmts: []node.Node{
+									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "d"}}},
+								},
 							},
 						},
 					},
@@ -2248,9 +2250,11 @@ func TestPrintAltForeach(t *testing.T) {
 						Expr:     &expr.Variable{VarName: &node.Identifier{Value: "var"}},
 						Key:      &expr.Variable{VarName: &node.Identifier{Value: "key"}},
 						Variable: &expr.Reference{Variable: &expr.Variable{VarName: &node.Identifier{Value: "val"}}},
-						Stmt: &stmt.InnerStmtList{
-							Stmts: []node.Node{
-								&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "d"}}},
+						Stmt: &stmt.StmtList{
+							InnerStmtList: &stmt.InnerStmtList{
+								Stmts: []node.Node{
+									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "d"}}},
+								},
 							},
 						},
 					},
@@ -2738,9 +2742,11 @@ func TestPrintStmtDeclareStmts(t *testing.T) {
 						Expr:         &scalar.String{Value: "'bar'"},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: []node.Node{
-						&stmt.Nop{},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: []node.Node{
+							&stmt.Nop{},
+						},
 					},
 				},
 			},

@@ -75,7 +75,7 @@ func TestAltForeach(t *testing.T) {
 			&stmt.AltForeach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.InnerStmtList{Stmts: []node.Node{}},
+				Stmt:     &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 			},
 		},
 	}

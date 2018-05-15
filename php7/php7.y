@@ -1466,15 +1466,26 @@ for_statement:
         statement
             {
                 $$ = stmt.NewFor(nil, nil, nil, $1)
+
+                // save position
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition($1))
             }
     |   ':' inner_statement_list T_ENDFOR ';'
             {
                 innerStmtList := stmt.NewInnerStmtList($2)
-                $$ = stmt.NewAltFor(nil, nil, nil, innerStmtList)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewAltFor(nil, nil, nil, stmtList)
 
+                // save position
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken(stmtList, $1)
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, $4)
+                if len($2) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($2), $3)}
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $3)
             }
 ;
 
@@ -1482,26 +1493,47 @@ foreach_statement:
         statement
             {
                 $$ = stmt.NewForeach(nil, nil, nil, $1)
+
+                // save position
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewNodePosition($1))
             }
     |   ':' inner_statement_list T_ENDFOREACH ';'
             {
                 innerStmtList := stmt.NewInnerStmtList($2)
-                $$ = stmt.NewAltForeach(nil, nil, nil, innerStmtList)
+                stmtList := stmt.NewStmtList(innerStmtList)
+                $$ = stmt.NewAltForeach(nil, nil, nil, stmtList)
 
+                // save position
                 yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(stmtList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+                //save comments
+                yylex.(*Parser).addNodeCommentsFromToken(stmtList, $1)
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(stmtList, $4)
+                if len($2) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($2), $3)}
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $3)
             }
 ;
 
 declare_statement:
-        statement                                       { $$ = $1; }
+        statement
+            { $$ = $1; }
     |   ':' inner_statement_list T_ENDDECLARE ';'
-        {
-            $$ = stmt.NewInnerStmtList($2)
-            yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
-            yylex.(*Parser).comments.AddComments($$, $1.Comments())
-        }
+            {
+                innerStmtList := stmt.NewInnerStmtList($2)
+                $$ = stmt.NewStmtList(innerStmtList)
+                
+                // save position
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+                // save comments
+                yylex.(*Parser).addNodeCommentsFromToken($$, $1)
+                yylex.(*Parser).addNodeAllCommentsFromNextToken($$, $4)
+                if len($2) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($2), $3)}
+                yylex.(*Parser).addNodeAllCommentsFromNextToken(innerStmtList, $3)
+            }
 ;
 
 switch_case_list:

@@ -3381,7 +3381,7 @@ func TestForStmts(t *testing.T) {
 						},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{Stmts: []node.Node{}},
+				Stmt: &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 			},
 		},
 	}
@@ -3414,7 +3414,7 @@ func TestForeachStmts(t *testing.T) {
 			&stmt.AltForeach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
 				Variable: &expr.Variable{VarName: &node.Identifier{Value: "v"}},
-				Stmt:     &stmt.InnerStmtList{Stmts: []node.Node{}},
+				Stmt:     &stmt.StmtList{InnerStmtList: &stmt.InnerStmtList{Stmts: []node.Node{}}},
 			},
 			&stmt.Foreach{
 				Expr:     &expr.Variable{VarName: &node.Identifier{Value: "a"}},
@@ -3510,8 +3510,10 @@ func TestDeclareStmts(t *testing.T) {
 						Expr:          &scalar.Lnumber{Value: "1"},
 					},
 				},
-				Stmt: &stmt.InnerStmtList{
-					Stmts: []node.Node{},
+				Stmt: &stmt.StmtList{
+					InnerStmtList: &stmt.InnerStmtList{
+						Stmts: []node.Node{},
+					},
 				},
 			},
 		},
