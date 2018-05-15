@@ -7,15 +7,15 @@ import (
 
 // Case node
 type Case struct {
-	Cond  node.Node
-	Stmts []node.Node
+	Cond          node.Node
+	InnerStmtList *InnerStmtList
 }
 
 // NewCase node constructor
-func NewCase(Cond node.Node, Stmts []node.Node) *Case {
+func NewCase(Cond node.Node, InnerStmtList *InnerStmtList) *Case {
 	return &Case{
 		Cond,
-		Stmts,
+		InnerStmtList,
 	}
 }
 
@@ -36,13 +36,9 @@ func (n *Case) Walk(v walker.Visitor) {
 		n.Cond.Walk(vv)
 	}
 
-	if n.Stmts != nil {
-		vv := v.GetChildrenVisitor("Stmts")
-		for _, nn := range n.Stmts {
-			if nn != nil {
-				nn.Walk(vv)
-			}
-		}
+	if n.InnerStmtList != nil {
+		vv := v.GetChildrenVisitor("InnerStmtList")
+		n.InnerStmtList.Walk(vv)
 	}
 
 	v.LeaveNode(n)

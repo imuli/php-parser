@@ -1470,9 +1470,9 @@ func (p *Printer) printStmtCase(n node.Node) {
 	p.Print(nn.Cond)
 	io.WriteString(p.w, ":")
 
-	if len(nn.Stmts) > 0 {
+	if len(nn.InnerStmtList.Stmts) > 0 {
 		io.WriteString(p.w, "\n")
-		p.printNodes(nn.Stmts)
+		p.printNodes(nn.InnerStmtList.Stmts)
 	}
 }
 
@@ -1622,9 +1622,9 @@ func (p *Printer) printStmtDefault(n node.Node) {
 	nn := n.(*stmt.Default)
 	io.WriteString(p.w, "default:")
 
-	if len(nn.Stmts) > 0 {
+	if len(nn.InnerStmtList.Stmts) > 0 {
 		io.WriteString(p.w, "\n")
-		p.printNodes(nn.Stmts)
+		p.printNodes(nn.InnerStmtList.Stmts)
 	}
 }
 

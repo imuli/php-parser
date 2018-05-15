@@ -1321,17 +1321,22 @@ case_list:
             { $$ = []node.Node{} }
     |   case_list T_CASE expr case_separator inner_statement_list
             {
-                _case := stmt.NewCase($3, $5)
-                yylex.(*Parser).positions.AddPosition(_case, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $5))
+                innerStmtList := stmt.NewInnerStmtList($5)
+                _case := stmt.NewCase($3, innerStmtList)
                 $$ = append($1, _case)
-                yylex.(*Parser).comments.AddComments(_case, $2.Comments())
+
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(_case, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $5))
             }
     |   case_list T_DEFAULT case_separator inner_statement_list
             {
-                _default := stmt.NewDefault($4)
-                yylex.(*Parser).positions.AddPosition(_default, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $4))
+                innerStmtList := stmt.NewInnerStmtList($4)
+                _default := stmt.NewDefault(innerStmtList)
                 $$ = append($1, _default)
-                yylex.(*Parser).comments.AddComments(_default, $2.Comments())
+
+                // save position
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+                yylex.(*Parser).positions.AddPosition(_default, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $4))
             }
 ;
 

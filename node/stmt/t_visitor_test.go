@@ -53,10 +53,10 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Case{
-			Cond:  &stmt.Expression{},
-			Stmts: []node.Node{&stmt.Expression{}},
+			Cond:          &stmt.Expression{},
+			InnerStmtList: &stmt.InnerStmtList{},
 		},
-		[]string{"Cond", "Stmts"},
+		[]string{"Cond", "InnerStmtList"},
 		map[string]interface{}{},
 	},
 	{
@@ -141,9 +141,9 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.Default{
-			Stmts: []node.Node{&stmt.Expression{}},
+			InnerStmtList: &stmt.InnerStmtList{},
 		},
-		[]string{"Stmts"},
+		[]string{"InnerStmtList"},
 		map[string]interface{}{},
 	},
 	{

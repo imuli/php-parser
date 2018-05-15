@@ -205,6 +205,7 @@ import (
 %type <token> semi_reserved
 %type <token> identifier
 %type <token> possible_comma
+%type <token> case_separator
 
 %type <node> top_statement name statement function_declaration_statement
 %type <node> class_declaration_statement trait_declaration_statement
@@ -1608,20 +1609,37 @@ switch_case_list:
 ;
 
 case_list:
-        /* empty */                                     { $$ = []node.Node{} }
+        /* empty */
+            { $$ = []node.Node{} }
     |   case_list T_CASE expr case_separator inner_statement_list
             {
-                _case := stmt.NewCase($3, $5)
-                yylex.(*Parser).positions.AddPosition(_case, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $5))
+                innerStmtList := stmt.NewInnerStmtList($5)
+                _case := stmt.NewCase($3, innerStmtList)
                 $$ = append($1, _case)
-                yylex.(*Parser).comments.AddComments(_case, $2.Comments())
+
+                // save position
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($5))
+                yylex.(*Parser).positions.AddPosition(_case, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $5))
+
+                // save comments
+                if len($1) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($1), $2)}
+                yylex.(*Parser).addNodeCommentsFromToken(_case, $2)
+                yylex.(*Parser).addNodeAllCommentsFromNextToken($3, $4)
             }
     |   case_list T_DEFAULT case_separator inner_statement_list
             {
-                _default := stmt.NewDefault($4)
-                yylex.(*Parser).positions.AddPosition(_default, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $4))
+                innerStmtList := stmt.NewInnerStmtList($4)
+                _default := stmt.NewDefault(innerStmtList)
                 $$ = append($1, _default)
-                yylex.(*Parser).comments.AddComments(_default, $2.Comments())
+
+                // save position
+                yylex.(*Parser).positions.AddPosition(innerStmtList, yylex.(*Parser).positionBuilder.NewNodeListPosition($4))
+                yylex.(*Parser).positions.AddPosition(_default, yylex.(*Parser).positionBuilder.NewTokenNodeListPosition($2, $4))
+
+                // save comments
+                if len($1) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($1), $2)}
+                yylex.(*Parser).addNodeCommentsFromToken(_default, $2)
+                yylex.(*Parser).addNodeCommentsFromToken(_default, $3)
             }
 ;
 

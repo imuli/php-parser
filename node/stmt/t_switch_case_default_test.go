@@ -30,15 +30,21 @@ func TestAltSwitch(t *testing.T) {
 					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
-								Cond:  &scalar.Lnumber{Value: "1"},
-								Stmts: []node.Node{},
+								Cond: &scalar.Lnumber{Value: "1"},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{},
+								},
 							},
 							&stmt.Default{
-								Stmts: []node.Node{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{},
+								},
 							},
 							&stmt.Case{
-								Cond:  &scalar.Lnumber{Value: "2"},
-								Stmts: []node.Node{},
+								Cond: &scalar.Lnumber{Value: "2"},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{},
+								},
 							},
 						},
 					},
@@ -75,12 +81,16 @@ func TestAltSwitchSemicolon(t *testing.T) {
 					InnerCaseList: &stmt.InnerCaseList{
 						Cases: []node.Node{
 							&stmt.Case{
-								Cond:  &scalar.Lnumber{Value: "1"},
-								Stmts: []node.Node{},
+								Cond: &scalar.Lnumber{Value: "1"},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{},
+								},
 							},
 							&stmt.Case{
-								Cond:  &scalar.Lnumber{Value: "2"},
-								Stmts: []node.Node{},
+								Cond: &scalar.Lnumber{Value: "2"},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{},
+								},
 							},
 						},
 					},
@@ -118,14 +128,18 @@ func TestSwitch(t *testing.T) {
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "1"},
-								Stmts: []node.Node{
-									&stmt.Break{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{
+										&stmt.Break{},
+									},
 								},
 							},
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "2"},
-								Stmts: []node.Node{
-									&stmt.Break{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{
+										&stmt.Break{},
+									},
 								},
 							},
 						},
@@ -164,14 +178,18 @@ func TestSwitchSemicolon(t *testing.T) {
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "1"},
-								Stmts: []node.Node{
-									&stmt.Break{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{
+										&stmt.Break{},
+									},
 								},
 							},
 							&stmt.Case{
 								Cond: &scalar.Lnumber{Value: "2"},
-								Stmts: []node.Node{
-									&stmt.Break{},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{
+										&stmt.Break{},
+									},
 								},
 							},
 						},

@@ -2349,14 +2349,18 @@ func TestPrintStmtAltSwitch(t *testing.T) {
 								Cases: []node.Node{
 									&stmt.Case{
 										Cond: &scalar.String{Value: "'a'"},
-										Stmts: []node.Node{
-											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+										InnerStmtList: &stmt.InnerStmtList{
+											Stmts: []node.Node{
+												&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+											},
 										},
 									},
 									&stmt.Case{
 										Cond: &scalar.String{Value: "'b'"},
-										Stmts: []node.Node{
-											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+										InnerStmtList: &stmt.InnerStmtList{
+											Stmts: []node.Node{
+												&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+											},
 										},
 									},
 								},
@@ -2438,8 +2442,10 @@ func TestPrintStmtCase(t *testing.T) {
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.Case{
 		Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-		Stmts: []node.Node{
-			&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+		InnerStmtList: &stmt.InnerStmtList{
+			Stmts: []node.Node{
+				&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+			},
 		},
 	})
 
@@ -2457,8 +2463,10 @@ func TestPrintStmtCaseEmpty(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.Case{
-		Cond:  &expr.Variable{VarName: &node.Identifier{Value: "a"}},
-		Stmts: []node.Node{},
+		Cond: &expr.Variable{VarName: &node.Identifier{Value: "a"}},
+		InnerStmtList: &stmt.InnerStmtList{
+			Stmts: []node.Node{},
+		},
 	})
 
 	expected := "case $a:"
@@ -2823,8 +2831,10 @@ func TestPrintStmtDefalut(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.Default{
-		Stmts: []node.Node{
-			&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+		InnerStmtList: &stmt.InnerStmtList{
+			Stmts: []node.Node{
+				&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+			},
 		},
 	})
 
@@ -2842,7 +2852,9 @@ func TestPrintStmtDefalutEmpty(t *testing.T) {
 
 	p := printer.NewPrinter(o, "    ")
 	p.Print(&stmt.Default{
-		Stmts: []node.Node{},
+		InnerStmtList: &stmt.InnerStmtList{
+			Stmts: []node.Node{},
+		},
 	})
 
 	expected := `default:`
@@ -3862,14 +3874,18 @@ func TestPrintStmtSwitch(t *testing.T) {
 						Cases: []node.Node{
 							&stmt.Case{
 								Cond: &scalar.String{Value: "'a'"},
-								Stmts: []node.Node{
-									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{
+										&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+									},
 								},
 							},
 							&stmt.Case{
 								Cond: &scalar.String{Value: "'b'"},
-								Stmts: []node.Node{
-									&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+								InnerStmtList: &stmt.InnerStmtList{
+									Stmts: []node.Node{
+										&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+									},
 								},
 							},
 						},
