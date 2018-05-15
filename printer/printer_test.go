@@ -2344,18 +2344,20 @@ func TestPrintStmtAltSwitch(t *testing.T) {
 				Stmts: []node.Node{
 					&stmt.AltSwitch{
 						Cond: &expr.Variable{VarName: &node.Identifier{Value: "var"}},
-						InnerCaseList: &stmt.InnerCaseList{
-							Cases: []node.Node{
-								&stmt.Case{
-									Cond: &scalar.String{Value: "'a'"},
-									Stmts: []node.Node{
-										&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+						CaseList: &stmt.CaseList{
+							InnerCaseList: &stmt.InnerCaseList{
+								Cases: []node.Node{
+									&stmt.Case{
+										Cond: &scalar.String{Value: "'a'"},
+										Stmts: []node.Node{
+											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "a"}}},
+										},
 									},
-								},
-								&stmt.Case{
-									Cond: &scalar.String{Value: "'b'"},
-									Stmts: []node.Node{
-										&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+									&stmt.Case{
+										Cond: &scalar.String{Value: "'b'"},
+										Stmts: []node.Node{
+											&stmt.Expression{Expr: &expr.Variable{VarName: &node.Identifier{Value: "b"}}},
+										},
 									},
 								},
 							},

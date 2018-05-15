@@ -1543,9 +1543,15 @@ switch_case_list:
             caseList := stmt.NewCaseList(innerCaseList)
             $$ = stmt.NewSwitch(nil, caseList)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
             yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $3))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken(caseList, $1)
+            if len($2) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($2), $3)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerCaseList, $3)
         }
     |   '{' ';' case_list '}'
         {
@@ -1553,26 +1559,51 @@ switch_case_list:
             caseList := stmt.NewCaseList(innerCaseList)
             $$ = stmt.NewSwitch(nil, caseList)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
             yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken(caseList, $1)
+            yylex.(*Parser).addNodeCommentsFromToken(caseList, $2)
+            if len($3) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerCaseList, $4)
         }
     |   ':' case_list T_ENDSWITCH ';'
         {
             innerCaseList := stmt.NewInnerCaseList($2)
-            $$ = stmt.NewAltSwitch(nil, innerCaseList)
+            caseList := stmt.NewCaseList(innerCaseList)
+            $$ = stmt.NewAltSwitch(nil, caseList)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+            yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken(caseList, $1)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(caseList, $4)
+            if len($2) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($2), $3)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerCaseList, $3)
         }
     |   ':' ';' case_list T_ENDSWITCH ';'
         {
-            
             innerCaseList := stmt.NewInnerCaseList($3)
-            $$ = stmt.NewAltSwitch(nil, innerCaseList)
+            caseList := stmt.NewCaseList(innerCaseList)
+            $$ = stmt.NewAltSwitch(nil, caseList)
 
+            // save position
             yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+            yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
             yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
+
+            // save comments
+            yylex.(*Parser).addNodeCommentsFromToken(caseList, $1)
+            yylex.(*Parser).addNodeCommentsFromToken(caseList, $2)
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(caseList, $5)
+            if len($3) > 0 {yylex.(*Parser).addNodeInlineCommentsFromNextToken(lastNode($3), $4)}
+            yylex.(*Parser).addNodeAllCommentsFromNextToken(innerCaseList, $4)
         }
 ;
 

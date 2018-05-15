@@ -1295,18 +1295,22 @@ switch_case_list:
     |   ':' case_list T_ENDSWITCH ';'
             {
                 innerCaseList := stmt.NewInnerCaseList($2)
-                $$ = stmt.NewAltSwitch(nil, innerCaseList)
+                caseList := stmt.NewCaseList(innerCaseList)
+                $$ = stmt.NewAltSwitch(nil, caseList)
 
                 yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($2))
+                yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $4))
             }
     |   ':' ';' case_list T_ENDSWITCH ';'
             {
                 
                 innerCaseList := stmt.NewInnerCaseList($3)
-                $$ = stmt.NewAltSwitch(nil, innerCaseList)
+                caseList := stmt.NewCaseList(innerCaseList)
+                $$ = stmt.NewAltSwitch(nil, caseList)
 
                 yylex.(*Parser).positions.AddPosition(innerCaseList, yylex.(*Parser).positionBuilder.NewNodeListPosition($3))
+                yylex.(*Parser).positions.AddPosition(caseList, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
                 yylex.(*Parser).positions.AddPosition($$, yylex.(*Parser).positionBuilder.NewTokensPosition($1, $5))
             }
 ;

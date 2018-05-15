@@ -1428,7 +1428,7 @@ func (p *Printer) printStmtAltSwitch(n node.Node) {
 	p.Print(nn.Cond)
 	io.WriteString(p.w, ") :\n")
 
-	s := nn.InnerCaseList.Cases
+	s := nn.CaseList.InnerCaseList.Cases
 	p.printNodes(s)
 
 	io.WriteString(p.w, "\n")

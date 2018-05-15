@@ -389,10 +389,10 @@ var nodesToTest = []struct {
 	},
 	{
 		&stmt.AltSwitch{
-			Cond:          &expr.Variable{},
-			InnerCaseList: &stmt.InnerCaseList{Cases: []node.Node{}},
+			Cond:     &expr.Variable{},
+			CaseList: &stmt.CaseList{InnerCaseList: &stmt.InnerCaseList{Cases: []node.Node{}}},
 		},
-		[]string{"Cond", "InnerCaseList"},
+		[]string{"Cond", "CaseList"},
 		map[string]interface{}{},
 	},
 	{
